@@ -1,0 +1,6 @@
+<h2>All Screens</h2>
+<ul>
+  <% @screens.each do |screen|  %>
+    <%= link_to screen.name, screen_path(screen) %>
+  <% end%>
+</ul>

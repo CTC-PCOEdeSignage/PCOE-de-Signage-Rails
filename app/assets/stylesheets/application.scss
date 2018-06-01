@@ -1,0 +1,107 @@
+/*
+ *= require simple_grid
+ *= require_self
+ */
+
+// Colors:
+
+$appalachian_sunset: #ff701a;
+$athens_sky: #29ffd1;
+$baker: #7b9f02;
+$brick: #a10037;
+$bunch_of_grapes: #5b08ae;
+$cutler: #0a8324;
+$gateway: #35312e;
+$heritage: #f7faf7;
+$hocking: #007e71;
+$innovation: #8aff1a;
+$lindley: #c9c7ba;
+$northwest: #e33500;
+$paw_paw: #deff63;
+$putnam: #544e49;
+$regionals: #30ff14;
+$saki: #991aff;
+$satellite: #ff0047;
+$templeton: #e3faed;
+$under_the_elms: #063e0c;
+$uptown: #f2ff0f;
+$wheat: #ffdb00;
+
+$off_white: #fcf4ea;
+
+body {
+  position: absolute;
+  width: 720px;
+  height: 1280px;
+  overflow: visible;
+  background: $off_white;
+  background-color: $off_white;
+
+  &.rotate-90 {
+    top: -280px;
+    left: 298px;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+
+  &.rotate-270 {
+    top: -280px;
+    left: 278px;
+    -webkit-transform: rotate(270deg);
+    transform: rotate(270deg);
+  }
+}
+
+* {
+  color: #08324f;
+}
+
+.slide {
+  height: 1000px;
+}
+
+.room-details__top, .room-details__bottom {
+  width: 720px;
+  color: black;
+  background-color: #6087ab;
+  margin: 0;
+  padding: 0;
+
+  &.full-height {
+    height: 280px;
+  }
+
+  &.half-height {
+    height: 140px;
+  }
+}
+
+.all-schedule-frame {
+  table {
+    font-size: 18px;
+  }
+
+  table th {
+    text-align: left;
+    padding: 0.5em;
+    border-bottom: 1px solid #08324f;
+  }
+
+  td.timeslot {
+    background-color: #a10037; /*  Bunch of Brick */
+  }
+
+  td.timeslot.available {
+    background-color: #0a8324; /* Cutler */
+  }
+}
+
+h2#clock {
+  font-size: 14px;
+}
+
+#logo, #ou-logo, #qrcode {
+  img {
+    height: 100px;
+  }
+}

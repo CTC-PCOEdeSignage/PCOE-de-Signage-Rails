@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.5.1'
 
 gem 'activeadmin'
+gem 'acts_as_list'
 gem 'devise'
 gem 'rails', '~> 5.2.0'
 gem 'sqlite3'

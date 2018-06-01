@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>PCOE de Signage | <%= @screen.name %></title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="screen-layout <%= screen_rotation %>" data-next-slide-url="<%= next_slide_url %>" data-slide-length="<%= slide_length %>">
+    <% if dual_layout? %>
+      <%= render partial: "layouts/screens/dual/top", locals: { screen: @screen } %>
+    <% end %>
+
+    <div class="slide">
+      <%= yield %>
+    </div>
+
+    <% if dual_layout? %>
+      <%= render partial: "layouts/screens/dual/bottom", locals: { screen: @screen } %>
+    <% end %>
+
+    <% if single_layout? %>
+      <%= render partial: "layouts/screens/single/bottom", locals: { screen: @screen } %>
+    <% end %>
+  </body>
+</html>

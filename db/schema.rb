@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_01_001907) do
+ActiveRecord::Schema.define(version: 2018_06_01_132754) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -41,6 +41,54 @@ ActiveRecord::Schema.define(version: 2018_06_01_001907) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "playlist_slides", force: :cascade do |t|
+    t.integer "playlist_id", null: false
+    t.integer "slide_id", null: false
+    t.integer "position", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "playlists", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "room_screens", force: :cascade do |t|
+    t.integer "screen_id", null: false
+    t.integer "room_id", null: false
+    t.integer "position", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "building", null: false
+    t.string "room", null: false
+    t.string "name", null: false
+    t.integer "libcal_identifier", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "screens", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "rotation", null: false
+    t.string "layout", null: false
+    t.integer "playlist_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "slides", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "style", null: false
+    t.text "markup"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

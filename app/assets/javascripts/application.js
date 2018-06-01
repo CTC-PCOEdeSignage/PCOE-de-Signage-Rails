@@ -1,15 +1,35 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, or any plugin's
-// vendor/assets/javascripts directory can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// compiled file. JavaScript code in this file should be added after the last require_* statement.
-//
-// Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
-// about supported directives.
-//
-//= require rails-ujs
 //= require turbolinks
-//= require_tree .
+
+var slideLength = function() {
+  return parseInt(document.body.dataset.slideLength, 10) * 1000;
+}
+
+var nextSlideUrl = function() {
+  return document.body.dataset.nextSlideUrl;
+}
+
+var advanceToNextSlide = function() {
+  Turbolinks.visit(nextSlideUrl());
+  Turbolinks.clearCache();
+}
+var goToNextSlideWhenReady = function() {
+  setTimeout(function() { advanceToNextSlide() }, slideLength())
+}
+
+var log = function(stuff) {
+  console.log(stuff);
+  // var error = document.querySelector(".error");
+  // var currentText = error.innerHTML;
+  //
+  // error.innerHTML = stuff + '<br/>' + currentText;
+}
+
+var ready = function() {
+  if (document.body.classList.contains("screen-layout")) {
+    goToNextSlideWhenReady()
+  } else {
+    log("all screens");
+  }
+}
+
+document.addEventListener('turbolinks:load', ready, false);
