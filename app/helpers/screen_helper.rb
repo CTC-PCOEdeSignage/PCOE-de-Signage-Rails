@@ -38,6 +38,6 @@ module ScreenHelper
   end
 
   def no_playlist?
-    @screen.playlist.presence
+    !@screen.playlist.presence
   end
 end
