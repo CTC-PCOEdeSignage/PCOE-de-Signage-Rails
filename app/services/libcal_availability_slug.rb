@@ -39,6 +39,6 @@ class LibcalAvailabilitySlug
   end
 
   def should_show?
-    Random.rand(3) % 2 == 0
+    Random.rand(100) % 2 == 0
   end
 end

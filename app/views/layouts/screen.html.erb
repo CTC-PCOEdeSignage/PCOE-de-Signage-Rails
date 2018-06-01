@@ -11,20 +11,16 @@
   </head>
 
   <body class="screen-layout <%= screen_rotation %>" data-next-slide-url="<%= next_slide_url %>" data-slide-length="<%= slide_length %>">
-    <% if dual_layout? %>
-      <%= render partial: "layouts/screens/dual/top", locals: { room: @screen.rooms.first } %>
-    <% end %>
-
-    <div class="slide">
-      <%= yield %>
-    </div>
-
-    <% if dual_layout? %>
-      <%= render partial: "layouts/screens/dual/bottom", locals: { room: @screen.rooms.last } %>
-    <% end %>
-
-    <% if single_layout? %>
-      <%= render partial: "layouts/screens/single/bottom", locals: { room: @screen.rooms.last } %>
+    <% if @screen.rooms.empty? %>
+      <%= render partial: "layouts/screens/no_rooms" %>
+    <% elsif dual_layout? && @screen.rooms.one? %>
+      <%= render partial: "layouts/screens/only_one_room" %>
+    <% elsif too_many_rooms? %>
+      <%= render partial: "layouts/screens/too_many_rooms" %>
+    <% elsif dual_layout? %>
+      <%= render partial: "layouts/screens/dual" %>
+    <% else %>
+      <%= render  partial: "layouts/screens/single" %>
     <% end %>
   </body>
 </html>

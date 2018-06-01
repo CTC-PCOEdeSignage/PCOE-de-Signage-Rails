@@ -10,7 +10,7 @@ class ScreensController < ApplicationController
     @screen = Screen.includes(:rooms).find(params[:id])
     @slide = find_slide(params[:slide]) || default_slide
     @next_slide_url = screen_path(@screen, slide: next_slide_index)
-    @slide_length = 5
+    @slide_length = 30
 
     render layout: "screen"
   end

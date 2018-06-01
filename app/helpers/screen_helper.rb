@@ -29,4 +29,11 @@ module ScreenHelper
   def next_slide_url
     @next_slide_url
   end
+
+  def too_many_rooms?
+    room_count = @screen.rooms.count
+
+    (single_layout? && room_count > 1) ||
+      (dual_layout? && room_count > 2)
+  end
 end
