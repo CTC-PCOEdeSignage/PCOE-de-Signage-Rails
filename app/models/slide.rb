@@ -8,4 +8,8 @@ class Slide < ApplicationRecord
     %w(libcal-all-schedule-slide image markup)
     # TODO: Add dynamic styles
   end
+
+  def self.default_slide
+    @@default_slide ||= Slide.new(name: "Default Slide", style: "markup", markup: "<h1>Slide Not Found</h1>")
+  end
 end

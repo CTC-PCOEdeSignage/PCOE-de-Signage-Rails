@@ -36,4 +36,8 @@ module ScreenHelper
     (single_layout? && room_count > 1) ||
       (dual_layout? && room_count > 2)
   end
+
+  def no_playlist?
+    @screen.playlist.presence
+  end
 end

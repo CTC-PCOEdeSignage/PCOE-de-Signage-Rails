@@ -17,6 +17,8 @@
       <%= render partial: "layouts/screens/only_one_room" %>
     <% elsif too_many_rooms? %>
       <%= render partial: "layouts/screens/too_many_rooms" %>
+    <% elsif no_playlist? %>
+      <%= render partial: "layouts/screens/no_playlist" %>
     <% elsif dual_layout? %>
       <%= render partial: "layouts/screens/dual" %>
     <% else %>
