@@ -16,7 +16,7 @@ ActiveAdmin.register Slide do
       row :name
       row :style
       row :content do |s|
-        s.decorate.rendered_content
+        s.decorate.rendered_content.call
       end
     end
   end
