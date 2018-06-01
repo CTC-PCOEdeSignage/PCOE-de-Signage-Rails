@@ -4,9 +4,12 @@ class ScreensController < ApplicationController
   end
 
   def show
+    params[:slide] ||= 0
+    params[:slide] = Integer(params[:slide])
+
     @screen = Screen.includes(:rooms).find(params[:id])
-    next_slide = compute_next_slide
-    @next_slide_url = screen_path(@screen, slide: next_slide)
+    @slide = find_slide(params[:slide]) || default_slide
+    @next_slide_url = screen_path(@screen, slide: next_slide_index)
     @slide_length = 5
 
     render layout: "screen"
@@ -14,9 +17,22 @@ class ScreensController < ApplicationController
 
   private
 
-  def compute_next_slide
-    params[:slide] ||= 1
-    slide = Integer(params[:slide])
-    slide + 1
+  def next_slide_index
+    possible_next_slide_index = params[:slide] + 1
+
+    if find_slide(possible_next_slide_index)
+      possible_next_slide_index
+    else
+      0
+    end
+  end
+
+  def find_slide(index)
+    @screen.playlist.presence &&
+      @screen.playlist.slides[index]
+  end
+
+  def default_slide
+    Slide.new(name: "Default Slide", style: "markup", markup: "<h1>Slide Not Found</h1>")
   end
 end

@@ -1,6 +1,14 @@
-<h2>I'm on slide: <%= params[:slide] %></h2>
+<%= @slide.name %>
+<p>Slide Number:<%= params[:slide] %></p>
 
-
-<h3><%= ["woot woot", 'yeh ha!', 'wowza', 'sparkles'].sample %></h3>
-
-<%= [image_tag("test.jpg", height: "500px"), image_tag("OHIO_Patton_Logo_Black.gif")].sample %>
+<% @slide.style %>
+<% case @slide.style %>
+<% when "markup" %>
+  <%= @slide.markup.html_safe %>
+<% when "image" %>
+  <p> Image!</p>
+<% when "libcal-all-schedule-slide" %>
+  <p> Render libcal</p>
+<% else %>
+  <p> Something else, gotta handle '<%= @slide.style %>'</p>
+<% end %>

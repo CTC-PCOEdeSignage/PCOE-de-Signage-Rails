@@ -9,9 +9,10 @@ var nextSlideUrl = function() {
 }
 
 var advanceToNextSlide = function() {
-  Turbolinks.visit(nextSlideUrl());
   Turbolinks.clearCache();
+  Turbolinks.visit(nextSlideUrl());
 }
+
 var goToNextSlideWhenReady = function() {
   setTimeout(function() { advanceToNextSlide() }, slideLength())
 }
