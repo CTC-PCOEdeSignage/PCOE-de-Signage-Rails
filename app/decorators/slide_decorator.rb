@@ -16,15 +16,29 @@ class SlideDecorator < Draper::Decorator
   private
 
   def render_markup
-    object.markup.html_safe
+    cached(:markup) do
+      object.markup.html_safe
+    end
   end
 
   def render_image_tag
-    h.image_tag(h.url_for(object.image))
+    cached(:image) do
+      h.image_tag(h.url_for(object.image))
+    end
   end
 
   def render_slide_partial_as_string
-    view = ActionView::Base.new(ActionController::Base.view_paths, {})
-    view.render(partial: "slides/#{object.style}").html_safe
+    cached(:partial, object.style) do
+      view = ActionView::Base.new(ActionController::Base.view_paths, {})
+      view.render(partial: "slides/#{object.style}").html_safe
+    end
+  end
+
+  def cached(*keys)
+    keys.push(object)
+    Rails.cache.fetch(keys, expires_in: 5.minutes) do
+      Rails.logger.info("[CACHE MISS] #{keys}")
+      yield
+    end
   end
 end

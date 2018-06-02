@@ -21,8 +21,6 @@ class LibcalRoomAvailability
 
   def is_available_at?(time)
     timeslots.any? { |slot| slot["start"] <= time && time <= slot["end"]}
-  rescue
-    false
   end
 
   def available_soon?
