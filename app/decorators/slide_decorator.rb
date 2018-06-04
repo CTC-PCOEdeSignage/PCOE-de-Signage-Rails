@@ -30,9 +30,10 @@ class SlideDecorator < Draper::Decorator
   end
 
   def render_slide_partial_as_string
-    cached(:partial, object.style) do
+    cached(:partial, object.style, compute_md5_of_style) do
       view = ActionView::Base.new(ActionController::Base.view_paths, {})
-      view.render(partial: "slides/#{object.style}").html_safe
+      partial_path = "slides/#{object.style.match(/_(.*)/)[1]}"
+      view.render(partial: partial_path).html_safe
     end
   end
 
@@ -50,5 +51,10 @@ class SlideDecorator < Draper::Decorator
         yield
       end
     end
+  end
+
+  def compute_md5_of_style
+    filename = Slide.styles_path.join(object.style)
+    Digest::MD5.hexdigest(File.read(filename))
   end
 end
