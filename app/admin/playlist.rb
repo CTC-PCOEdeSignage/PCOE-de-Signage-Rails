@@ -1,5 +1,5 @@
 ActiveAdmin.register Playlist do
-  permit_params :name, playlist_slides_attributes: [:id, :playlist_id, :slide_id, :position, :_destroy]
+  permit_params :name, playlist_slides_attributes: [:id, :playlist_id, :slide_id, :position, :length, :_destroy]
 
   show do
     attributes_table do
@@ -8,13 +8,16 @@ ActiveAdmin.register Playlist do
 
     panel "Slides" do
       table_for playlist.playlist_slides do
+        column :position
         column :name do |playlist_slide|
           link_to(playlist_slide.slide.name, admin_slide_path(playlist_slide.slide))
         end
         column :style do |playlist_slide|
           playlist_slide.slide.style
         end
-        column :position
+        column "Length (seconds)" do |playlist_slide|
+          playlist_slide.length
+        end
       end
     end
   end
@@ -29,6 +32,7 @@ ActiveAdmin.register Playlist do
                                  sortable_start: 1,
                                  allow_destroy: true do |ps|
       ps.input :slide
+      ps.input :length
     end
     f.actions
   end

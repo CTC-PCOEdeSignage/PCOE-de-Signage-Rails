@@ -23,7 +23,7 @@ module ScreenHelper
   end
 
   def slide_length
-    @slide_length || 30
+    @slide_length
   end
 
   def next_slide_url

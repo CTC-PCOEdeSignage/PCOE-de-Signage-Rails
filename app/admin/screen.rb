@@ -41,7 +41,7 @@ ActiveAdmin.register Screen do
     column :layout
     column :playlist
     actions do |screen|
-      link_to "Show Screen", screen_path(screen)
+      link_to "Show Screen", screen_path(screen), target: "_new"
     end
   end
 

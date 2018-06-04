@@ -4,4 +4,9 @@ class PlaylistSlide < ApplicationRecord
   validates_presence_of :position
 
   acts_as_list
+
+  after_initialize do
+    self.length ||= 30
+  end
+
 end
