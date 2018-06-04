@@ -61,8 +61,16 @@ body.screen-layout {
   height: 1000px;
 }
 
+.left {
+  text-align: left;
+}
+
 .center {
   text-align: center;
+}
+
+.right {
+  text-align: right;
 }
 
 
@@ -79,6 +87,14 @@ body.screen-layout {
 
   &.half-height {
     height: $footer-half-height;
+
+    .qrcode {
+      margin-top: -10px;
+      height: 65px;
+      img {
+        height: 75px;
+      }
+    }
   }
 }
 
@@ -110,8 +126,15 @@ h1#room-name {
   font-size: 24px;
 }
 
-#logo, #ou-logo, #qrcode {
+#logo, #ou-logo, .qrcode {
   img {
-    height: 100px;
+    height: 140px;
   }
+}
+
+.arrow {
+  margin: -35px;
+  font-size: 60px;
+  font-weight: bold;
+  height: 20px;
 }
