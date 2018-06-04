@@ -21,4 +21,12 @@ ActiveAdmin.register Slide do
     end
   end
 
+  index do
+    selectable_column
+    column :name
+    column :style
+    column :updated_at
+    actions
+  end
+
 end

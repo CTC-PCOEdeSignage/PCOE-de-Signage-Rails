@@ -33,4 +33,11 @@ ActiveAdmin.register Playlist do
     f.actions
   end
 
+  index do
+    selectable_column
+    column :name
+    column :updated_at
+    actions
+  end
+
 end

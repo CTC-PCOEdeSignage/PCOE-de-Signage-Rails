@@ -4,6 +4,8 @@ class Room < ApplicationRecord
 
   has_many :room_screens, -> { order(position: :asc) }
   has_many :screens, through: :room_screens
+  validates_uniqueness_of :name
+  validates_uniqueness_of :libcal_identifier
 
   def libcal_availability
     @libcal_availability ||= LibcalRoomAvailability.new(self, LibcalOauth.default_token)

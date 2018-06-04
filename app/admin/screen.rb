@@ -33,4 +33,16 @@ ActiveAdmin.register Screen do
       end
     end
   end
+
+  index do
+    selectable_column
+    column :name
+    column :rotation
+    column :layout
+    column :playlist
+    actions do |screen|
+      link_to "Show Screen", screen_path(screen)
+    end
+  end
+
 end

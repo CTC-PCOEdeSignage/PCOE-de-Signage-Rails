@@ -6,6 +6,8 @@ class Slide < ApplicationRecord
 
   has_one_attached :image
 
+  validates_uniqueness_of :name
+
   def self.styles
     ext = ".html.erb"
     style_root = Rails.root.join("app", "views", "slides", "**", "*#{ext}").to_s

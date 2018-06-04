@@ -11,4 +11,13 @@ ActiveAdmin.register Room do
     f.actions
   end
 
+  index do
+    selectable_column
+    column :building
+    column :room
+    column :name
+    column :libcal_identifier
+    actions
+  end
+
 end
