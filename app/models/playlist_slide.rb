@@ -6,7 +6,7 @@ class PlaylistSlide < ApplicationRecord
   acts_as_list
 
   after_initialize do
-    self.length ||= 30
+    self.length ||= ENV.fetch("DEFAULT_SLIDE_LENGTH", 30)
   end
 
 end
