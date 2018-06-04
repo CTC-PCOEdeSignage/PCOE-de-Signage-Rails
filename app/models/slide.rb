@@ -9,11 +9,21 @@ class Slide < ApplicationRecord
   validates_uniqueness_of :name
 
   def self.styles
-    ext = ".html.erb"
-    style_root = Rails.root.join("app", "views", "slides", "**", "*#{ext}").to_s
-    styles = Dir[style_root].map {|p| f = File.basename(p); f[1..f.length - (ext.length + 1)] }
+    Dir[styles_path].map do |f|
+      # Remove the start of the path (including the _) and remove extension
+      # /path/to/app/views/slides/_libcal-all-schedule-slide.html.erb =>
+      # libcal-all-schedule-slide
+      f.match(/.*_(.*)#{styles_ext}/)[1]
+    end
+      .concat(["image", "markup"])
+  end
 
-    styles.push("image", "markup")
+  def self.styles_path
+    Rails.root.join("app", "views", "slides", "**", "*#{styles_ext}").to_s
+  end
+
+  def self.styles_ext
+    ".html.erb"
   end
 
   def self.default_slide
