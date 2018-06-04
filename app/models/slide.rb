@@ -2,7 +2,7 @@
 
 class Slide < ApplicationRecord
   has_many :playlist_slides
-  has_many :playlists, through: :playlist_slides
+  has_many :playlists, through: :playlist_slides, dependent: :destroy
 
   has_one_attached :image
 
