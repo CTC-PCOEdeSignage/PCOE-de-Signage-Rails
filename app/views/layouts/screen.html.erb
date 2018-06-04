@@ -14,18 +14,22 @@
   </head>
 
   <body class="screen-layout <%= screen_rotation %>" data-next-slide-url="<%= next_slide_url %>" data-slide-length="<%= slide_length %>">
-    <% if @screen.rooms.empty? %>
-      <%= render partial: "layouts/screens/no_rooms" %>
-    <% elsif dual_layout? && @screen.rooms.one? %>
-      <%= render partial: "layouts/screens/only_one_room" %>
-    <% elsif too_many_rooms? %>
-      <%= render partial: "layouts/screens/too_many_rooms" %>
-    <% elsif no_playlist? %>
-      <%= render partial: "layouts/screens/no_playlist" %>
-    <% elsif dual_layout? %>
-      <%= render partial: "layouts/screens/dual" %>
-    <% else %>
-      <%= render  partial: "layouts/screens/single" %>
-    <% end %>
+    <div class="grid">
+      <div class="grid__col grid__col--12-of-12">
+        <% if @screen.rooms.empty? %>
+          <%= render partial: "layouts/screens/no_rooms" %>
+        <% elsif dual_layout? && @screen.rooms.one? %>
+          <%= render partial: "layouts/screens/only_one_room" %>
+        <% elsif too_many_rooms? %>
+          <%= render partial: "layouts/screens/too_many_rooms" %>
+        <% elsif no_playlist? %>
+          <%= render partial: "layouts/screens/no_playlist" %>
+        <% elsif dual_layout? %>
+          <%= render partial: "layouts/screens/dual" %>
+        <% else %>
+          <%= render  partial: "layouts/screens/single" %>
+        <% end %>
+      </div>
+    </div>
   </body>
 </html>

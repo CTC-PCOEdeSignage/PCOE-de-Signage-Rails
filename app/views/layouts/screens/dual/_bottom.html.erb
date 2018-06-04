@@ -1,16 +1,14 @@
 <div class="room-details room-details__bottom half-height">
-  <div class="row">
-    <div class="col-6 center">
-      <h1>
-        <%= room.name %>
-      </h1>
+  <div class="grid">
+    <div class="grid__col grid__col--6-of-12 center">
+      <h1><%= room.name %></h1>
     </div>
 
-    <div class="col-3 center">
+    <div class="grid__col grid__col--3-of-12 center">
       <p id="up-next"><%= room.decorate.availability %></p>
     </div>
 
-    <div class="col-3 center">
+    <div class="grid__col grid__col--3-of-12 center">
       <%= qr_code %>
     </div>
   </div>

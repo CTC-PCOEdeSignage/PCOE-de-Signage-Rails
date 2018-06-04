@@ -1,9 +1,8 @@
 /*
- *= require simple_grid
  *= require_self
  */
 
-// Colors:
+@import "toast/grid";
 
 $appalachian_sunset: #ff701a;
 $athens_sky: #29ffd1;
@@ -26,8 +25,10 @@ $templeton: #e3faed;
 $under_the_elms: #063e0c;
 $uptown: #f2ff0f;
 $wheat: #ffdb00;
-
 $off_white: #fcf4ea;
+
+$footer-height: 280px;
+$footer-half-height: ($footer-height / 2);
 
 body.screen-layout {
   position: absolute;
@@ -60,6 +61,11 @@ body.screen-layout {
   height: 1000px;
 }
 
+.center {
+  text-align: center;
+}
+
+
 .room-details__top, .room-details__bottom {
   width: 720px;
   color: black;
@@ -68,17 +74,17 @@ body.screen-layout {
   padding: 0;
 
   &.full-height {
-    height: 280px;
+    height: $footer-height;
   }
 
   &.half-height {
-    height: 140px;
+    height: $footer-half-height;
   }
 }
 
-.all-schedule-frame {
+div.all-schedule-frame {
   table {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   table th {
@@ -98,6 +104,10 @@ body.screen-layout {
 
 h2#clock {
   font-size: 14px;
+}
+
+h1#room-name {
+  font-size: 24px;
 }
 
 #logo, #ou-logo, #qrcode {

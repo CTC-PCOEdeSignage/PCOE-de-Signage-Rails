@@ -23,7 +23,9 @@ class SlideDecorator < Draper::Decorator
 
   def render_image_tag
     cached(:image) do
-      h.image_tag(h.url_for(object.image))
+      twelve_column_grid do
+        h.image_tag(h.url_for(object.image))
+      end
     end
   end
 
@@ -39,6 +41,14 @@ class SlideDecorator < Draper::Decorator
     Rails.cache.fetch(keys, expires_in: 5.minutes) do
       Rails.logger.info("[CACHE MISS] #{keys}")
       yield
+    end
+  end
+
+  def twelve_column_grid
+    h.content_tag(:div, class: "grid") do
+      h.content_tag(:div, class: "grid__col grid__col--12-of-12") do
+        yield
+      end
     end
   end
 end
