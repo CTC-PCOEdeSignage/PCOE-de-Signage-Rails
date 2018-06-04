@@ -20,7 +20,7 @@ class LibcalRoomAvailability
   end
 
   def is_available_at?(time)
-    timeslots.any? { |slot| slot["start"] <= time && time <= slot["end"]}
+    timeslots.any? { |slot| slot["start"] <= time && time < slot["end"]}
   end
 
   def available_soon?
@@ -40,7 +40,6 @@ class LibcalRoomAvailability
       headers = { Authorization: "Bearer #{@libcal_token.auth_token}", accept: :json }
       request = RestClient.get(room_url, headers)
 
-      # TODO: REMOVE model
       # For Testing Purposes
       # return LibcalAvailabilitySlug.new(@room).to_h
       JSON.parse(request.body)

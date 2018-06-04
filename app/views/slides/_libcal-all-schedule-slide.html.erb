@@ -1,31 +1,54 @@
+<!-- Style -->
+<style>
+div.all-schedule-frame table {
+  padding-top: 375px;
+  font-size: 16px;
+}
+div.all-schedule-frame table th {
+  text-align: left;
+  padding: 0.5em;
+  font-size: 14px;
+  font-weight: lighter;
+  border-bottom: 1px solid #08324f;
+}
+div.all-schedule-frame table td.timeslot {
+  background-color: #a10037;
+}
+div.all-schedule-frame table td.timeslot.available {
+  background-color: #0a8324;
+}
+</style>
+
+<!-- Variables -->
 <%- all_times = 5.times.map do |index| %>
   <%- Time.now.change(min: 0, sec: 0, nsec: 0) + (index - 0).hour %>
 <% end %>
 <%- all_rooms = Room.all.decorate %>
 
+<!-- Markup/Logic -->
 <div class="grid">
   <div class="grid__col grid__col--12-of-12">
     <div class="all-schedule-frame">
-      <div id="schedule">
-        <table>
-          <tr class="header">
-            <th>Room Name</th>
-            <% all_times.each do |time| %>
-              <th><%= time.strftime("%l %p") %></th>
-            <% end%>
-          </tr>
-          <% all_rooms.each do |room| %>
-            <tr>
-              <td class="name"><%= room.name %></td>
+      <table align="center">
+        <tr>
+          <th>Room Name</th>
+          <% all_times.each do |time| %>
+            <th><%= time.strftime("%l %p") %></th>
+          <% end%>
+        </tr>
+        <% all_rooms.each do |room| %>
+          <tr>
+            <!-- Name of Room -->
+            <td class="name"><%= room.name %></td>
 
-              <% all_times.each do |time| %>
-                <% avaliable_class = room.is_available_at?(time) ? "available" : "" %>
-                <td class="timeslot <%= avaliable_class %>"></td>
-              <% end %>
-            </tr>
-          <% end %>
-        </table>
-      </div>
+            <!-- Available Times -->
+            <% all_times.each do |time| %>
+              <% avaliable_class = room.is_available_at?(time) ? "available" : "" %>
+              <td class="timeslot <%= avaliable_class %>"></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
     </div>
   </div>
 </div>

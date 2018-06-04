@@ -37,17 +37,15 @@ body.screen-layout {
   overflow: visible;
   background: $off_white;
   background-color: $off_white;
+  top: -288px;
+  left: 272px;
 
   &.rotate-90 {
-    top: -280px;
-    left: 280px;
     -webkit-transform: rotate(90deg);
     transform: rotate(90deg);
   }
 
   &.rotate-270 {
-    top: -280px;
-    left: 280px;
     -webkit-transform: rotate(270deg);
     transform: rotate(270deg);
   }
@@ -73,6 +71,9 @@ body.screen-layout {
   text-align: right;
 }
 
+// .grid__col {
+//   border: 1px solid;
+// }
 
 .room-details__top, .room-details__bottom {
   width: 720px;
@@ -95,26 +96,6 @@ body.screen-layout {
         height: 75px;
       }
     }
-  }
-}
-
-div.all-schedule-frame {
-  table {
-    font-size: 16px;
-  }
-
-  table th {
-    text-align: left;
-    padding: 0.5em;
-    border-bottom: 1px solid #08324f;
-  }
-
-  td.timeslot {
-    background-color: #a10037; /*  Bunch of Brick */
-  }
-
-  td.timeslot.available {
-    background-color: #0a8324; /* Cutler */
   }
 }
 
