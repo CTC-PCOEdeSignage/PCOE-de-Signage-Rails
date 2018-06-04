@@ -13,24 +13,28 @@ var advanceToNextSlide = function() {
   Turbolinks.visit(nextSlideUrl());
 }
 
-var goToNextSlideWhenReady = function() {
+var goToNextSlideAfterTimeout = function() {
   setTimeout(function() { advanceToNextSlide() }, slideLength())
 }
 
 var log = function(stuff) {
   console.log(stuff);
-  // var error = document.querySelector(".error");
-  // var currentText = error.innerHTML;
-  //
-  // error.innerHTML = stuff + '<br/>' + currentText;
 }
 
 var ready = function() {
   if (document.body.classList.contains("screen-layout")) {
-    goToNextSlideWhenReady()
+    goToNextSlideAfterTimeout()
   } else {
     log("all screens");
   }
 }
 
+var keyDownEvent = function(event) {
+  // right arrow key
+  if (event.keyCode === 39) {
+    advanceToNextSlide();
+  }
+};
+
 document.addEventListener('turbolinks:load', ready, false);
+document.addEventListener('keydown', keyDownEvent, false);
