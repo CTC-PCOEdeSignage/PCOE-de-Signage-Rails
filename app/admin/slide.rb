@@ -1,6 +1,8 @@
 ActiveAdmin.register Slide do
   permit_params :name, :style, :markup, :image
 
+  config.sort_order = 'name_asc'
+
   form do |f|
     f.inputs do
       f.input :name

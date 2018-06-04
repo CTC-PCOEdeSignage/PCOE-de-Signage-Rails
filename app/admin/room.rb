@@ -1,6 +1,8 @@
 ActiveAdmin.register Room do
   permit_params :name, :building, :room, :libcal_identifier
 
+  config.sort_order = 'room_asc'
+
   form do |f|
     f.inputs do
       f.input :name

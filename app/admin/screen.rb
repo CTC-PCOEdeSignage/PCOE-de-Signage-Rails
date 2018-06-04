@@ -1,6 +1,8 @@
 ActiveAdmin.register Screen do
   permit_params :name, :rotation, :layout, :playlist_id, room_screens_attributes: [:id, :room_id, :screen_id, :position, :_destroy]
 
+  config.sort_order = 'name_asc'
+
   form do |f|
     f.inputs do
       f.input :name

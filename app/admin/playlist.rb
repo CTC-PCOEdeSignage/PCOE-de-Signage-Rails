@@ -1,6 +1,8 @@
 ActiveAdmin.register Playlist do
   permit_params :name, playlist_slides_attributes: [:id, :playlist_id, :slide_id, :position, :length, :_destroy]
 
+  config.sort_order = 'name_asc'
+
   show do
     attributes_table do
       row :name
