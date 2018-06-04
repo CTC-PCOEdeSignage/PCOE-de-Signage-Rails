@@ -8,13 +8,19 @@ var nextSlideUrl = function() {
   return document.body.dataset.nextSlideUrl;
 }
 
+var isSlidePage = function() {
+  return document.body.classList.contains("screen-layout") && (document.querySelectorAll(".slide").length === 1)
+}
+
 var advanceToNextSlide = function() {
   Turbolinks.clearCache();
   Turbolinks.visit(nextSlideUrl());
 }
 
 var goToNextSlideAfterTimeout = function() {
-  setTimeout(function() { advanceToNextSlide() }, slideLength())
+  setTimeout(function() {
+    advanceToNextSlide()
+  }, slideLength())
 }
 
 var log = function(stuff) {
@@ -22,7 +28,7 @@ var log = function(stuff) {
 }
 
 var ready = function() {
-  if (document.body.classList.contains("screen-layout")) {
+  if (isSlidePage()) {
     goToNextSlideAfterTimeout()
   } else {
     log("all screens");
