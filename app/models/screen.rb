@@ -7,6 +7,8 @@ class Screen < ApplicationRecord
   has_many :rooms, through: :room_screens, dependent: :destroy
   belongs_to :playlist, optional: true
 
+  default_scope { order(name: :asc) }
+
   accepts_nested_attributes_for :room_screens, allow_destroy: true
 
   def self.layouts
