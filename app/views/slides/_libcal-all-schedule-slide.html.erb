@@ -21,7 +21,7 @@ div.all-schedule-frame table td.timeslot.available {
 
 <!-- Variables -->
 <% all_times = 5.times.map do |index| %>
-  <% Time.now.change(min: 0, sec: 0, nsec: 0) + (index - 0).hour %>
+  <% Time.now.change(min: 0, sec: 0, nsec: 0) + index.hour %>
 <% end %>
 <% all_rooms = Room.all.decorate %>
 
