@@ -14,6 +14,7 @@ This is a simple, web-based digital signage system that is written in Ruby on Ra
 - Default slide length
 - Specific slide length per playlist
 - Single or Dual Layout
+- Rotate `90` or `270`
 - LibCal Integration
 
 ![URL](https://github.com//CTC-PCOEdeSignage/PCOE-de-Signage-Rails/blob/master/documentation/example_screen.png?raw=true")
