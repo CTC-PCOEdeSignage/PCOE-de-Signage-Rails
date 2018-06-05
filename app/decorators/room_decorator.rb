@@ -15,7 +15,6 @@ class RoomDecorator < Draper::Decorator
   end
 
   def is_available_at?(time)
-    libcal_availability = object.libcal_availability
-    libcal_availability.is_available_at?(time)
+    object.libcal_availability.is_available_at?(time)
   end
 end
