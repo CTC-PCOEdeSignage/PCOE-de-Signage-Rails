@@ -16,8 +16,7 @@ This is a simple, web-based digital signage system that is written in Ruby on Ra
 - Single or Dual Layout
 - LibCal Integration
 
-![URL](https://github.com/CTC-PCOEdeSignage/PCOE-de-Signage-Rails/blob/master/documentation/example_screen.jpg?raw=true")
-
+![URL](https://github.com//CTC-PCOEdeSignage/PCOE-de-Signage-Rails/blob/master/documentation/example_screen.png?raw=true")
 
 ## Dependencies and Libraries
 
