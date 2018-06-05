@@ -1,11 +1,22 @@
 # PCOE de Signage
 
-This is a simple, web-based digital signage system that is written in Ruby on Rails. It allows the following content to be used:
+This is a simple, web-based digital signage system that is written in Ruby on Rails. It has the following features:
+
+**Content Types**
 
 - A single image (poster)
 - Text / HTML Markup
 - LibCal All Schedules Slide
 - Other custom slides
+
+**Other Features**
+
+- Default slide length
+- Specific slide length per playlist
+- Single or Dual Layout
+- LibCal Integration
+
+![URL](https://github.com/CTC-PCOEdeSignage/PCOE-de-Signage-Rails/blob/master/documentation/example_screen.jpg?raw=true")
 
 
 ## Dependencies and Libraries
