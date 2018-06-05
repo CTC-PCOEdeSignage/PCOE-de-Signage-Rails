@@ -1,3 +1,8 @@
+# frozen_string_literal: true
+
+# This file is for testing only
+# LibcalAvailabilitySlug is a shim to generate a LibCal-like response
+
 class LibcalAvailabilitySlug
   def initialize(room)
     @room = room

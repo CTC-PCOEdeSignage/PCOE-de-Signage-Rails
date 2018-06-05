@@ -3,18 +3,24 @@ class RoomDecorator < Draper::Decorator
 
   def availability
     libcal_availability = object.libcal_availability
-    return "Room Available Now" if libcal_availability.is_available_now?
+    return "Available Now" if libcal_availability.is_available_now?
 
     if libcal_availability.available_soon?
-      time_in_words = h.time_ago_in_words(libcal_availability.next_available_start_time)
+      start_time = libcal_availability.next_available_start_time.strftime("%l %p")
 
-      "Room available in #{time_in_words}"
+      "Available at #{start_time}"
     else
-      "Room not available soon; Try another room."
+      "Not available soon; Try another room."
     end
   end
 
   def is_available_at?(time)
     object.libcal_availability.is_available_at?(time)
+  end
+
+  def available_class
+    if object.libcal_availability.is_available_now?
+      "available"
+    end
   end
 end

@@ -1,30 +1,22 @@
-<div class="room-details room-details__top half-height">
+<div class="room-details room-details__top half-height <%= room.available_class %>">
+  <div class="grid">
+    <div class="grid__col grid__col--12-of-12 center">
+      <h1 id="room-name"><%= room.name %></h1>
+    </div>
+  </div>
+
   <div class="grid">
     <div class="grid__col grid__col--2-of-12 center">
       <p><%= qr_code %></p>
+      <p class="center">Schedule Room</p>
     </div>
 
     <div class="grid__col grid__col--8-of-12 center">
-      <h1 id="room-name"><%= room.name %></h1>
+      <p id="up-next"><%= room.availability %></p>
     </div>
 
     <div class="grid__col grid__col--2-of-12 center">
-      <p><%= right_arrow %></p>
-    </div>
-  </div>
-
-  <div class="grid">
-    <div class="grid__col grid__col--12-of-12 center">
-      <p id="up-next"><%= room.decorate.availability %></p>
+      <p><%= arrow %></p>
     </div>
   </div>
 </div>
-
-<!--
-<p id="ou-logo">
-  <%= image_tag("OHIO_Patton_Logo_Black.gif", height: "100px") %>
-</p>
-
-<p id="logo">
-  <%= image_tag("CalledToLead-Blue.gif") %>
-</p> -->

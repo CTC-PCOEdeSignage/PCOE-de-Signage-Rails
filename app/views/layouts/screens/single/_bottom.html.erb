@@ -1,4 +1,4 @@
-<div class="room-details room-details__bottom full-height">
+<div class="room-details room-details__bottom full-height <%= room.decorate.available_class %>">
   <div class="grid">
     <div class="grid__col grid__col--12-of-12 center">
       <h1 id="room-name"><%= room.name %></h1>
@@ -15,9 +15,7 @@
       <p id="ou-logo">
         <%= image_tag("OHIO_Patton_Logo_Black.gif", height: "100px") %>
       </p>
-      <p id="up-next">
-        <%= room.decorate.availability %>
-      </p>
+      <p id="up-next"><%= room.decorate.availability %></p>
     </div>
 
     <div class="grid__col grid__col--3-of-12 center">

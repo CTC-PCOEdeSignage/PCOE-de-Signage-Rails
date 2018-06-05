@@ -1,5 +1,5 @@
-<%= render partial: "layouts/screens/dual/top", locals: { room: @screen.rooms.first } %>
+<%= render partial: "layouts/screens/dual/top", locals: { room: @screen.rooms.decorate.first } %>
 
 <%= render partial: "layouts/screens/slide" %>
 
-<%= render partial: "layouts/screens/dual/bottom", locals: { room: @screen.rooms.last } %>
+<%= render partial: "layouts/screens/dual/bottom", locals: { room: @screen.rooms.decorate.last } %>

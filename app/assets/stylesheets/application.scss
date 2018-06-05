@@ -32,6 +32,7 @@ $footer-half-height: ($footer-height / 2);
 
 body.screen-layout {
   position: absolute;
+  color: $off_white;
   width: 720px;
   height: 1280px;
   overflow: visible;
@@ -51,10 +52,6 @@ body.screen-layout {
   }
 }
 
-* {
-  color: #08324f;
-}
-
 .slide {
   height: 1000px;
 }
@@ -71,14 +68,9 @@ body.screen-layout {
   text-align: right;
 }
 
-// .grid__col {
-//   border: 1px solid;
-// }
-
 .room-details__top, .room-details__bottom {
   width: 720px;
-  color: black;
-  background-color: #6087ab;
+  background-color: $brick;
   margin: 0;
   padding: 0;
 
@@ -90,11 +82,31 @@ body.screen-layout {
     height: $footer-half-height;
 
     .qrcode {
-      margin-top: -10px;
+      margin-top: -60px;
       height: 65px;
       img {
         height: 75px;
       }
+    }
+  }
+
+  &.available {
+    background-color: $cutler;
+  }
+
+  .arrow {
+    font-size: 60px;
+    font-weight: bold;
+    height: 20px;
+  }
+}
+
+.room-details__top {
+  &.half-height {
+    .arrow {
+      margin-top: -30px;
+      -webkit-transform: rotate(180deg);
+      transform: rotate(180deg);
     }
   }
 }
@@ -113,9 +125,6 @@ h1#room-name {
   }
 }
 
-.arrow {
-  margin: -35px;
-  font-size: 60px;
-  font-weight: bold;
-  height: 20px;
+#up-next {
+  font-size: 20px;
 }

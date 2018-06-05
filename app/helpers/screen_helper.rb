@@ -43,15 +43,9 @@ module ScreenHelper
     !@screen.playlist.presence
   end
 
-  def right_arrow
+  def arrow
     content_tag(:div, class: "arrow") do
-      "&#8680;".html_safe
-    end
-  end
-
-  def left_arrow
-    content_tag(:div, class: "arrow") do
-      "&#8678;".html_safe
+      image_tag("arrow.png", width: "100px")
     end
   end
 end

@@ -1,4 +1,4 @@
-<div class="room-details room-details__bottom half-height">
+<div class="room-details room-details__bottom half-height <%= room.available_class %>">
   <div class="grid">
     <div class="grid__col grid__col--12-of-12 center">
       <h1 id="room-name"><%= room.name %></h1>
@@ -7,15 +7,16 @@
 
   <div class="grid">
     <div class="grid__col grid__col--2-of-12 center">
-      <p><%= left_arrow %></p>
+      <p><%= arrow %></p>
     </div>
 
     <div class="grid__col grid__col--8-of-12 center">
-      <p id="up-next"><%= room.decorate.availability %></p>
+      <p id="up-next"><%= room.availability %></p>
     </div>
 
     <div class="grid__col grid__col--2-of-12 center">
       <p><%= qr_code %></p>
+      <p class="center">Schedule Room</p>
     </div>
 
   </div>
