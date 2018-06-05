@@ -7,8 +7,6 @@ class Room < ApplicationRecord
   validates_uniqueness_of :name
   validates_uniqueness_of :libcal_identifier
 
-  default_scope { order(building: :asc, room: :asc) }
-
   def libcal_availability
     @libcal_availability ||= LibcalRoomAvailability.new(self, LibcalOauth.default_token)
   end

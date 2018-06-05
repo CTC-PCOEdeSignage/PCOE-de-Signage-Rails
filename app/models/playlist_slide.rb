@@ -5,8 +5,9 @@ class PlaylistSlide < ApplicationRecord
 
   acts_as_list
 
+  default_scope { order(position: :asc) }
+
   after_initialize do
     self.length ||= ENV.fetch("DEFAULT_SLIDE_LENGTH", 30)
   end
-
 end
