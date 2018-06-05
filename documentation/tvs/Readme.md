@@ -18,7 +18,7 @@ You should be met with a the settings screen. Ensure you're on the "Set as homep
 
 Next, navigate to the "General" tab and turn on "Hide Tabs and Toolbar automatically".
 
-![General](https://github.com/CTC-PCOEdeSignage/PCOE-de-Signage-Rails/blob/master/documentation/tvs/browser.jpg?raw=true")
+![General](https://github.com/CTC-PCOEdeSignage/PCOE-de-Signage-Rails/blob/master/documentation/tvs/general.jpg?raw=true")
 
 Lastly, navigate to the Browser Information tab. From there, insure your firmware is at least the same version as what is displayed below. If not, select the "menu" and attempt to do a system update. Please see the manual for the television for more information.
 
