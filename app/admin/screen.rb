@@ -24,7 +24,8 @@ ActiveAdmin.register Screen do
     attributes_table do
       row :name
       row :rotation
-      row :style
+      row :layout
+      row :playlist
     end
     panel "Rooms" do
       table_for screen.room_screens do

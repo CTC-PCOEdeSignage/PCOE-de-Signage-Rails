@@ -25,6 +25,25 @@ div.all-schedule-frame table td.timeslot {
 div.all-schedule-frame table td.timeslot.available {
   background-color: #0a8324;
 }
+
+div.all-schedule-frame .legend {
+  padding-top: 40px;
+  font-size: 16px;
+}
+
+div.all-schedule-frame .legend .legend-item {
+  padding: 10px;
+  display: inline-block;
+  color: white;
+}
+
+div.all-schedule-frame .legend .available {
+  background-color: #0a8324;
+}
+
+div.all-schedule-frame .legend .unavailable {
+  background-color: #a10037;
+}
 </style>
 
 <!-- Variables -->
@@ -58,6 +77,17 @@ div.all-schedule-frame table td.timeslot.available {
           </tr>
         <% end %>
       </table>
+      <div class="legend">
+        <div class="legend-item" style="color: black;">
+          Legend:
+        </div>
+        <div class="legend-item available">
+          Room Available
+        </div>
+        <div class="legend-item unavailable">
+          Room Unavailable
+        </div>
+      </div>
     </div>
   </div>
 </div>

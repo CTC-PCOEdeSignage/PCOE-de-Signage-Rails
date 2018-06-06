@@ -41,7 +41,7 @@ class LibcalRoomAvailability
       request = RestClient.get(room_url, headers)
 
       # For Testing Purposes
-      # return LibcalAvailabilitySlug.new(@room).to_h
+      return LibcalAvailabilitySlug.new(@room).to_h
       JSON.parse(request.body)
     end
   end

@@ -116,20 +116,22 @@ body.screen-layout {
   color: black;
 }
 
-h2#clock {
-  font-size: 14px;
+#clock, #up-next {
+  font-size: 20px;
 }
 
 h1#room-name {
   font-size: 24px;
 }
 
-#logo, #ou-logo, .qrcode {
+#logo, .qrcode {
   img {
     height: 140px;
   }
 }
 
-#up-next {
-  font-size: 20px;
+#ou-logo {
+  img {
+    height: 90px;
+  }
 }
