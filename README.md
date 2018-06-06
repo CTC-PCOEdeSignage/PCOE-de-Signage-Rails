@@ -165,6 +165,7 @@ LIBCAL_CLIENT_ID=
 LIBCAL_CLIENT_SECRET=
 DEFAULT_SLIDE_LENGTH=30 # Seconds
 RAILS_ENV=RAILS_ENV=production
+PORT=5000
 ```
 
 You will need to find the LibCal credentials (referenced elsewhere) and place them in the file.
@@ -178,9 +179,12 @@ Then run the following:
   ADMIN_EMAIL='test@ohio.edu' ADMIN_PASSWORD='securePassword' rails db:seed  # This creates an admin account; Please be sure to change the email and password
 ```
 
+To change the port the server runs on, change the `PORT` value.
 
-## Startup
+## Updating
 
-To startup the server from that directory, you can run `bin/rails server --port 5000`
+To update the server (from Github), you can run `bin/update`. Don't do this until you a) are instructed by the original developer of the software, or b) you have built a custom slide (and committed to Github) so that you can pull the latest down.
 
-NOTE: You can control the port to be whatever is most relevant.
+## Starting
+
+To startup the server, you can run `bin/start`
