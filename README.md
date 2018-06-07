@@ -220,9 +220,8 @@ If you want to create a Ubuntu service to run the rails application, please do t
 
 Stop the server if it's already running in another terminal window
 
-Copy the following two files to ` /etc/systemd/system`
-[https://raw.githubusercontent.com/CTC-PCOEdeSignage/PCOE-de-Signage-Rails/master/documentation/services/pcoe-de-signage-app.service]
-[https://raw.githubusercontent.com/CTC-PCOEdeSignage/PCOE-de-Signage-Rails/master/documentation/services/pcoe-de-signage-master.service]
+Copy the following two files to ` /etc/systemd/system`. (
+https://raw.githubusercontent.com/CTC-PCOEdeSignage/PCOE-de-Signage-Rails/master/documentation/services/pcoe-de-signage-app.service https://raw.githubusercontent.com/CTC-PCOEdeSignage/PCOE-de-Signage-Rails/master/documentation/services/pcoe-de-signage-master.service)
 
 Then do the following:
 
