@@ -164,7 +164,7 @@ In the root of the project, create a file called `.env` and have make it's conte
 LIBCAL_CLIENT_ID=
 LIBCAL_CLIENT_SECRET=
 DEFAULT_SLIDE_LENGTH=30 # Seconds
-RAILS_ENV=RAILS_ENV=production
+RAILS_ENV=production
 PORT=5000
 ```
 
