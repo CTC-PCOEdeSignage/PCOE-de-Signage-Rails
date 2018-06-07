@@ -1,0 +1,18 @@
+[Unit]
+PartOf=pcoe-de-signage-master.service
+After=pcoe-de-signage-master.service
+
+[Service]
+User=service_user
+ExecStart=/bin/bash -lc 'cd /opt/apps/PCOE-de-Signage-Rails; bin/start'
+Restart=always
+RestartSec=60
+StandardInput=null
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=%n
+KillMode=mixed
+
+[Install]
+# This unit should start when pcoe-de-signage-master.service is starting
+WantedBy=pcoe-de-signage-master.service.service

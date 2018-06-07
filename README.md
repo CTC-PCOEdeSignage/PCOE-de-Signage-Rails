@@ -213,6 +213,32 @@ This apache config may work for your needs. See [https://gist.github.com/abachma
 </VirtualHost>
 ```
 
+
+## Ubuntu Services
+
+If you want to create a Ubuntu service to run the rails application, please do the following:
+
+Stop the server if it's already running in another terminal window
+
+Copy the following two files to ` /etc/systemd/system`
+[https://raw.githubusercontent.com/CTC-PCOEdeSignage/PCOE-de-Signage-Rails/master/documentation/services/pcoe-de-signage-app.service]
+[https://raw.githubusercontent.com/CTC-PCOEdeSignage/PCOE-de-Signage-Rails/master/documentation/services/pcoe-de-signage-master.service]
+
+Then do the following:
+
+```sh
+sudo chown root:root /etc/systemd/system/pcoe-de-signage-*.service # Change ownership
+sudo chmod 0664 /etc/systemd/system/pcoe-de-signage-*.service # Change permissions
+systemctl daemon-reload # Ask systemctl to look for new daemons
+systemctl start pcoe-de-signage-master.service # Ask systemctl to start the master service
+```
+
+Check to make sure the service has started and the webserver is routing correctly.
+
+If a problem appears to be happening, use `journalctl -u pcoe-de-signage-master.service` or `journalctl -u pcoe-de-signage-app.service` to see check the `systemctl` logs.
+
+If all is working well, try a system restart to see if the server starts up at boot time.
+
 ## Updating
 
 To update the server (from Github), you can run `bin/update`. Don't do this until you a) are instructed by the original developer of the software, or b) you have built a custom slide (and committed to Github) so that you can pull the latest down.
