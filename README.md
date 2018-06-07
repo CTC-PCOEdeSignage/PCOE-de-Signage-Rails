@@ -166,9 +166,12 @@ LIBCAL_CLIENT_SECRET=
 DEFAULT_SLIDE_LENGTH=30 # Seconds
 RAILS_ENV=production
 PORT=5000
+RAILS_KEY_BASE=_value_from_below_
 ```
 
-You will need to find the LibCal credentials (referenced elsewhere) and place them in the file.
+To determine `LIBCAL_CLIENT_ID` and `LIBCAL_CLIENT_SECRET`, you will need to follow the [directions above](#libcal-api-keys) and then place them in the file.
+
+To generate a possible value for `RAILS_KEY_BASE`, run `bin/rails secret` and copy the contents from that command into your `.env` file.
 
 Then run the following:
 
@@ -180,6 +183,35 @@ Then run the following:
 ```
 
 To change the port the server runs on, change the `PORT` value.
+
+## Apache Config
+
+This apache config may work for your needs. See [https://gist.github.com/abachman/851492] for details:
+
+```xml
+<VirtualHost *:80>
+  ServerName server.name
+  ServerAlias www.server.name
+
+  ProxyPass / http://localhost:5000/
+  ProxyPassReverse / http://localhost:5000/
+</VirtualHost>
+
+<VirtualHost *:443>
+  ServerName server.name
+  ServerAlias www.server.name
+
+  SSLEngine on
+  SSLOptions +StrictRequire
+  SSLCertificateFile /opt/app/path/server.crt
+  SSLCertificateKeyFile /opt/app/path/server.key
+
+  SSLProxyEngine on                           #make sure apache knows SSL is okay to proxy
+  RequestHeader set X_FORWARDED_PROTO 'https' #make sure Rails knows it was an SSL request
+  ProxyPass / http://localhost:5000/          #NOTE: http not https
+  ProxyPassReverse / http://localhost:5000/   #NOTE: http not https
+</VirtualHost>
+```
 
 ## Updating
 
