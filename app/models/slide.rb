@@ -6,6 +6,7 @@ class Slide < ApplicationRecord
 
   has_one_attached :image
 
+  validates_presence_of :name, :style
   validates_uniqueness_of :name
 
   def self.styles
