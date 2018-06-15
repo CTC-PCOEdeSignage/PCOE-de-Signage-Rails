@@ -242,7 +242,7 @@ If all is working well, try a system restart to see if the server starts up at b
 
 ## Updating
 
-To update the server (from Github), you can run `bin/update`. Don't do this until you a) are instructed by the original developer of the software, or b) you have built a custom slide (and committed to Github) so that you can pull the latest down.
+To update the server (from Github), you can run `bin/update` from the project root directory (likely `/opt/apps/PCOE-de-Signage-Rails`). Don't do this until you a) are instructed by the original developer of the software, or b) you have built a custom slide (and committed to Github) so that you can pull the latest down.
 
 ## Starting
 
