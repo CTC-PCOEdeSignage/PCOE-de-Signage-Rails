@@ -223,7 +223,7 @@ Stop the server if it's already running in another terminal window
 Copy the following two files to ` /etc/systemd/system`. (
 https://raw.githubusercontent.com/CTC-PCOEdeSignage/PCOE-de-Signage-Rails/master/documentation/services/pcoe-de-signage-app.service https://raw.githubusercontent.com/CTC-PCOEdeSignage/PCOE-de-Signage-Rails/master/documentation/services/pcoe-de-signage-master.service)
 
-Edit the files to replace `User=service_user` with the appropriate username that rails will run as. NOTE: The users should have read/execute permissions on the rails application.
+Edit the files to replace `User=service_user` with the appropriate username that rails will run as. NOTE: The users should have read/execute permissions on the rails application. You may also need to change the path to the user home directory. Lastly, we found that the `rbenv init` lines (from the ruby/rails setup) needed to be moved to the top of our `.bashrc` to allow them to be run in non-interactive mode.
 
 Then do the following:
 

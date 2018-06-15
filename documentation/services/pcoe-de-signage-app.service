@@ -4,7 +4,7 @@ After=pcoe-de-signage-master.service
 
 [Service]
 User=service_user
-ExecStart=/bin/bash -lc 'cd /opt/apps/PCOE-de-Signage-Rails; bin/start'
+ExecStart=/bin/bash -lc 'cd /home/service_user; source .bashrc; cd /opt/apps/PCOE-de-Signage-Rails; bin/start'
 Restart=always
 RestartSec=60
 StandardInput=null
