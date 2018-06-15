@@ -223,6 +223,8 @@ Stop the server if it's already running in another terminal window
 Copy the following two files to ` /etc/systemd/system`. (
 https://raw.githubusercontent.com/CTC-PCOEdeSignage/PCOE-de-Signage-Rails/master/documentation/services/pcoe-de-signage-app.service https://raw.githubusercontent.com/CTC-PCOEdeSignage/PCOE-de-Signage-Rails/master/documentation/services/pcoe-de-signage-master.service)
 
+Edit the files to replace `User=service_user` with the appropriate username that rails will run as. NOTE: The users should have read/execute permissions on the rails application.
+
 Then do the following:
 
 ```sh
