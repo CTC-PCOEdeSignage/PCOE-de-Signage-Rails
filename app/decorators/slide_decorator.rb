@@ -26,7 +26,7 @@ class SlideDecorator < Draper::Decorator
   def render_image_tag
     cached(:image) do
       twelve_column_grid(extra_classes: "image-slide") do
-        h.image_tag(h.url_for(object.image))
+        h.image_tag("data:#{object.image.content_type};base64,#{base64_of_image}", height: "1000", width: "720")
       end
     end
   end
@@ -60,5 +60,10 @@ class SlideDecorator < Draper::Decorator
   def compute_md5_of_style
     filename = Slide.styles_path.join(object.style)
     Digest::MD5.hexdigest(File.read(filename))
+  end
+
+  def base64_of_image
+    image_contents = object.image.download
+    Base64.encode64(image_contents)
   end
 end
