@@ -134,7 +134,7 @@ By default, unless otherwise overridden on a per-playlist level, slides be shown
 
 Each `Playlist` has an option to change the slide length, per slide, as well.
 
-NOTE: We do not recommend slide lengths less than 10 minutes.
+NOTE: We do not recommend slide lengths less than 10 seconds.
 
 
 ## LibCal API Keys
