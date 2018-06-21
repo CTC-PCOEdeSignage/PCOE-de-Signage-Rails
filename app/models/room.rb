@@ -7,6 +7,8 @@ class Room < ApplicationRecord
   validates_uniqueness_of :name
   validates_uniqueness_of :libcal_identifier
 
+  scope :with_libcal_identifier, -> { where.not(libcal_identifier: nil).order(name: :desc)}
+
   def libcal_availability
     @libcal_availability ||= LibcalRoomAvailability.new(self, LibcalOauth.default_token)
   end

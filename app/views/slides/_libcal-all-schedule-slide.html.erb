@@ -50,7 +50,7 @@ div.all-schedule-frame .legend .unavailable {
 <% all_times = 5.times.map do |index| %>
   <% Time.now.change(min: 0, sec: 0, nsec: 0) + index.hour %>
 <% end %>
-<% all_rooms = Room.all.decorate %>
+<% all_rooms = Room.with_libcal_identifier.decorate %>
 
 <!-- Markup/Logic -->
 <div class="grid">

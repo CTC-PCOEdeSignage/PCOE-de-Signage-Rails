@@ -8,6 +8,7 @@ class Screen < ApplicationRecord
   belongs_to :playlist, optional: true
 
   accepts_nested_attributes_for :room_screens, allow_destroy: true
+  scope :alpha_sorted, -> { order(name: :asc)}
 
   def self.layouts
     %w(single dual)

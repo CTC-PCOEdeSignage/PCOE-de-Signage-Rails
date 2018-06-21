@@ -1,6 +1,6 @@
 class ScreensController < ApplicationController
   def index
-    @screens = Screen.all
+    @screens = Screen.all.alpha_sorted
   end
 
   def show
