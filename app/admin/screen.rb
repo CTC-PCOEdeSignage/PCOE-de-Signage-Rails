@@ -1,9 +1,13 @@
 ActiveAdmin.register Screen do
+  menu priority: 3
+
   permit_params :name, :rotation, :layout, :playlist_id, room_screens_attributes: [:id, :room_id, :screen_id, :position, :_destroy]
 
   config.sort_order = 'name_asc'
 
   form do |f|
+    f.semantic_errors *f.object.errors.keys
+
     f.inputs do
       f.input :name
       f.input :rotation,  as: :select, collection: Screen.rotations

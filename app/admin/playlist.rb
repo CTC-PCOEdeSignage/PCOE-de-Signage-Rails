@@ -1,4 +1,6 @@
 ActiveAdmin.register Playlist do
+  menu priority: 5
+
   permit_params :name, playlist_slides_attributes: [:id, :playlist_id, :slide_id, :position, :length, :_destroy]
 
   config.sort_order = 'name_asc'
@@ -25,6 +27,8 @@ ActiveAdmin.register Playlist do
   end
 
   form do |f|
+    f.semantic_errors *f.object.errors.keys
+
     f.inputs do
       f.input :name
     end

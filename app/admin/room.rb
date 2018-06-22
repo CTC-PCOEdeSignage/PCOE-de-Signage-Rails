@@ -1,9 +1,13 @@
 ActiveAdmin.register Room do
+  menu priority: 4
+
   permit_params :name, :building, :room, :libcal_identifier
 
   config.sort_order = 'room_asc'
 
   form do |f|
+    f.semantic_errors *f.object.errors.keys
+
     f.inputs do
       f.input :name
       f.input :building

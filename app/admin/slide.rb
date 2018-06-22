@@ -1,9 +1,13 @@
 ActiveAdmin.register Slide do
+  menu priority: 6
+
   permit_params :name, :style, :markup, :image
 
   config.sort_order = 'name_asc'
 
   form do |f|
+    f.semantic_errors *f.object.errors.keys
+
     f.inputs do
       f.input :name
       f.input :style, as: :select, collection: Slide.styles
