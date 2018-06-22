@@ -1,5 +1,5 @@
 class Playlist < ApplicationRecord
-  has_many :playlist_slides, -> { order(position: :asc) }
+  has_many :playlist_slides, -> { order(position: :asc) }, inverse_of: :playlist
   has_many :slides, through: :playlist_slides, dependent: :destroy
   has_many :screens, dependent: :nullify
 

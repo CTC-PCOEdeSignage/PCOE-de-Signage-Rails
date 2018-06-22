@@ -3,7 +3,7 @@ class Screen < ApplicationRecord
   validates :rotation, inclusion: { in: [90, 270], message: "%{value} is not a valid rotation" }
   validates :layout, inclusion: { in: %w(single dual), message: "%{value} is not a valid layout" }
 
-  has_many :room_screens
+  has_many :room_screens, inverse_of: :screen
   has_many :rooms, through: :room_screens, dependent: :destroy
   belongs_to :playlist, optional: true
 
