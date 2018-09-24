@@ -9,6 +9,7 @@ class ScreensController < ApplicationController
     @slide = @slide.decorate
     @next_slide_url = screen_path(@screen, slide: next_slide_index)
     @slide_length = find_slide_length(slide_index)
+    cookies[:screen_id] = { value: @screen.id, expires: 2.hours.from_now }
 
     render layout: "screen"
   end

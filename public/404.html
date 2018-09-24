@@ -3,6 +3,7 @@
 <head>
   <title>The page you were looking for doesn't exist (404)</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
   <style>
   .rails-default-error-page {
     background-color: #EFEFEF;
@@ -62,6 +63,26 @@
       <p>You may have mistyped the address or the page may have moved.</p>
     </div>
     <p>If you are the application owner check the logs for more information.</p>
+
+    <script type="text/javascript">
+      lastKnownScreenId = function() {
+        return Cookies.get("screen_id")
+      }
+      navigateToLastKnownScreen = function() {
+        if (lastKnownScreenId() === undefined) {
+          // We don't know the last known screen, so we can't recover
+          return
+        }
+        var newUrl = window.location.protocol + '//'
+        newUrl = newUrl + window.location.hostname
+        if (window.location.port !== "") {
+          newUrl = newUrl + ":" + window.location.port
+        }
+        newUrl = newUrl + "/screens/" + lastKnownScreenId()
+        window.location.assign(newUrl)
+      }
+      window.setTimeout(navigateToLastKnownScreen, 5000);
+    </script>
   </div>
 </body>
 </html>
