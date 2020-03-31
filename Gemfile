@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.1'
+ruby File.read(".ruby-version").strip
 
 gem 'activeadmin'
 gem 'acts_as_list'
@@ -9,7 +9,7 @@ gem 'devise'
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'draper'
 gem 'puma', '~> 3.11'
-gem 'rails', '~> 5.2.1.1'
+gem 'rails', '~> 6'
 gem 'sass-rails', '~> 5.0'
 gem 'sqlite3'
 gem 'rest-client'
