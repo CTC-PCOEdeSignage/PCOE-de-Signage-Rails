@@ -1,13 +1,13 @@
 <div class="grid">
   <div class="grid__col grid__col--12-of-12">
-    <h2>PCOE - All Screens</h2>
+    <h1>PCOE - All Screens</h1>
   </div>
 
   <div class="grid__col grid__col--12-of-12">
     <ul>
-      <% @screens.each do |screen|  %>
+      <% @screens.each do |screen| %>
         <li><%= link_to screen.name, screen_path(screen) %></li>
-      <% end%>
+      <% end %>
     </ul>
   </div>
 

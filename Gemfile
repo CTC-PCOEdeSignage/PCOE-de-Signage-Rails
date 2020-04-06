@@ -19,9 +19,11 @@ gem 'turbolinks', '~> 5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
+  gem 'capybara'
   gem 'factory_bot_rails'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 4.0.0'
+  gem 'selenium-webdriver'
 end
 
 group :development do
@@ -33,6 +35,5 @@ end
 
 group :test do
   gem 'axe-matchers'
-  gem 'capybara'
   gem 'faker'
 end

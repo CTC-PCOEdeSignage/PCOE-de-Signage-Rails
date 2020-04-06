@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <title>PCOE de Signage | <%= @screen.name %></title>
@@ -9,8 +9,8 @@
     <!-- Don't have turbolinks cache -->
     <meta name="turbolinks-cache-control" content="no-cache">
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "application", media: "all", 'data-turbolinks-track': "reload" %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track': "reload" %>
   </head>
 
   <body class="screen-layout <%= screen_rotation %>" data-next-slide-url="<%= next_slide_url %>" data-slide-length="<%= slide_length %>">
@@ -27,7 +27,7 @@
         <% elsif dual_layout? %>
           <%= render partial: "layouts/screens/dual" %>
         <% else %>
-          <%= render  partial: "layouts/screens/single" %>
+          <%= render partial: "layouts/screens/single" %>
         <% end %>
       </div>
     </div>
