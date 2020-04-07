@@ -44,8 +44,8 @@ jobs:
       # /END BUNDLER CACHE
 
       - run:
-          name: Install Rake and Brakeman
-          command: gem install bundler rake brakeman
+          name: Install Rake, Brakeman, Bundler Audit
+          command: gem install bundler rake brakeman bundler-audit
 
       # - run:
       #     name: Wait for Postgres
@@ -73,7 +73,7 @@ jobs:
 
       - run:
           name: Bundler Audit
-          command: bundle exec bundle-audit check --update
+          command: bundle-audit check --update
 
       - run:
           name: Brakeman
