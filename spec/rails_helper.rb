@@ -35,9 +35,22 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
+Capybara.register_driver :selenium do |app|
+  if ENV['SELENIUM_DRIVER_URL'].present?
+    Capybara::Selenium::Driver.new(
+      app,
+      browser: :remote,
+      url: ENV.fetch('SELENIUM_DRIVER_URL'),
+      desired_capabilities: :chrome
+    )
+  else
+    Capybara::Selenium::Driver.new(app, browser: :chrome)
+  end
+end
+
 RSpec.configure do |config|
   Capybara.server = :puma
-  Capybara.default_driver = :selenium_chrome_headless
+  Capybara.default_driver = :selenium
 
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
