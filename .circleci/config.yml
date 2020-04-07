@@ -52,10 +52,6 @@ jobs:
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
       - run:
-          name: Wait for Redis
-          command: dockerize -wait tcp://localhost:6379 -timeout 1m
-
-      - run:
           name: Update Apt
           command: sudo apt-get update
 
