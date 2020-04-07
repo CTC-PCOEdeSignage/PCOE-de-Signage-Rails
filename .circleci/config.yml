@@ -1,0 +1,115 @@
+version: 2
+jobs:
+  test:
+    parallelism: 1
+    docker:
+      - image: circleci/ruby:2.7.0-stretch-node-browsers-legacy
+        environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+          PGHOST: 127.0.0.1
+          PGUSER: pcoe_de_signage
+          RAILS_ENV: test
+      - image: circleci/postgres:9.6.16-alpine
+        environment:
+          POSTGRES_USER: pcoe_de_signage
+          POSTGRES_DB: pcoe_de_signage_test
+          POSTGRES_PASSWORD: ""
+    environment:
+      - DATABASE_URL: "postgres://pcoe_de_signage@localhost:5432/pcoe_de_signage_test"
+      - COVERAGE: "true"
+
+    steps:
+      - checkout
+
+      - run:
+          name: Which bundler?
+          command: gem install bundler
+
+      # BUNDLER CACHE
+      - restore_cache:
+          keys:
+            - pcoe_de_signage-bundle-v1-{{ checksum "Gemfile.lock" }}
+            - pcoe_de_signage-bundle-v1-
+
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install
+
+      - save_cache:
+          key: pcoe_de_signage-bundle-v1-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      # /END BUNDLER CACHE
+
+      - run:
+          name: Install Rake and Brakeman
+          command: gem install bundler rake brakeman
+
+      - run:
+          name: Wait for Postgres
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - run:
+          name: Wait for Redis
+          command: dockerize -wait tcp://localhost:6379 -timeout 1m
+
+      - run:
+          name: Update Apt
+          command: sudo apt-get update
+
+      # - run:
+      #     name: Install PostgresClient
+      #     command: sudo apt install postgresql-client-common postgresql-client-9.6
+
+      - run:
+          name: Install Chrome
+          command: |
+            wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+            sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+            sudo apt-get update
+            sudo apt-get -y install google-chrome-stable
+
+      - run:
+          name: Database setup
+          command: bundle exec rake db:schema:load --trace
+
+      - run:
+          name: Bundler Audit
+          command: bundle exec bundle-audit check --update
+
+      - run:
+          name: Brakeman
+          command: brakeman --exit-on-warn --progress --run-all-checks
+
+      # Run rspec
+      - run:
+          name: "Run Tests"
+          command: |
+            bundle exec rspec --color \
+                              --profile 10 \
+                              --format RspecJunitFormatter \
+                              --out test_results/rspec.xml \
+                              --format progress \
+                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+
+      # Save test results for timing analysis
+      - store_test_results:
+          path: test_results
+
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - test
+  weekly:
+    triggers:
+      - schedule:
+          cron: "0 13 * * 1" # Intended to be Mondays at 9 am Eastern. May be right, may not be.
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - test
