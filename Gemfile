@@ -37,4 +37,5 @@ end
 group :test do
   gem 'axe-matchers'
   gem 'faker'
+  gem "rspec_junit_formatter"
 end
