@@ -24,7 +24,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 4.0.0'
-  gem 'selenium-webdriver'
+  gem 'webdrivers'
 end
 
 group :development do
