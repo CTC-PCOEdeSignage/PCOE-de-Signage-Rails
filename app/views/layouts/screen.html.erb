@@ -13,7 +13,7 @@
     <%= javascript_include_tag "application", 'data-turbolinks-track': "reload" %>
   </head>
 
-  <body class="screen-layout <%= screen_rotation %>" data-next-slide-url="<%= next_slide_url %>" data-slide-length="<%= slide_length %>">
+  <body class="screen-layout <%= screen_rotation_class %>" data-next-slide-url="<%= next_slide_url %>" data-slide-length="<%= slide_length %>">
     <div class="grid">
       <div class="grid__col grid__col--12-of-12">
         <% if @screen.rooms.empty? %>

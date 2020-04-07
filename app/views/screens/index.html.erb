@@ -1,17 +1,21 @@
-<div class="grid">
-  <div class="grid__col grid__col--12-of-12">
+<div class="row pt-2">
+  <div class="col">
     <h1>PCOE - All Screens</h1>
   </div>
+</div>
 
-  <div class="grid__col grid__col--12-of-12">
-    <ul>
+<div class="ro pt-2w">
+  <div class="co">
+    <ul class="list-group">
       <% @screens.each do |screen| %>
-        <li><%= link_to screen.name, screen_path(screen) %></li>
+        <li class="list-group-item"><%= link_to screen.name, screen_path(screen) %></li>
       <% end %>
     </ul>
   </div>
+</div>
 
-  <div class="grid__col grid__col--12-of-12">
-    <%= link_to "Administrator Login", admin_root_path %>
+<div class="row pt-2">
+  <div class="col">
+    <%= link_to "Administrator Login", admin_root_path, class: "btn btn-secondary" %>
   </div>
 </div>

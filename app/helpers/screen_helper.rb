@@ -20,7 +20,7 @@ module ScreenHelper
     @screen.layout == "single"
   end
 
-  def screen_rotation
+  def screen_rotation_class
     "rotate-#{@screen.rotation}"
   end
 

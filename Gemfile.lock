@@ -77,6 +77,8 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     arbre (1.2.1)
       activesupport (>= 3.0.0)
+    autoprefixer-rails (9.7.6)
+      execjs
     axe-matchers (2.6.1)
       dumb_delegator (~> 0.8)
       virtus (~> 1.0)
@@ -88,6 +90,10 @@ GEM
     bindex (0.8.1)
     bootsnap (1.4.6)
       msgpack (~> 1.0)
+    bootstrap (4.4.1)
+      autoprefixer-rails (>= 9.1.0)
+      popper_js (>= 1.14.3, < 2)
+      sassc-rails (>= 2.0.0)
     builder (3.2.4)
     capybara (3.32.1)
       addressable
@@ -198,6 +204,7 @@ GEM
     orm_adapter (0.5.0)
     polyamorous (2.3.2)
       activerecord (>= 5.2.1)
+    popper_js (1.16.0)
     pry (0.13.0)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -347,6 +354,7 @@ DEPENDENCIES
   acts_as_list
   axe-matchers
   bootsnap (>= 1.1.0)
+  bootstrap (~> 4.4.1)
   capybara
   devise
   dotenv-rails
