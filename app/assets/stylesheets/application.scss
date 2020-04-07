@@ -112,34 +112,4 @@ body.screen-layout {
   }
 }
 
-// Defaults for slides
-.slide {
-  color: black;
-}
-
-#clock, #up-next {
-  font-size: 20px;
-}
-
-h1#room-name {
-  font-size: 24px;
-}
-
-#logo, .qrcode {
-  img {
-    height: 140px;
-  }
-}
-
-#ou-logo {
-  img {
-    padding-top: 62px;
-    height: 75px;
-  }
-}
-
-.image-slide {
-  img {
-    height: 1000px;
-  }
-}
+@import "slides/defaults.scss"

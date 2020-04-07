@@ -3,7 +3,7 @@ ActiveAdmin.register Playlist do
 
   permit_params :name, playlist_slides_attributes: [:id, :playlist_id, :slide_id, :position, :length, :_destroy]
 
-  config.sort_order = 'name_asc'
+  config.sort_order = "name_asc"
 
   show do
     attributes_table do
@@ -45,9 +45,9 @@ ActiveAdmin.register Playlist do
 
   index do
     selectable_column
+    column :id
     column :name
     column :updated_at
     actions
   end
-
 end

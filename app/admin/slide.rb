@@ -3,7 +3,7 @@ ActiveAdmin.register Slide do
 
   permit_params :name, :style, :markup, :image
 
-  config.sort_order = 'name_asc'
+  config.sort_order = "name_asc"
 
   form do |f|
     f.semantic_errors *f.object.errors.keys
@@ -29,10 +29,10 @@ ActiveAdmin.register Slide do
 
   index do
     selectable_column
+    column :id
     column :name
     column :style
     column :updated_at
     actions
   end
-
 end

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>PCOE de Signage | <%= @screen.name %></title>
+    <title><% t("site.title", name: @screen.name) %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 

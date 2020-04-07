@@ -26,7 +26,7 @@ This project uses many open source projects to work:
 - [Ruby on Rails](https://github.com/rails/rails)
 - [Ruby 2.7.0](https://www.ruby-lang.org/en/)
 - [SQLite3](https://www.sqlite.org/index.html)
-- [Toast CSS](https://daneden.github.io/Toast/)
+- [Bootstrap 4](https://getbootstrap.com/)
 - [Turbolinks](https://github.com/turbolinks/turbolinks)
 
 

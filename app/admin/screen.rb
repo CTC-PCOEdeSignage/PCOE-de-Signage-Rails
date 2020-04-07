@@ -3,16 +3,16 @@ ActiveAdmin.register Screen do
 
   permit_params :name, :rotation, :layout, :playlist_id, room_screens_attributes: [:id, :room_id, :screen_id, :position, :_destroy]
 
-  config.sort_order = 'name_asc'
+  config.sort_order = "name_asc"
 
   form do |f|
     f.semantic_errors *f.object.errors.keys
 
     f.inputs do
       f.input :name
-      f.input :rotation,  as: :select, collection: Screen.rotations
-      f.input :layout,  as: :select, collection: Screen.layouts
-      f.input :playlist_id,  as: :select, collection: Playlist.all
+      f.input :rotation, as: :select, collection: Screen.rotations
+      f.input :layout, as: :select, collection: Screen.layouts
+      f.input :playlist_id, as: :select, collection: Playlist.all
     end
 
     f.has_many :room_screens, heading: "Rooms",
@@ -31,6 +31,7 @@ ActiveAdmin.register Screen do
       row :layout
       row :playlist
     end
+
     panel "Rooms" do
       table_for screen.room_screens do
         column :name do |room_screen|
@@ -43,6 +44,7 @@ ActiveAdmin.register Screen do
 
   index do
     selectable_column
+    column :id
     column :name
     column :rotation
     column :layout
@@ -51,5 +53,4 @@ ActiveAdmin.register Screen do
       link_to "Show Screen", screen_path(screen), target: "_new"
     end
   end
-
 end

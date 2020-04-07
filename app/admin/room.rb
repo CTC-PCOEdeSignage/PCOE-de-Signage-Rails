@@ -3,7 +3,7 @@ ActiveAdmin.register Room do
 
   permit_params :name, :building, :room, :libcal_identifier
 
-  config.sort_order = 'room_asc'
+  config.sort_order = "room_asc"
 
   form do |f|
     f.semantic_errors *f.object.errors.keys
@@ -19,11 +19,11 @@ ActiveAdmin.register Room do
 
   index do
     selectable_column
+    column :id
     column :building
     column :room
     column :name
     column :libcal_identifier
     actions
   end
-
 end
