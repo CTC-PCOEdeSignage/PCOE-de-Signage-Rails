@@ -20,4 +20,8 @@ class Screen < ApplicationRecord
   def self.rotations
     ROTATION_OPTION
   end
+
+  def to_param
+    "#{id}-#{name.parameterize}"
+  end
 end
