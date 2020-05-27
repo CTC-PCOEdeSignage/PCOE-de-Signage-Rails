@@ -6,7 +6,7 @@ ruby File.read(".ruby-version").strip
 gem 'aasm'
 gem 'activeadmin'
 gem 'acts_as_list'
-gem 'bootstrap', '~> 4.4.1'
+gem 'bootstrap', '~> 4.5'
 gem 'devise'
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'draper'
