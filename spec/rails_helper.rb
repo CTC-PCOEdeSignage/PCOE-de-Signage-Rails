@@ -61,6 +61,7 @@ RSpec.configure do |config|
 
   config.include(Shoulda::Matchers::ActiveModel, type: :model)
   config.include(Shoulda::Matchers::ActiveRecord, type: :model)
+  config.include(ActiveSupport::Testing::TimeHelpers)
 
   ENGINE = ENV["WITHOUT_HEADLESS"].present? ? :chrome : :headless_chrome
   config.before(:each, type: :system) do
