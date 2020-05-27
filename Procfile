@@ -1,1 +1,2 @@
-web: bin/start
+web: bundle exec puma -C config/puma.rb
+db: postgres

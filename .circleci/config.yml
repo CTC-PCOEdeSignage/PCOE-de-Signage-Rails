@@ -3,7 +3,7 @@ jobs:
   test:
     parallelism: 1
     docker:
-      - image: circleci/ruby:2.7.1-buster-node
+      - image: circleci/ruby:2.7.1-buster-node-browsers
         environment:
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
@@ -12,13 +12,13 @@ jobs:
           PGUSER: pcoe_de_signage
           RAILS_ENV: test
       - image: selenium/standalone-chrome:latest
-      # - image: circleci/postgres:9.6.16-alpine
-      #   environment:
-      #     POSTGRES_USER: pcoe_de_signage
-      #     POSTGRES_DB: pcoe_de_signage_test
-      #     POSTGRES_PASSWORD: ""
+      - image: circleci/postgres:9.6.16-alpine
+        environment:
+          POSTGRES_USER: pcoe_de_signage
+          POSTGRES_DB: pcoe_de_signage_test
+          POSTGRES_PASSWORD: ""
     environment:
-      # - DATABASE_URL: "postgres://pcoe_de_signage@localhost:5432/pcoe_de_signage_test"
+      - DATABASE_URL: "postgres://pcoe_de_signage@localhost:5432/pcoe_de_signage_test"
       - COVERAGE: "true"
 
     steps:
@@ -52,25 +52,25 @@ jobs:
       #     name: Wait for Postgres
       #     command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
-      - run:
-          name: Update Apt
-          command: sudo apt-get update
+      # - run:
+      #     name: Update Apt
+      #     command: sudo apt-get update
 
       # - run:
       #     name: Install PostgresClient
       #     command: sudo apt install postgresql-client-common postgresql-client-9.6
 
-      - run:
-          name: Install Chrome
-          command: |
-            wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-            sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-            sudo apt-get update
-            sudo apt-get -y install google-chrome-stable
+      # - run:
+      #     name: Install Chrome
+      #     command: |
+      #       wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+      #       sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+      #       sudo apt-get update
+      #       sudo apt-get -y install google-chrome-stable
 
       - run:
           name: Database setup
-          command: bundle exec rake db:schema:load --trace
+          command: bundle exec rake db:schema:load db:migrate --trace
 
       - run:
           name: Bundler Audit

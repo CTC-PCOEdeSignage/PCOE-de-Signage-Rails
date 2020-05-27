@@ -25,7 +25,7 @@ This project uses many open source projects to work:
 
 - [Ruby on Rails](https://github.com/rails/rails)
 - [Ruby 2.7.1](https://www.ruby-lang.org/en/)
-- [SQLite3](https://www.sqlite.org/index.html)
+- [Postgres](https://www.postgresql.org/)
 - [Bootstrap 4](https://getbootstrap.com/)
 - [Turbolinks](https://github.com/turbolinks/turbolinks)
 
@@ -247,3 +247,16 @@ To update the server (from Github), you can run `bin/update` from the project ro
 ## Starting
 
 To startup the server, you can run `bin/start`
+
+
+## Migrating from SQLite3 to Postgres
+
+```sh
+# drop postgres db
+# create postgres db
+sequel -C sqlite://db/production.sqlite3 postgres://username@localhost/databasename
+
+# e.g.
+RAILS_ENV=production rails db:drop db:create
+sequel -C sqlite://db/production.sqlite3 postgres://rickychilcott@localhost/pcoe_de_signage_production
+```
