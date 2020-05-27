@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby File.read(".ruby-version").strip
 
+gem 'aasm'
 gem 'activeadmin'
 gem 'acts_as_list'
 gem 'bootstrap', '~> 4.4.1'
@@ -40,4 +41,5 @@ group :test do
   gem 'axe-matchers'
   gem 'faker'
   gem "rspec_junit_formatter"
+  gem 'shoulda-matchers'
 end
