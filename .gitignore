@@ -8,6 +8,7 @@
 /.bundle
 
 /.postgres
+/dump.rdb
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
