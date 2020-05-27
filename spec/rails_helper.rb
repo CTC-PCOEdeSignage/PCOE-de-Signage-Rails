@@ -35,26 +35,40 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
-Capybara.register_driver :selenium do |app|
-  if ENV['SELENIUM_DRIVER_URL'].present?
-    Capybara::Selenium::Driver.new(
-      app,
-      browser: :remote,
-      url: ENV.fetch('SELENIUM_DRIVER_URL'),
-      desired_capabilities: :chrome
-    )
-  else
-    Capybara::Selenium::Driver.new(app, browser: :chrome)
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
+Capybara.register_driver :headless_chrome do |app|
+  Capybara::Selenium::Driver.load_selenium
+  browser_options = ::Selenium::WebDriver::Chrome::Options.new.tap do |opts|
+    opts.args << "--headless"
+    opts.args << "--disable-gpu" if Gem.win_platform?
+    # Workaround https://bugs.chromium.org/p/chromedriver/issues/detail?id=2650&q=load&sort=-id&colspec=ID%20Status%20Pri%20Owner%20Summary
+    opts.args << "--disable-site-isolation-trials"
   end
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
 end
 
 RSpec.configure do |config|
   Capybara.server = :puma
-  Capybara.default_driver = :selenium
-
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  Capybara.default_driver = :headless_chrome
+  Capybara.javascript_driver = :headless_chrome
 
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
+
+  config.include(Shoulda::Matchers::ActiveModel, type: :model)
+  config.include(Shoulda::Matchers::ActiveRecord, type: :model)
+
+  ENGINE = ENV["WITHOUT_HEADLESS"].present? ? :chrome : :headless_chrome
+  config.before(:each, type: :system) do
+    driven_by ENGINE
+  end
+
+  config.before(:each, type: :system, js: true) do
+    Capybara.javascript_driver = ENGINE
+    driven_by ENGINE
+  end
 end
