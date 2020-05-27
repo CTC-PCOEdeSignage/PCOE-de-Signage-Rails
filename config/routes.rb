@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     get :schedule, on: :member
   end
 
-  authenticate :user do
+  authenticate :admin_user do
     mount Sidekiq::Web => "/sidekiq"
   end
 
