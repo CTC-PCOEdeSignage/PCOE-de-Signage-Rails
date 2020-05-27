@@ -11,7 +11,7 @@ jobs:
           PGHOST: 127.0.0.1
           PGUSER: pcoe_de_signage
           RAILS_ENV: test
-      - image: selenium/standalone-chrome:latest
+      - image: redis:6.0.3-alpine
       - image: circleci/postgres:9.6.16-alpine
         environment:
           POSTGRES_USER: pcoe_de_signage
