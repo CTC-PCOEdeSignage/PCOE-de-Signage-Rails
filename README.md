@@ -252,6 +252,7 @@ To startup the server, you can run `bin/start`
 ## Migrating from SQLite3 to Postgres
 
 ```sh
+# gem install sequel sqlite3 pg
 # drop postgres db
 # create postgres db
 sequel -C sqlite://db/production.sqlite3 postgres://username@localhost/databasename
