@@ -1,9 +1,12 @@
 require "rails_helper"
 
 RSpec.describe Room, type: :model do
-  subject { build(:room) }
+  describe "validations" do
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:room) }
+    it { is_expected.to validate_presence_of(:building) }
 
-  it "should have valid factory" do
-    expect(subject).to be_valid
+    it { is_expected.to have_many(:events) }
+    it { is_expected.to have_many(:screens) }
   end
 end

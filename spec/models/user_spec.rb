@@ -10,6 +10,8 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_presence_of(:aasm_state) }
 
     it { is_expected.to validate_uniqueness_of(:email) }
+
+    it { is_expected.to have_many(:events) }
   end
 
   describe "state machine" do

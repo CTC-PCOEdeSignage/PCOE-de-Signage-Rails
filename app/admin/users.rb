@@ -4,7 +4,7 @@ ActiveAdmin.register User do
   permit_params :email, :first_name, :last_name
 
   member_action :run, method: :post do
-    event_to_run = params[:event]
+    event_to_run = params[:aasm_event]
     resource.aasm.fire!(event_to_run)
 
     redirect_to resource_path, notice: event_to_run
@@ -27,8 +27,8 @@ ActiveAdmin.register User do
     end
 
     actions do |user|
-      user.aasm.events.each do |event|
-        item event.name.to_s.titlecase, run_admin_user_path(user, event: event.name), class: "member_link", method: :post
+      user.aasm.events.each do |aasm_event|
+        item aasm_event.name.to_s.titlecase, run_admin_user_path(user, aasm_event: aasm_event.name), class: "member_link", method: :post
       end
 
       nil

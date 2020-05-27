@@ -25,4 +25,8 @@ class User < ApplicationRecord
       transitions from: :blacklisted, to: :quarantined
     end
   end
+
+  def name
+    [last_name, first_name].join(", ")
+  end
 end
