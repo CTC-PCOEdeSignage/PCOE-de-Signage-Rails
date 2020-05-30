@@ -1,0 +1,18 @@
+domain: ohio.edu
+emails:
+  pending_event:
+    subject: Test Subject
+    body: >
+      here is a body
+      that is multiple lines
+
+      And then another thing happens
+duration:
+  default: 30
+  options:
+    - text: 30 mins
+      minutes: 30
+    - text: 1 hr
+      minutes: 60
+    - text: 2 hrs
+      minutes: 120
