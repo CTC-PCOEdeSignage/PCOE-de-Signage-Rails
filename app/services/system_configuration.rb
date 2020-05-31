@@ -1,6 +1,8 @@
 class SystemConfiguration
   class KeyNotFound < StandardError; end
 
+  CONFIG_FILE_PATH = Rails.root.join("config", "system_configuration.yml")
+
   def self.get(*values)
     system_configuration.get(*values)
   end
@@ -12,12 +14,22 @@ class SystemConfiguration
   def get(*values)
     values = values.map(&:to_s)
 
-    loaded.dig(*values) || raise(KeyNotFound, values.join("->"))
+    from_cache(*values) || raise(KeyNotFound, values.join("."))
   end
 
-  def loaded
-    @loaded ||= begin
-        YAML.load(Rails.root.join("config", "system_configuration.yml").read)
-      end
+  private
+
+  def from_cache(*values)
+    Rails.cache.fetch(values.join(".")) do
+      from_yaml(values)
+    end
+  end
+
+  def from_yaml(values)
+    yaml.dig(*values)
+  end
+
+  def yaml
+    @loaded ||= YAML.load(CONFIG_FILE_PATH.read)
   end
 end

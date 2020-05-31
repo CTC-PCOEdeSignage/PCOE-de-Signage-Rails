@@ -2,8 +2,8 @@ require "sidekiq/web"
 Rails.application.routes.draw do
   resources :screens, only: [:index, :show]
 
-  resources :room do
-    get :schedule, on: :member
+  resources :rooms, only: [:index] do
+    resources :event_requests, only: [:create, :new]
   end
 
   authenticate :admin_user do

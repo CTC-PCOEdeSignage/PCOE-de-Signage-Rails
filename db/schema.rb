@@ -10,10 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_27_101110) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 2020_05_30_185134) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -68,8 +65,8 @@ ActiveRecord::Schema.define(version: 2020_05_27_101110) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "room_id", null: false
+    t.integer "user_id", null: false
+    t.integer "room_id", null: false
     t.datetime "start_at", null: false
     t.integer "duration", null: false
     t.string "aasm_state", null: false

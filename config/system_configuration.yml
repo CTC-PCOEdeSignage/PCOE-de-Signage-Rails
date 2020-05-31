@@ -1,7 +1,44 @@
 domain: ohio.edu
+web:
+  approved: >
+    Lorem Ipsum is simply dummy...
+  declined: >
+    Lorem Ipsum is simply dummy...
+  pending: >
+    Lorem Ipsum is simply dummy...
+  room_policies: >
+
 emails:
-  pending_event:
-    subject: Test Subject
+  verification:
+    subject: PCOE Project Room Verification
+    body: >
+      here is a body
+      that is multiple lines
+
+      And then another thing happens
+  approved:
+    subject: "PCOE Project Room Event: Approved"
+    body: >
+      here is a body
+      that is multiple lines
+
+      And then another thing happens
+  declined:
+    subject: "PCOE Project Room Event: Declined"
+    body: >
+      here is a body
+      that is multiple lines
+
+      And then another thing happens
+  pending:
+    subject: "PCOE Project Room Event: Awaiting Approval"
+    body: >
+      here is a body
+      that is multiple lines
+
+      And then another thing happens
+  post_event:
+    subject: "PCOE Project Room Event: Follow Up"
     body: >
       here is a body
       that is multiple lines
@@ -16,3 +53,28 @@ duration:
       minutes: 60
     - text: 2 hrs
       minutes: 120
+limits:
+  events_in_future: 1
+  days_in_future: 14
+availability:
+  sunday:
+    start: 12 am
+    end: 12 am
+  monday:
+    start: 8 am
+    end: 5 pm
+  tuesday:
+    start: 8 am
+    end: 5 pm
+  wednesday:
+    start: 8 am
+    end: 5 pm
+  thursday:
+    start: 8 am
+    end: 5 pm
+  friday:
+    start: 8 am
+    end: 5 pm
+  saturday:
+    start: 12 am
+    end: 12 am

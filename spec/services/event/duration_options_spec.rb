@@ -1,10 +1,10 @@
 require "rails_helper"
 
-RSpec.describe DurationOptions, :type => :service, focus: true do
+RSpec.describe Event::DurationOptions, :type => :service do
   let(:room) { nil }
   let(:user) { nil }
 
-  subject { DurationOptions.new(room: room, user: user) }
+  subject { Event::DurationOptions.new(room: room, user: user) }
 
   context "default" do
     it "allows you to get default" do

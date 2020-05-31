@@ -1,0 +1,28 @@
+<div class="row pt-2">
+  <div class="col-md-6">
+    <h1>Schedule <%= @room.name %></h1>
+  </div>
+</div>
+<div class="row pt-2">
+  <div class="col-md-12">
+    <%= form_with model: @form, url: room_event_requests_path do |f| %>
+      <div class="form-group">
+        <%= f.label :email, for: :email %>
+        <div class="input-group mb-3">
+          <%= f.text_field :email, required: true, placeholder: "OHIO ID", class: "form-control", aria: { label: "Scheduler's OHIO ID", describedby: "domain_append" } %>
+          <div class="input-group-append">
+            <span class="input-group-text" id="domain-append">@ohio.edu</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :duration %>
+        <%= f.select :duration, options_for_select(f.object.duration_select_options, f.object.duration_select_default) %>
+      </div>
+      <div class="form-group">
+        <%= f.label :purpose %>
+        <%= f.text_area :purpose, class: "form-control", rows: 3 %>
+      </div>
+    <% end %>
+  </div>
+</div>

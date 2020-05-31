@@ -1,22 +1,22 @@
 <div class="row pt-2">
   <div class="col-md-6">
-    <h1>PCOE - All Screens</h1>
+    <h1>PCOE - All Rooms</h1>
   </div>
 </div>
 
 <div class="row pt-2">
   <div class="col-md-6">
     <ul class="list-group">
-      <% @screens.each do |screen| %>
-        <li class="list-group-item"><%= link_to screen.name, screen_path(screen) %></li>
+      <% @rooms.each do |room| %>
+        <li class="list-group-item"><%= link_to room.name, new_room_event_request_path(room) %></li>
       <% end %>
     </ul>
   </div>
 </div>
 
 <div class="row pt-2">
-  <div class="col-md-6">
-    <%= link_to "Room Page", rooms_path, class: "btn btn-info" %>
+  <div class="col">
+    <%= link_to "Screens Page", screens_path, class: "btn btn-info" %>
     <%= link_to "Administrator Login", admin_root_path, class: "btn btn-secondary" %>
   </div>
 </div>
