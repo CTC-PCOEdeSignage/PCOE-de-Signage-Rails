@@ -1,35 +1,36 @@
 #!/usr/bin/env ruby
-require "fileutils"
-include FileUtils
+require 'fileutils'
 
 # path to your application root.
-APP_ROOT = File.expand_path("..", __dir__)
+APP_ROOT = File.expand_path('..', __dir__)
 
 def system!(*args)
   system(*args) || abort("\n== Command #{args} failed ==")
 end
 
-def confirm!(text)
-  puts "#{text} Type 'y'"
-  puts
-  gets.strip == "y" || abort("== User didn't confirm ==")
-end
-
-chdir APP_ROOT do
-  # This script is a starting point to setup your application.
+FileUtils.chdir APP_ROOT do
+  # This script is a way to setup or update your development environment automatically.
+  # This script is idempotent, so that you can run it at anytime and get an expectable outcome.
   # Add necessary setup steps to this file.
-  puts "== Installing dependencies =="
-  system! "gem install bundler --conservative"
-  system("bundle check") || system!("bundle install")
 
-  confirm!("WARNING: You will delete the #{ENV["RAILS_ENV"] || "development"} database. Do you want to continue?")
+  puts '== Installing dependencies =='
+  system! 'gem install bundler --conservative'
+  system('bundle check') || system!('bundle install')
+
+  # Install JavaScript dependencies
+  # system('bin/yarn')
+
+  # puts "\n== Copying sample files =="
+  # unless File.exist?('config/database.yml')
+  #   FileUtils.cp 'config/database.yml.sample', 'config/database.yml'
+  # end
 
   puts "\n== Preparing database =="
-  system! "DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bin/rails db:setup" # We already confirmed our environment. Continue!
+  system! 'bin/rails db:prepare'
 
   puts "\n== Removing old logs and tempfiles =="
-  system! "bin/rails log:clear tmp:clear"
+  system! 'bin/rails log:clear tmp:clear'
 
   puts "\n== Restarting application server =="
-  system! "bin/rails restart"
+  system! 'bin/rails restart'
 end

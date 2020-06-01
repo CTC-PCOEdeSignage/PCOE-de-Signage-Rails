@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_31_192332) do
+ActiveRecord::Schema.define(version: 2020_06_01_020644) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(version: 2020_05_31_192332) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "events", "rooms"
   add_foreign_key "events", "users"
 end
