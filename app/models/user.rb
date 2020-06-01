@@ -2,7 +2,8 @@ class User < ApplicationRecord
   has_many :events
 
   validates_uniqueness_of :email
-  validates_presence_of :email, :first_name, :last_name, :aasm_state
+  validates_presence_of :email, :aasm_state
+  before_save { self.email = self.email.downcase }
 
   include AASM
   aasm do
@@ -27,6 +28,10 @@ class User < ApplicationRecord
   end
 
   def name
-    [last_name, first_name].join(", ")
+    if first_name.presence && last_name.presence
+      [last_name, first_name].join(", ")
+    else
+      email
+    end
   end
 end

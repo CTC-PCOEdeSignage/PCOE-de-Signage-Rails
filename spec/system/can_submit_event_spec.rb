@@ -13,9 +13,40 @@ RSpec.describe "Request Event", :type => :system do
     expect(page).to have_text("Schedule #{room.name}")
   end
 
-  xit "should allow you to request event" do
-    fill_in "Email", with: "rufus"
-    fill_in "Purpose", with: "Bobcat cage escape training"
+  it "should allow you to request event and create user end event" do
+    submit_event_request
+
+    user, event = User.first, Event.first
+
+    expect(User.count).to eq(1)
+    expect(Event.count).to eq(1)
+    expect(user.email).to eq("rufus142@ohio.edu")
+    expect(event.start_at).to eq(1.day.from_now.beginning_of_hour)
+    expect(event.duration).to eq(120)
+    expect(event.purpose).to eq("Bobcat cage escape training")
+  end
+
+  it "should redirect to a confirmation page" do
+    submit_event_request
+
+    expect(page).to have_content("Event request received")
+  end
+
+  it "should email a verification email" do
+    expect { submit_event_request }.to change { ActionMailer::Base.deliveries.size }.by(1)
+
+    mail = ActionMailer::Base.deliveries.last
+    expect(mail.to).to include("rufus142@ohio.edu")
+    expect(mail.body.encoded).to include("confirm")
+  end
+
+  def submit_event_request(ohioid: "rufus142", duration: "2 hrs", base_time: 1.day.from_now.beginning_of_hour, purpose: "Bobcat cage escape training")
+    fill_in "event[ohioid]", with: ohioid
+    fill_in "Date", with: base_time.strftime("%m/%d/%Y")
+    fill_in "Time", with: base_time.strftime("%I:%M %P")
+    select duration, from: "Duration"
+    fill_in "Purpose", with: purpose
+
     click_on "Request"
   end
 end

@@ -13,8 +13,7 @@ ActiveAdmin.register User do
   index do
     selectable_column
     id_column
-    column :first_name
-    column :last_name
+    column :name
     column :email
     column "State" do |user|
       css_class = case

@@ -1,0 +1,10 @@
+<h1>Please confirm your email address</h1>
+
+<p>
+  Please <%= link_to "confirm your email address", room_event_request_confirmation_url(@event.room, @event) %>
+</p>
+
+<p>
+  If you can't click on the link, above, copy and paste the url in
+  a browser: room_event_request_confirmation_url(@event.room, @event)
+</p>

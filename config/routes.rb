@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   resources :screens, only: [:index, :show]
 
   resources :rooms, only: [:index] do
-    resources :event_requests, only: [:create, :new]
+    resources :event_requests, only: [:create, :new] do
+      resource :confirmation, only: [:show, :update]
+    end
   end
 
   authenticate :admin_user do
