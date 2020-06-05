@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "no-reply@ohio.edu"
+  default from: -> { SystemConfiguration.get("emails", "from") }
   layout "mailer"
 end

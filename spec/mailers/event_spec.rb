@@ -10,7 +10,7 @@ RSpec.describe EventMailer, type: :mailer do
     it "renders the headers" do
       expect(mail.subject).to eq("Validate user")
       expect(mail.to).to eq(["rufus142@ohio.edu"])
-      expect(mail.from).to eq(["no-reply@ohio.edu"])
+      expect(mail.from).to eq(["DoNotReply@ohio.edu"])
     end
 
     xit "renders the body" do
@@ -24,7 +24,7 @@ RSpec.describe EventMailer, type: :mailer do
     it "renders the headers" do
       expect(mail.subject).to eq("Approve")
       expect(mail.to).to eq(["rufus142@ohio.edu"])
-      expect(mail.from).to eq(["no-reply@ohio.edu"])
+      expect(mail.from).to eq(["DoNotReply@ohio.edu"])
     end
 
     xit "renders the body" do
@@ -38,7 +38,7 @@ RSpec.describe EventMailer, type: :mailer do
     it "renders the headers" do
       expect(mail.subject).to eq("Decline")
       expect(mail.to).to eq(["rufus142@ohio.edu"])
-      expect(mail.from).to eq(["no-reply@ohio.edu"])
+      expect(mail.from).to eq(["DoNotReply@ohio.edu"])
     end
 
     xit "renders the body" do
@@ -52,7 +52,7 @@ RSpec.describe EventMailer, type: :mailer do
     it "renders the headers" do
       expect(mail.subject).to eq("Pending")
       expect(mail.to).to eq(["rufus142@ohio.edu"])
-      expect(mail.from).to eq(["no-reply@ohio.edu"])
+      expect(mail.from).to eq(["DoNotReply@ohio.edu"])
     end
 
     xit "renders the body" do

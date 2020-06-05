@@ -9,6 +9,7 @@ web:
   room_policies: >
 
 emails:
+  from: "DoNotReply@ohio.edu"
   verification:
     subject: PCOE Project Room Verification
     body: >

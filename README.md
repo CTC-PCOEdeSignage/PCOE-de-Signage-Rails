@@ -167,6 +167,9 @@ DEFAULT_SLIDE_LENGTH=30 # Seconds
 RAILS_ENV=production
 PORT=5000
 RAILS_KEY_BASE=_value_from_below_
+SMTP_SERVER="smtp.Office365.com"
+SMTP_PORT="587"
+SMTP_USERNAME="coe-projrms-sa@ohio.edu"
 ```
 
 To determine `LIBCAL_CLIENT_ID` and `LIBCAL_CLIENT_SECRET`, you will need to follow the [directions above](#libcal-api-keys) and then place them in the file.
