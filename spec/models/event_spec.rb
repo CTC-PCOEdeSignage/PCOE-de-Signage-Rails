@@ -2,6 +2,8 @@ require "rails_helper"
 
 RSpec.describe Event, type: :model do
   describe "validations" do
+    subject { create(:event) }
+
     it { is_expected.to belong_to(:user) }
     it { is_expected.to belong_to(:room) }
 
@@ -9,8 +11,11 @@ RSpec.describe Event, type: :model do
     it { is_expected.to validate_presence_of(:duration) }
     it { is_expected.to validate_presence_of(:start_at) }
     it { is_expected.to validate_presence_of(:aasm_state) }
+    it { is_expected.to validate_presence_of(:verification_identifier) }
 
     it { is_expected.to validate_length_of(:purpose).is_at_least(5) }
+
+    it { is_expected.to validate_uniqueness_of(:verification_identifier) }
   end
 
   describe "state machine" do
