@@ -16,11 +16,11 @@ class LibcalRoomAvailability
   end
 
   def is_available_now?
-    is_available_at?(Time.now)
+    is_available_at?(Time.current)
   end
 
   def is_available_at?(time)
-    timeslots.any? { |slot| slot["start"] <= time && time < slot["end"]}
+    timeslots.any? { |slot| slot["start"] <= time && time < slot["end"] }
   end
 
   def available_soon?
@@ -37,13 +37,13 @@ class LibcalRoomAvailability
 
   def request_availability
     @request_availability ||= begin
-      headers = { Authorization: "Bearer #{@libcal_token.auth_token}", accept: :json }
-      request = RestClient.get(room_url, headers)
+        headers = { Authorization: "Bearer #{@libcal_token.auth_token}", accept: :json }
+        request = RestClient.get(room_url, headers)
 
-      # For Testing Purposes
-      # return LibcalAvailabilitySlug.new(@room).to_h
-      JSON.parse(request.body)
-    end
+        # For Testing Purposes
+        # return LibcalAvailabilitySlug.new(@room).to_h
+        JSON.parse(request.body)
+      end
   end
 
   def room_url

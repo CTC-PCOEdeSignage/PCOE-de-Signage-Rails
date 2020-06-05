@@ -9,7 +9,7 @@ module ScreenHelper
 
   def now_time
     # Hour Minute AM/PM
-    Time.now.strftime("%l:%M %p")
+    Time.current.strftime("%l:%M %p")
   end
 
   def dual_layout?

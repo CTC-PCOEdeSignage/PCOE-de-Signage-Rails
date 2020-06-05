@@ -107,7 +107,7 @@ These custom slide files, when rendered by the server, are cached for 5 minutes 
 <div class="grid">
   <div class="grid__col grid__col--12-of-12 center">
       <div class="head">
-        <h1><%= Time.now.to_s %></h1>
+        <h1><%= Time.current.to_s %></h1>
       </div>
   </div>
   <div class="grid__col grid__col--6-of-12 center">
