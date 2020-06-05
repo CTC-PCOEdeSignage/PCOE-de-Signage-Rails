@@ -30,7 +30,7 @@ class QrCode
   end
 
   def qr_code
-    @qr_code ||= RQRCode::QRCode.new(routes.schedule_room_url(room))
+    @qr_code ||= RQRCode::QRCode.new(routes.new_room_event_request_url(room_id: room.id))
   end
 
   def routes
