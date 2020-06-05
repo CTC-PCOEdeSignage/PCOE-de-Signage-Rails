@@ -29,22 +29,22 @@ RSpec.describe User, type: :model do
     it "when quarantined" do
       expect(subject.aasm_state).to eq("quarantined")
 
-      expect(subject).to allow_event(:whitelist)
-      expect(subject).to allow_event(:blacklist)
+      expect(subject).to allow_event(:approve)
+      expect(subject).to allow_event(:deny)
     end
 
-    it "when whitelisted" do
-      subject.aasm_state = "whitelisted"
+    it "when approved" do
+      subject.aasm_state = "approved"
 
       expect(subject).to allow_event(:quarantine)
-      expect(subject).to allow_event(:blacklist)
+      expect(subject).to allow_event(:deny)
     end
 
-    it "when blacklisted" do
-      subject.aasm_state = "blacklisted"
+    it "when denied" do
+      subject.aasm_state = "denied"
 
       expect(subject).to allow_event(:quarantine)
-      expect(subject).to allow_event(:whitelist)
+      expect(subject).to allow_event(:approve)
     end
   end
 end

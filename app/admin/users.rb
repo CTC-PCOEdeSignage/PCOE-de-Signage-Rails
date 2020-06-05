@@ -17,9 +17,9 @@ ActiveAdmin.register User do
     column :email
     column "State" do |user|
       css_class = case
-        when user.whitelisted?
+        when user.approved?
           "yes"
-        when user.blacklisted?
+        when user.denied?
           "no"
         end
       status_tag user.aasm_state, class: css_class
@@ -40,8 +40,8 @@ ActiveAdmin.register User do
 
   scope :all, default: true
   scope :quarantined
-  scope :whitelisted
-  scope :blacklisted
+  scope :approved
+  scope :denied
 
   form do |f|
     f.inputs do

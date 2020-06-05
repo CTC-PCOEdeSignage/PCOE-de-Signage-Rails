@@ -8,22 +8,22 @@ class User < ApplicationRecord
   include AASM
   aasm do
     state :quarantined, initial: true
-    state :whitelisted
-    state :blacklisted
+    state :approved
+    state :denied
 
-    event :whitelist do
-      transitions from: :quarantined, to: :whitelisted
-      transitions from: :blacklisted, to: :whitelisted
+    event :approve do
+      transitions from: :quarantined, to: :approved
+      transitions from: :denied, to: :approved
     end
 
-    event :blacklist do
-      transitions from: :quarantined, to: :blacklisted
-      transitions from: :whitelisted, to: :blacklisted
+    event :deny do
+      transitions from: :quarantined, to: :denied
+      transitions from: :approved, to: :denied
     end
 
     event :quarantine do
-      transitions from: :whitelisted, to: :quarantined
-      transitions from: :blacklisted, to: :quarantined
+      transitions from: :approved, to: :quarantined
+      transitions from: :denied, to: :quarantined
     end
   end
 
