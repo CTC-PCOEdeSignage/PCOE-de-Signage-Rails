@@ -30,18 +30,18 @@ RSpec.describe User, type: :model do
       expect(subject.aasm_state).to eq("quarantined")
 
       expect(subject).to allow_event(:approve)
-      expect(subject).to allow_event(:deny)
+      expect(subject).to allow_event(:decline)
     end
 
     it "when approved" do
       subject.aasm_state = "approved"
 
       expect(subject).to allow_event(:quarantine)
-      expect(subject).to allow_event(:deny)
+      expect(subject).to allow_event(:decline)
     end
 
-    it "when denied" do
-      subject.aasm_state = "denied"
+    it "when declined" do
+      subject.aasm_state = "declined"
 
       expect(subject).to allow_event(:quarantine)
       expect(subject).to allow_event(:approve)

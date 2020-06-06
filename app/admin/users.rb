@@ -19,7 +19,7 @@ ActiveAdmin.register User do
       css_class = case
         when user.approved?
           "yes"
-        when user.denied?
+        when user.declined?
           "no"
         end
       status_tag user.aasm_state, class: css_class
@@ -41,7 +41,7 @@ ActiveAdmin.register User do
   scope :all, default: true
   scope :quarantined
   scope :approved
-  scope :denied
+  scope :declined
 
   form do |f|
     f.inputs do
