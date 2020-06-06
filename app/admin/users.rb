@@ -10,6 +10,35 @@ ActiveAdmin.register User do
     redirect_to resource_path, notice: event_to_run
   end
 
+  action_item only: :index do
+    link_to "Import Users", action: :import_users
+  end
+
+  collection_action :import_users, method: :get do
+    render "admin/import/users"
+  end
+
+  collection_action :import_users_csv, method: :post do
+    csv_file = params[:users][:file].read
+    user_count = 0
+
+    CSV.parse(csv_file, headers: true) do |row|
+      obj = User.find_or_initialize_by(email: row["email"])
+
+      row = row.to_h.slice("email", "first_name", "last_name", "status")
+      row["aasm_state"] = row.delete("status")
+      obj.update(row)
+      user_count += 1
+    rescue => e
+      flash[:alert] = "Import error: #{e.message}"
+      redirect_to action: :index
+      return
+    end
+
+    flash[:notice] = "Successfully imported #{user_count} users."
+    redirect_to action: :index
+  end
+
   index do
     selectable_column
     id_column
