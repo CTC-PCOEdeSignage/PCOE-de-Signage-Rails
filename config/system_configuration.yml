@@ -9,7 +9,9 @@ web:
     Thank you for verifying your email address. Your project room request is pending approval of one of
     our administrators.
   room_policies: >
+    Room Policies TODO
 
+    Policy Two
 emails:
   from: "DoNotReply@ohio.edu"
   signature: >

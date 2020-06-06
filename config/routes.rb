@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :screens, only: [:index, :show]
 
   resources :rooms, only: [:index] do
+    get :policies, on: :collection
+
     resources :event_requests, only: [:new, :create, :show] do
       resource :confirmation, only: [:show] do
         get :verify
