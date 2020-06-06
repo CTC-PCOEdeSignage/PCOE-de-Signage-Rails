@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :user do
-    email { Faker::Name.unique.last_name }
+    email { Faker::Internet.email(domain: "ohio.edu") }
   end
 end

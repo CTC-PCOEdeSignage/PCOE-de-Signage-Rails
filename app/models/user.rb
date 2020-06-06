@@ -1,8 +1,9 @@
 class User < ApplicationRecord
   has_many :events
 
-  validates_uniqueness_of :email
-  validates_presence_of :email, :aasm_state
+  validates :email, presence: true, uniqueness: true, formatted_email: true
+  validates_presence_of :aasm_state
+
   before_save { self.email = self.email.downcase }
 
   include AASM
