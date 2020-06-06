@@ -5,9 +5,7 @@ RSpec.describe "Request Event", :type => :system do
 
   before { visit new_room_event_request_path(room) }
 
-  it "room scheduler is accessible" do
-    expect(page).to be_accessible
-  end
+  include_examples "accessible"
 
   it "should have room name" do
     expect(page).to have_text("Schedule #{room.name}")

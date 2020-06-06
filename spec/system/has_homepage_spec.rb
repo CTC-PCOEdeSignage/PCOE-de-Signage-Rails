@@ -1,14 +1,14 @@
 require "rails_helper"
 
 RSpec.describe "Homepage", :type => :system do
-  let!(:screen) { create(:screen) }
+  let!(:room) { create(:room) }
 
   before { visit "/" }
 
-  it "enables me to view all screens" do
-    expect(page).to have_text("PCOE - All Screens")
-    expect(page).to have_text(screen.name)
-
-    expect(page).to be_accessible
+  it "enables me to view all rooms" do
+    expect(page).to have_text("PCOE Project Rooms")
+    expect(page).to have_text(room.name)
   end
+
+  include_examples "accessible"
 end
