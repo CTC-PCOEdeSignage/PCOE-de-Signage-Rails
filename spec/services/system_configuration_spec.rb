@@ -6,10 +6,12 @@ RSpec.describe SystemConfiguration, :type => :service do
   end
 
   it "allows you to get a nested email" do
-    expect(subject.get(:emails, :pending, :subject)).to include("Awaiting Approval")
-    expect(subject.get(:emails, :pending, :body)).to match(/multiple/)
-    expect(subject.get(:emails, :pending, :body)).to include("\n")
+    expect(subject.get(:emails, :approved, :subject)).to include("Approved")
+    expect(subject.get(:emails, :approved, :body)).to match(/approved/)
+    expect(subject.get(:emails, :approved, :body)).to match(/requested/)
+    expect(subject.get(:emails, :approved, :body)).to include("\n")
   end
+
   it "raises error if key not found" do
     expect { subject.get(:deep, :unfound, :key) }.to raise_error SystemConfiguration::KeyNotFound, "deep.unfound.key"
   end

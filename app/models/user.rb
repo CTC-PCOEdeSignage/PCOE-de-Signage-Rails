@@ -9,21 +9,21 @@ class User < ApplicationRecord
   aasm do
     state :quarantined, initial: true
     state :approved
-    state :denied
+    state :declined
 
     event :approve do
       transitions from: :quarantined, to: :approved
-      transitions from: :denied, to: :approved
+      transitions from: :declined, to: :approved
     end
 
-    event :deny do
-      transitions from: :quarantined, to: :denied
-      transitions from: :approved, to: :denied
+    event :decline do
+      transitions from: :quarantined, to: :declined
+      transitions from: :approved, to: :declined
     end
 
     event :quarantine do
       transitions from: :approved, to: :quarantined
-      transitions from: :denied, to: :quarantined
+      transitions from: :declined, to: :quarantined
     end
   end
 

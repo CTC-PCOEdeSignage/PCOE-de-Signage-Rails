@@ -5,58 +5,45 @@ RSpec.describe EventMailer, type: :mailer do
   let(:event) { build_stubbed(:event, user: user) }
 
   describe "validate_user" do
-    let(:mail) { EventMailer.validate_user(event: event) }
+    let(:mail) { EventMailer.validate_user(event) }
 
     it "renders the headers" do
-      expect(mail.subject).to eq("Validate user")
+      expect(mail.subject).to include("Verification")
       expect(mail.to).to eq(["rufus142@ohio.edu"])
       expect(mail.from).to eq(["DoNotReply@ohio.edu"])
     end
 
-    xit "renders the body" do
-      expect(mail.body.encoded).to match("Hi")
+    it "renders the body" do
+      expect(mail.body.encoded).to match("Verify!")
+      expect(mail.body.encoded).to match("to verify")
     end
   end
 
   describe "approve" do
-    let(:mail) { EventMailer.approve(event: event) }
+    let(:mail) { EventMailer.approve(event) }
 
     it "renders the headers" do
-      expect(mail.subject).to eq("Approve")
+      expect(mail.subject).to include("Approve")
       expect(mail.to).to eq(["rufus142@ohio.edu"])
       expect(mail.from).to eq(["DoNotReply@ohio.edu"])
     end
 
-    xit "renders the body" do
-      expect(mail.body.encoded).to match("Hi")
+    it "renders the body" do
+      expect(mail.body.encoded).to match("request has been approved")
     end
   end
 
   describe "decline" do
-    let(:mail) { EventMailer.decline(event: event) }
+    let(:mail) { EventMailer.decline(event) }
 
     it "renders the headers" do
-      expect(mail.subject).to eq("Decline")
+      expect(mail.subject).to include("Decline")
       expect(mail.to).to eq(["rufus142@ohio.edu"])
       expect(mail.from).to eq(["DoNotReply@ohio.edu"])
     end
 
-    xit "renders the body" do
-      expect(mail.body.encoded).to match("Hi")
-    end
-  end
-
-  describe "pending" do
-    let(:mail) { EventMailer.pending(event: event) }
-
-    it "renders the headers" do
-      expect(mail.subject).to eq("Pending")
-      expect(mail.to).to eq(["rufus142@ohio.edu"])
-      expect(mail.from).to eq(["DoNotReply@ohio.edu"])
-    end
-
-    xit "renders the body" do
-      expect(mail.body.encoded).to match("Hi")
+    it "renders the body" do
+      expect(mail.body.encoded).to match("request has been declined.")
     end
   end
 end

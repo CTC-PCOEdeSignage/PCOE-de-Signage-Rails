@@ -42,4 +42,18 @@ class Event < ApplicationRecord
       respond_to?(ts_setter) && send(ts_setter, ::Time.current)
     end
   end
+
+  def details
+    output =
+      attributes
+        .slice("start_at", "duration", "purpose")
+
+    output["start_at"] = output["start_at"].to_formatted_s(:long)
+
+    duration_unit = output["duration"] < 60 ? "min" : "hour"
+    duration_value = output["duration"] < 60 ? output["duration"] : output["duration"] / 60
+    output["duration"] = [duration_value, duration_unit.pluralize(duration_value)].join(" ")
+
+    output
+  end
 end

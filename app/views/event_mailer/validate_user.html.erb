@@ -1,10 +1,9 @@
-<h1>Please confirm your email address</h1>
-
-<p>
-  Please <%= link_to "confirm your email address", room_event_request_confirmation_url(@event.room, @event) %>
-</p>
-
-<p>
-  If you can't click on the link, above, copy and paste the url in
-  a browser: room_event_request_confirmation_url(@event.room, @event)
-</p>
+<% content_for :body do %>
+  <%= SystemConfiguration.get(*@config_keys, "body") %>
+<% end %>
+<% content_for :call_to_action_text do %>
+  <%= SystemConfiguration.get(*@config_keys, "cta", "text") %>
+<% end %>
+<% content_for :call_to_action_url do %>
+  <%= verify_room_event_request_confirmation_url(event_request_id: @event.id, room_id: @event.room.id, verification_identifier: @event.verification_identifier) %>
+<% end %>

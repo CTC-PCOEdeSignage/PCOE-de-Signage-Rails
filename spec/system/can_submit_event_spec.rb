@@ -37,7 +37,7 @@ RSpec.describe "Request Event", :type => :system do
 
     mail = ActionMailer::Base.deliveries.last
     expect(mail.to).to include("rufus142@ohio.edu")
-    expect(mail.body.encoded).to include("confirm")
+    expect(mail.body.encoded).to include("Verify")
   end
 
   def submit_event_request(ohioid: "rufus142", duration: "2 hrs", base_time: 1.day.from_now.beginning_of_hour, purpose: "Bobcat cage escape training")

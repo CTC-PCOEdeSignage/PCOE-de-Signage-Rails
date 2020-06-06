@@ -1,50 +1,25 @@
 class EventMailer < ApplicationMailer
-
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.event_mailer.validate_user.subject
-  #
-  def validate_user(event:)
-    user = event.user
+  def validate_user(event)
     @event = event
+    @user = event.user
+    @config_keys = ["emails", "verification"]
 
-    mail to: user.email
+    mail to: @user.email, subject: SystemConfiguration.get(*@config_keys, "subject")
   end
 
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.event_mailer.approve.subject
-  #
-  def approve(event:)
-    user = event.user
+  def approve(event)
     @event = event
+    @user = event.user
+    @config_keys = ["emails", "approved"]
 
-    mail to: user.email
+    mail to: @user.email, subject: SystemConfiguration.get(*@config_keys, "subject")
   end
 
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.event_mailer.decline.subject
-  #
-  def decline(event:)
-    user = event.user
+  def decline(event)
     @event = event
+    @user = event.user
+    @config_keys = ["emails", "declined"]
 
-    mail to: user.email
-  end
-
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.event_mailer.pending.subject
-  #
-  def pending(event:)
-    user = event.user
-    @event = event
-
-    mail to: user.email
+    mail to: @user.email, subject: SystemConfiguration.get(*@config_keys, "subject")
   end
 end

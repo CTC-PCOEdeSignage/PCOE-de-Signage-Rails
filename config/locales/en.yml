@@ -1,3 +1,4 @@
 en:
   site:
     title: "PCOE de Signage | %{name}"
+    app_name: "PCOE de Signage"

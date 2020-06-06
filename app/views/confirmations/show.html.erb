@@ -1,3 +1,22 @@
-<h1>Event request received.</h1>
+<h1><%= @event.purpose %></h1>
 
-<p>Please check your email address <%= @event.user.email %> to verify your account</p>
+<% if @event.requested? %>
+  <p>
+    Event request received. Please check your email to confirm your request.
+  </p>
+<% end %>
+<% if @event.approved? %>
+  <p>
+    Your event request was approved. Please use the room at the date and time specified below.
+  </p>
+<% end %>
+<% if @event.declined? %>
+  <p>
+    Your event request was declined. If you have any questions please come to the... TODO.
+  </p>
+<% end %>
+<% if @event.finished? %>
+  <p>
+    Your event request was approved and is now over. Please take the survey at....
+  </p>
+<% end %>

@@ -34,6 +34,6 @@ class CreateEventRequest < Rectify::Command
   end
 
   def send_user_validate_email
-    EventMailer.validate_user(event: event).deliver_later
+    EventMailer.validate_user(event).deliver_later
   end
 end

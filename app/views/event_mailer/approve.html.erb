@@ -1,5 +1,3 @@
-<h1>Event#approve</h1>
-
-<p>
-  <%= @greeting %>, find me in app/views/event_mailer/approve.html.erb
-</p>
+<% content_for :body do %>
+  <%= SystemConfiguration.get(*@config_keys, "body") %>
+<% end %>

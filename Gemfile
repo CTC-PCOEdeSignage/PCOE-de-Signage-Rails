@@ -28,6 +28,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   gem 'capybara'
   gem 'factory_bot_rails'
+  gem 'faker'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 4.0.0'
   gem 'webdrivers'
@@ -42,7 +43,6 @@ end
 
 group :test do
   gem 'axe-matchers'
-  gem 'faker'
   gem "rspec_junit_formatter"
   gem 'shoulda-matchers'
 end

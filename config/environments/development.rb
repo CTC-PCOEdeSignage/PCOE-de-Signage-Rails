@@ -61,4 +61,6 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   Rails.application.routes.default_url_options = { host: "localhost:5000" }
+
+  config.action_mailer.preview_path = Rails.root.join("spec", "mailer_previews")
 end

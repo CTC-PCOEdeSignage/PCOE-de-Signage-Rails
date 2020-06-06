@@ -20,9 +20,9 @@ class SystemConfiguration
   private
 
   def from_cache(*values)
-    Rails.cache.fetch(values.join(".")) do
-      from_yaml(values)
-    end
+    # Rails.cache.fetch(values.join(".")) do
+    from_yaml(values)
+    # end
   end
 
   def from_yaml(values)
@@ -30,6 +30,8 @@ class SystemConfiguration
   end
 
   def yaml
+    return YAML.load(CONFIG_FILE_PATH.read) if Rails.env.development?
+
     @loaded ||= YAML.load(CONFIG_FILE_PATH.read)
   end
 end
