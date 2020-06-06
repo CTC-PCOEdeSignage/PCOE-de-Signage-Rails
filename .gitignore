@@ -7,7 +7,6 @@
 # Ignore bundler config.
 /.bundle
 
-/.postgres
 /dump.rdb
 
 # Ignore the default SQLite database.
