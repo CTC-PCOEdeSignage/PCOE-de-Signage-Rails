@@ -62,6 +62,9 @@ RSpec.configure do |config|
   config.include(Shoulda::Matchers::ActiveModel, type: :model)
   config.include(Shoulda::Matchers::ActiveRecord, type: :model)
   config.include(ActiveSupport::Testing::TimeHelpers)
+  config.include(Devise::Test::ControllerHelpers, type: :controller)
+  config.include(Devise::Test::IntegrationHelpers, type: :system)
+  config.include(ActionView::RecordIdentifier, type: :system)
 
   ENGINE = ENV["WITHOUT_HEADLESS"].present? ? :chrome : :headless_chrome
   config.before(:each, type: :system) do
