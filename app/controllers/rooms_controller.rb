@@ -4,6 +4,6 @@ class RoomsController < ApplicationController
   end
 
   def policies
-    @policy_paragraphs = SystemConfiguration.get("web", "room_policies").split("\n")
+    @policy_md = SystemConfiguration.get("web", "room_policies")
   end
 end

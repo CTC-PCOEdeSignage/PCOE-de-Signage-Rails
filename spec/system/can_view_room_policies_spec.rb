@@ -10,6 +10,6 @@ RSpec.describe "Room Policies", :type => :system do
   end
 
   it "should have the policies" do
-    expect(page).to have_css "p", minimum: 2
+    expect(page).to have_css "ul li", minimum: 2
   end
 end
