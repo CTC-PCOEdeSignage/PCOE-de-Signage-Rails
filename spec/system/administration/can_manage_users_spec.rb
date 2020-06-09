@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Can Manage Users", :type => :system, focus: true do
+RSpec.describe "Can Manage Users", :type => :system do
   let(:admin_user) { create(:admin_user) }
 
   before do
