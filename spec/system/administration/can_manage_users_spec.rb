@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Can Manage Users", :type => :system do
+RSpec.describe "Can Manage Users", :type => :system, focus: true do
   let(:admin_user) { create(:admin_user) }
 
   before do
@@ -44,41 +44,71 @@ RSpec.describe "Can Manage Users", :type => :system do
     end
   end
 
-  context "bulk import" do
-    before { bulk_import_users }
+  describe "bulk import" do
+    describe "without status" do
+      it "should allow bulk by not specifying status" do
+        bulk_import_users(EXAMPLE_PATH)
 
-    it "should allow bulk import" do
-      expect(page).to have_content(/Successfully imported/)
+        expect(User.count).to eq(3)
+        expect(User.approved.count).to eq(3)
+      end
 
-      expect(User.count).to eq(3)
-      expect(User.approved.count).to eq(1)
-      expect(User.quarantined.count).to eq(1)
-      expect(User.declined.count).to eq(1)
+      it "should allow bulk and setting to Decline All" do
+        bulk_import_users(EXAMPLE_PATH, "Decline All")
+
+        expect(User.count).to eq(3)
+        expect(User.declined.count).to eq(3)
+      end
+
+      it "should allow bulk and setting to Quarantine All" do
+        bulk_import_users(EXAMPLE_PATH, "Quarantine All")
+
+        expect(User.count).to eq(3)
+        expect(User.quarantined.count).to eq(3)
+      end
     end
 
-    it "should allow bulk update" do
-      # Set all (already imported) users to quarantined
-      User.all.update_all(aasm_state: :quarantined)
+    describe "including status" do
+      before { bulk_import_users(EXAMPLE_WITH_STATUS_PATH) }
 
-      # Re-import
-      bulk_import_users
+      it "should allow bulk import" do
+        expect(page).to have_content(/Successfully imported/)
 
-      expect(User.count).to eq(3)
-      expect(User.approved.count).to eq(1)
-      expect(User.quarantined.count).to eq(1)
-      expect(User.declined.count).to eq(1)
+        expect(User.count).to eq(3)
+        expect(User.approved.count).to eq(1)
+        expect(User.quarantined.count).to eq(1)
+        expect(User.declined.count).to eq(1)
+      end
+
+      it "should allow bulk update" do
+        # Set all (already imported) users to quarantined
+        User.all.update_all(aasm_state: :quarantined)
+
+        # Re-import
+        bulk_import_users(EXAMPLE_WITH_STATUS_PATH)
+
+        expect(User.count).to eq(3)
+        expect(User.approved.count).to eq(1)
+        expect(User.quarantined.count).to eq(1)
+        expect(User.declined.count).to eq(1)
+      end
     end
   end
 
   private
 
-  def bulk_import_users
+  EXAMPLE_PATH = Rails.root.join("spec", "support", "files", "example_users.csv")
+  EXAMPLE_WITH_STATUS_PATH = Rails.root.join("spec", "support", "files", "example_users_with_status.csv")
+
+  def bulk_import_users(path, select_import_option = nil)
     visit admin_users_path
 
     click_link "Import Users"
 
     within("form") do
-      attach_file(Rails.root.join("spec", "support", "files", "example_users.csv"))
+      attach_file(path)
+      choose(select_import_option) if select_import_option
+
       click_button "Import"
     end
   end

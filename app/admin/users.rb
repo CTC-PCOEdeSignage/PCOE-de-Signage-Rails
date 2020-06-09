@@ -20,13 +20,23 @@ ActiveAdmin.register User do
 
   collection_action :import_users_csv, method: :post do
     csv_file = params[:users][:file].read
+    default_state = case params[:users][:options]
+      when "decline_all"
+        "declined"
+      when "quarantine_all"
+        "quarantined"
+      else
+        "approved"
+      end
     user_count = 0
 
     CSV.parse(csv_file, headers: true) do |row|
+      row = row.to_h.transform_keys { |key| key.strip.downcase.gsub(/\s/, "_") }
       obj = User.find_or_initialize_by(email: row["email"])
 
-      row = row.to_h.slice("email", "first_name", "last_name", "status")
-      row["aasm_state"] = row.delete("status")
+      row = row.slice("email", "first_name", "last_name", "status")
+      row["aasm_state"] = row.delete("status") || default_state
+
       obj.update(row)
       user_count += 1
     rescue => e

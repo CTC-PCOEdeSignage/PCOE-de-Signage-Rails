@@ -1,9 +1,14 @@
 
-<%= semantic_form_for :users, url: {action: :import_users_csv}, html: {multipart: true} do |f| %>
+<%= semantic_form_for :users, url: { action: :import_users_csv }, html: { multipart: true } do |f| %>
   <%= f.inputs name: "CSV Import" do %>
     <%= f.input :file, as: :file %>
+    <%= f.input :options, as: :radio,
+                          collection: { "Approve All (default)" => "approve_all",
+                                        "Quarantine All" => "quarantine_all",
+                                        "Decline All" => "decline_all" },
+                          selected: "approve_all" %>
   <% end %>
   <%= f.actions do %>
-    <%= f.action :submit, label: "Import", button_html: {data: {disable_with: "Importing"}} %>
+    <%= f.action :submit, label: "Import", button_html: { data: { disable_with: "Importing" } } %>
   <% end %>
 <% end %>
