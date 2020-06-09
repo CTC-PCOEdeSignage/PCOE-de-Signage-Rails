@@ -1,7 +1,7 @@
 ActiveAdmin.register Room do
   menu priority: 4
 
-  permit_params :name, :building, :room, :libcal_identifier
+  permit_params :name, :building, :room
 
   config.sort_order = "room_asc"
 
@@ -12,7 +12,6 @@ ActiveAdmin.register Room do
       f.input :name
       f.input :building
       f.input :room
-      f.input :libcal_identifier, label: "Libcal Room Identifier"
     end
     f.actions
   end
@@ -23,7 +22,6 @@ ActiveAdmin.register Room do
     column :building
     column :room
     column :name
-    column :libcal_identifier
     actions
   end
 end
