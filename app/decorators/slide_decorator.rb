@@ -58,7 +58,7 @@ class SlideDecorator < Draper::Decorator
   end
 
   def compute_md5_of_style
-    filename = Slide.styles_path.join(object.style)
+    filename = Slide::STYLES_PATH.join(object.style)
     Digest::MD5.hexdigest(File.read(filename))
   end
 

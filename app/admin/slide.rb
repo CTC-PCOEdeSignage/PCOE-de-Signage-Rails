@@ -10,7 +10,7 @@ ActiveAdmin.register Slide do
 
     f.inputs do
       f.input :name
-      f.input :style, as: :select, collection: Slide.styles
+      f.input :style, as: :select, collection: Slide::STYLE_OPTIONS
       f.input :markup
       f.input :image, as: :file
     end
