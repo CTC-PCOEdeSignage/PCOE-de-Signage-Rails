@@ -29,6 +29,9 @@ RSpec.describe "Can Manage Users", :type => :system do
         click_link("Approve")
       end
 
+      expect(page).to have_content("User: Approved")
+      expect(page).to have_current_path(admin_users_path)
+
       user.reload
       expect(user).to be_approved
     end
@@ -38,6 +41,9 @@ RSpec.describe "Can Manage Users", :type => :system do
         expect(page).to have_content(user.email)
         click_link("Decline")
       end
+
+      expect(page).to have_content("User: Declined")
+      expect(page).to have_current_path(admin_users_path)
 
       user.reload
       expect(user).to be_declined

@@ -29,7 +29,8 @@ RSpec.describe "Can Manage Events", :type => :system do
         click_link("Approve")
       end
 
-      expect(page).to have_content(event.purpose)
+      expect(page).to have_content("Event: Approved")
+      expect(page).to have_current_path(admin_events_path)
       event.reload
       expect(event).to be_approved
     end
@@ -40,7 +41,8 @@ RSpec.describe "Can Manage Events", :type => :system do
         click_link("Decline")
       end
 
-      expect(page).to have_content(event.purpose)
+      expect(page).to have_content("Event: Declined")
+      expect(page).to have_current_path(admin_events_path)
       event.reload
       expect(event).to be_declined
     end

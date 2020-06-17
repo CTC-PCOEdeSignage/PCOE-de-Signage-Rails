@@ -7,12 +7,11 @@ ActiveAdmin.register Event do
     event_to_run = params[:aasm_event]
     resource.aasm.fire!(event_to_run)
 
-    redirect_to resource_path, notice: event_to_run
+    redirect_to admin_events_path, notice: "Event: #{resource.aasm.to_state.to_s.titleize}"
   end
 
   index do
     selectable_column
-    id_column
     column :user
     column :room
     column :start_at

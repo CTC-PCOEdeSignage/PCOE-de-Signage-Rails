@@ -7,7 +7,7 @@ ActiveAdmin.register User do
     event_to_run = params[:aasm_event]
     resource.aasm.fire!(event_to_run)
 
-    redirect_to resource_path, notice: event_to_run
+    redirect_to admin_users_path, notice: "User: #{resource.aasm.to_state.to_s.titleize}"
   end
 
   action_item only: :index do
@@ -51,7 +51,6 @@ ActiveAdmin.register User do
 
   index do
     selectable_column
-    id_column
     column :name
     column :email
     column "State" do |user|
