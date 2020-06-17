@@ -22,4 +22,12 @@ class EventMailer < ApplicationMailer
 
     mail to: @user.email, subject: SystemConfiguration.get(*@config_keys, "subject")
   end
+
+  def finish(event)
+    @event = event
+    @user = event.user
+    @config_keys = ["emails", "post_event"]
+
+    mail to: @user.email, subject: SystemConfiguration.get(*@config_keys, "subject")
+  end
 end

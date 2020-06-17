@@ -1,0 +1,3 @@
+<% content_for :body do %>
+  <%= SystemConfiguration.get(*@config_keys, "body") %>
+<% end %>

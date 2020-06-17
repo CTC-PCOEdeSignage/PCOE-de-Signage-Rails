@@ -11,6 +11,10 @@ class EventMailerPreview < ActionMailer::Preview
     EventMailer.decline(event)
   end
 
+  def finish
+    EventMailer.finish(event)
+  end
+
   private
 
   def event

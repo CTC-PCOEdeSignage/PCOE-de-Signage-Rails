@@ -26,15 +26,21 @@ class Event < ApplicationRecord
     event :approve do
       transitions from: :verified, to: :approved
       transitions from: :declined, to: :approved
+
+      after Senders::EventApprovedEmail
     end
 
     event :decline do
       transitions from: :verified, to: :declined
       transitions from: :approved, to: :declined
+
+      after Senders::EventDeclinedEmail
     end
 
     event :finish do
       transitions from: :approved, to: :finished
+
+      after Senders::EventFinishedEmail
     end
 
     after_all_transitions do

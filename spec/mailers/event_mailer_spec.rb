@@ -46,4 +46,18 @@ RSpec.describe EventMailer, type: :mailer do
       expect(mail.body.encoded).to match("request has been declined.")
     end
   end
+
+  describe "finish" do
+    let(:mail) { EventMailer.finish(event) }
+
+    it "renders the headers" do
+      expect(mail.subject).to include("How was your event?")
+      expect(mail.to).to eq(["rufus142@ohio.edu"])
+      expect(mail.from).to eq(["DoNotReply@ohio.edu"])
+    end
+
+    it "renders the body" do
+      expect(mail.body.encoded).to match("survey")
+    end
+  end
 end
