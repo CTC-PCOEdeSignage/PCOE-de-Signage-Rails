@@ -1,22 +1,25 @@
 <h1><%= @event.purpose %></h1>
 
 <% if @event.requested? %>
-  <p>
-    Event request received. Please check your email to confirm your request.
-  </p>
+  <p><%= Settings.web.requested %></p>
+<% end %>
+<% if @event.verified? %>
+  <p><%= Settings.web.pending %></p>
 <% end %>
 <% if @event.approved? %>
-  <p>
-    Your event request was approved. Please use the room at the date and time specified below.
-  </p>
+  <p><%= Settings.web.approved %></p>
 <% end %>
 <% if @event.declined? %>
-  <p>
-    Your event request was declined. If you have any questions please come to the... TODO.
-  </p>
+  <p><%= Settings.web.declined %></p>
 <% end %>
 <% if @event.finished? %>
-  <p>
-    Your event request was approved and is now over. Please take the survey at....
+  <p><%= Settings.web.finished %></p>
+<% end %>
+
+
+<h2>Event Details</h2>
+<% @event.details.each do |(key, value)| %>
+  <p style="font-family: sans-serif; font-size: 16px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
+    <b><%= key.titleize %>:</b>&nbsp;<span><%= value.strip %></span>
   </p>
 <% end %>

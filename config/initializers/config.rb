@@ -7,9 +7,11 @@ Config.setup do |config|
     required(:domain).filled
 
     required(:web).hash do
+      required(:requested).filled(:string)
+      required(:pending).filled(:string)
       required(:approved).filled(:string)
       required(:declined).filled(:string)
-      required(:pending).filled(:string)
+      required(:finished).filled(:string)
       required(:room_policies).filled(:string)
     end
 
