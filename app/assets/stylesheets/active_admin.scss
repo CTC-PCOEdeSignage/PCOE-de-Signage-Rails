@@ -10,4 +10,9 @@
 // Active Admin's got SASS!
 @import "active_admin/mixins";
 @import "active_admin/base";
-@import "slides/defaults"
+@import "slides/defaults";
+
+#editor {
+  min-height: 300px;
+  height: 60vh;
+}

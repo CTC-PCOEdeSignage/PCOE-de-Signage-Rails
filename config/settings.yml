@@ -1,0 +1,83 @@
+domain: ohio.edu
+web:
+  approved: >
+    After verifying your email address, your project room request has been approved.
+  declined: >
+    We’re sorry, but your project room request has been declined. If you think this has been an error, please
+    visit the CTC to clarify.
+  pending: >
+    Thank you for verifying your email address. Your project room request is pending approval of one of
+    our administrators.
+  room_policies: |
+    # Project Room Policies
+
+    - **Reservations must be placed by filling out the online form.**
+    - A valid Ohio University email address is required to reserve a project room, and your major must be within The Patton College.
+    - **Please reserve your room at least 12 hours before you wish to use it in order to ensure the DAATC has time to review your request.**
+    - Once your reservation has been approved, you will receive notification by email, and will need to stop by the DAATC front desk to have staff unlock the room.
+    - Please note there must be a minimum occupancy (2 people) for each room before making your request. Reservations not meeting the occupancy requirements may be denied during times when there is heavy demand.
+    - All food and drink must be cleaned up before you leave so that the room is ready for the next user. You will be charged a fee if cleanup/maintenance is required after your reservation is complete.
+    - You must shut off the lights and lock the door when you leave.
+emails:
+  from: "DoNotReply@ohio.edu"
+  signature: >
+    If you have any questions about this email or the Project Rooms,
+    please stop by the CTC on the 2nd floor of McCracken Hall.
+  verification:
+    subject: "PCOE Project Room Verification"
+    body: >
+      You are receiving this email because you scheduled a project room and we need to verify your email.
+
+      To verify, click the button below.
+    cta:
+      text: Verify!
+  approved:
+    subject: "PCOE Project Room Event: Approved"
+    body: >
+      Your project room request has been approved. You can now use the room at the time requested below.
+  declined:
+    subject: "PCOE Project Room Event: Declined"
+    body: >
+      We’re sorry, but your project room request has been declined. If you think this has been an error, please
+      contact someone at the CTC to clarify.
+  post_event:
+    subject: "PCOE Project Room Event: How was your event?"
+    body: >
+      We hope your project room event went well. To improve the spaces and ensure the spaces continue to meet
+      your needs, please take this survey to give us feedback on the space for the event below.
+
+      https://ohio.qualtrics.com/the-awesome-survey
+duration:
+  default: 30
+  options:
+    - text: 30 mins
+      minutes: 30
+    - text: 1 hr
+      minutes: 60
+    - text: 2 hrs
+      minutes: 120
+limits:
+  events_in_future: 1
+  days_in_future: 14
+availability:
+  sunday:
+    start: 12 am
+    end: 12 am
+  monday:
+    start: 8 am
+    end: 5 pm
+  tuesday:
+    start: 8 am
+    end: 5 pm
+  wednesday:
+    start: 8 am
+    end: 5 pm
+  thursday:
+    start: 8 am
+    end: 5 pm
+  friday:
+    start: 8 am
+    end: 5 pm
+  saturday:
+    start: 12 am
+    end: 12 am

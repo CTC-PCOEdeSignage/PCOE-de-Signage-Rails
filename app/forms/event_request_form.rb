@@ -28,7 +28,7 @@ class EventRequestForm < Rectify::Form
   def full_email
     return unless ohioid
 
-    [ohioid.downcase, "@", SystemConfiguration.get(:domain)].join
+    [ohioid.downcase, "@", Settings.domain].join
   end
 
   def duration_select_options

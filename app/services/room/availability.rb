@@ -30,7 +30,7 @@ class Room
     end
 
     def global
-      SystemConfiguration.get(:availability)
+      Settings.availability
     end
   end
 end

@@ -4,8 +4,8 @@ class Event
     # Site-wide configurable default (e.g. 1 hour)
     # Per-user configurable (overrides default)
 
-    SITE_WIDE_OPTIONS = SystemConfiguration.get(:duration, :options).map { |option| [option["text"].to_s, option["minutes"].to_i] }.to_h
-    SITE_WIDE_DEFAULT = SystemConfiguration.get(:duration, :default).to_i
+    SITE_WIDE_OPTIONS = Settings.duration.options.map(&:to_hash).map { |option| [option[:text], option[:minutes]] }.to_h
+    SITE_WIDE_DEFAULT = Settings.duration.default
 
     def initialize(room: nil, user: nil)
       @room = room

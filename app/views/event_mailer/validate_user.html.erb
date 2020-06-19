@@ -1,8 +1,8 @@
 <% content_for :body do %>
-  <%= SystemConfiguration.get(*@config_keys, "body") %>
+  <%= @settings_base.body %>
 <% end %>
 <% content_for :call_to_action_text do %>
-  <%= SystemConfiguration.get(*@config_keys, "cta", "text") %>
+  <%= @settings_base.cta.text %>
 <% end %>
 <% content_for :call_to_action_url do %>
   <%= verify_room_event_request_confirmation_url(event_request_id: @event.id, room_id: @event.room.id, verification_identifier: @event.verification_identifier) %>

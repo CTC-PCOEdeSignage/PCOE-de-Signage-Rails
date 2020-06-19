@@ -8,8 +8,8 @@ class Event
     # Site-wide configurable default (e.g. 1 event)
     # Per-user configurable (overrides default)
 
-    SITE_WIDE_DAYS_IN_FUTURE = SystemConfiguration.get(:limits, :days_in_future).to_i
-    SITE_WIDE_EVENTS_IN_FUTURE = SystemConfiguration.get(:limits, :events_in_future).to_i
+    SITE_WIDE_DAYS_IN_FUTURE = Settings.limits.days_in_future
+    SITE_WIDE_EVENTS_IN_FUTURE = Settings.limits.events_in_future
 
     def initialize(room: nil, user: nil)
       @room = room

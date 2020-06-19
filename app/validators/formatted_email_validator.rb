@@ -3,7 +3,7 @@ class FormattedEmailValidator < ActiveModel::EachValidator
     return if value.nil?
 
     add_error(record, attribute, "is not an email") unless value.include?("@")
-    add_error(record, attribute, "does not contain domain") unless value.include?(SystemConfiguration.get("domain"))
+    add_error(record, attribute, "does not contain domain") unless value.include?(Settings.domain)
   end
 
   private

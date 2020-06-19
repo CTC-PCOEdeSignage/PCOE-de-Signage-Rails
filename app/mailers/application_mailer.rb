@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: -> { SystemConfiguration.get("emails", "from") }
+  default from: -> { Settings.emails.from }
   layout "mailer"
 end

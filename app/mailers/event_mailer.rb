@@ -2,32 +2,32 @@ class EventMailer < ApplicationMailer
   def validate_user(event)
     @event = event
     @user = event.user
-    @config_keys = ["emails", "verification"]
+    @settings_base = Settings.emails.verification
 
-    mail to: @user.email, subject: SystemConfiguration.get(*@config_keys, "subject")
+    mail to: @user.email, subject: @settings_base.subject
   end
 
   def approve(event)
     @event = event
     @user = event.user
-    @config_keys = ["emails", "approved"]
+    @settings_base = Settings.emails.approved
 
-    mail to: @user.email, subject: SystemConfiguration.get(*@config_keys, "subject")
+    mail to: @user.email, subject: @settings_base.subject
   end
 
   def decline(event)
     @event = event
     @user = event.user
-    @config_keys = ["emails", "declined"]
+    @settings_base = Settings.emails.declined
 
-    mail to: @user.email, subject: SystemConfiguration.get(*@config_keys, "subject")
+    mail to: @user.email, subject: @settings_base.subject
   end
 
   def finish(event)
     @event = event
     @user = event.user
-    @config_keys = ["emails", "post_event"]
+    @settings_base = Settings.emails.post_event
 
-    mail to: @user.email, subject: SystemConfiguration.get(*@config_keys, "subject")
+    mail to: @user.email, subject: @settings_base.subject
   end
 end
