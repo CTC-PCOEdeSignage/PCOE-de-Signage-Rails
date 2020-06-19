@@ -24,7 +24,7 @@ This is a simple, web-based digital signage system that is written in Ruby on Ra
 This project uses many open source projects to work:
 
 - [Ruby on Rails](https://github.com/rails/rails)
-- [Ruby 2.7.1](https://www.ruby-lang.org/en/)
+- [Ruby 2.6.6](https://www.ruby-lang.org/en/)
 - [Bootstrap 4](https://getbootstrap.com/)
 - [Turbolinks](https://github.com/turbolinks/turbolinks)
 
@@ -144,7 +144,7 @@ The username/password to capture the LibCal-related information is stored in the
 
 # Setup your Server
 
-This guide assumes you have an Ubuntu 18.04 LTS box already setup. Instead of maintaining our own guide, we've found this helpful guide on [this gorails](https://gorails.com/setup/ubuntu/18.04). NOTE: You may skip the directions for "Setting Up MySQL, Setting Up PostgresSQL, and Final Steps". Also, our Ruby version is 2.7.1
+This guide assumes you have an Ubuntu 18.04 LTS box already setup. Instead of maintaining our own guide, we've found this helpful guide on [this gorails](https://gorails.com/setup/ubuntu/18.04). NOTE: You may skip the directions for "Setting Up MySQL, Setting Up PostgresSQL, and Final Steps". Also, our Ruby version is 2.6.6
 
 
 ## Configure
