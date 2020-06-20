@@ -72,6 +72,12 @@ RSpec.configure do |config|
     driven_by ENGINE
   end
 
+  TEST_CONFIG_PATH = Rails.root.join("config", "settings", "test.yml")
+  config.before(:each) do
+    File.unlink(TEST_CONFIG_PATH) if File.exists?(TEST_CONFIG_PATH)
+    Config.reload!
+  end
+
   config.before(:each, type: :system, js: true) do
     Capybara.javascript_driver = ENGINE
     driven_by ENGINE

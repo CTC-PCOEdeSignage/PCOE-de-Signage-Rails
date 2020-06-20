@@ -62,7 +62,7 @@ RSpec.describe "Can Manage Users", :type => :system do
       expect(page).to have_content("Settings not updated")
       expect(page).to have_content("domain is missing")
       expect(page).to have_content("web:")
-      expect(page).to have_content("approved: 'After verifying")
+      expect(page).to have_content("approved: After verifying")
       expect(page).to_not have_content("domain: ohio.edu".to_yaml)
     end
 
