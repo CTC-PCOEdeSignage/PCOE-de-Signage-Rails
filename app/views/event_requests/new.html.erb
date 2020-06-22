@@ -6,26 +6,28 @@
 <div class="row pt-2">
   <div class="col-md-12">
     <% @form.errors.each do |error| %>
-      <%= error.inspect%>
-    <% end%>
+      <%= error.inspect %>
+    <% end %>
   </div>
 </div>
 <div class="row pt-2">
-  <div class="col-md-12">
+  <div class="col-md-6">
     <%= form_with model: @form, url: room_event_requests_path do |f| %>
       <div class="form-group">
         <%= f.label :ohioid %>
         <div class="input-group mb-3">
-          <%= f.text_field :ohioid, required: true, placeholder: "OHIO ID", class: "form-control", aria: { label: "Scheduler's OHIO ID", describedby: "domain_append" } %>
+          <%= f.text_field :ohioid, required: true, placeholder: t("event.ohioid", scope: ["helpers", "label"]), class: "form-control", aria: { label: "Scheduler's OHIO ID", describedby: "domain_append" } %>
           <div class="input-group-append">
-            <span class="input-group-text" id="domain-append">@ohio.edu</span>
+            <span class="input-group-text" id="domain-append">@<%= Settings.domain %></span>
           </div>
         </div>
       </div>
+      <%= f.hidden_field :start_at %>
       <div class="form-group">
-        <%= f.hidden_field :start_at %>
         <%= f.label :date %>
         <%= f.text_field :date, type: :date, min: "TODO", max: "TODO", required: true %>
+      </div>
+      <div class="form-group">
         <%= f.label :time %>
         <%= f.text_field :time, type: :time, min: "TODO", max: "TODO", step: "1800", required: true %>
       </div>

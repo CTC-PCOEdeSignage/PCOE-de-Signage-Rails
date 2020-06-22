@@ -2,3 +2,7 @@ en:
   site:
     title: "PCOE Project Rooms | %{name}"
     app_name: "PCOE Project Rooms"
+  helpers:
+    label:
+      event:
+        ohioid: OHIO ID
