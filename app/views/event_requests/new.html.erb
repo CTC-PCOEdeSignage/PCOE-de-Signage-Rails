@@ -3,45 +3,17 @@
     <h1>Schedule <%= @form.context.room.name %></h1>
   </div>
 </div>
-<div class="row pt-2">
-  <div class="col-md-12">
-    <% @form.errors.each do |error| %>
-      <%= error.inspect %>
-    <% end %>
-  </div>
-</div>
+
 <div class="row pt-2">
   <div class="col-md-6">
-    <%= form_with model: @form, url: room_event_requests_path do |f| %>
-      <div class="form-group">
-        <%= f.label :ohioid %>
-        <div class="input-group mb-3">
-          <%= f.text_field :ohioid, required: true, placeholder: t("event.ohioid", scope: ["helpers", "label"]), class: "form-control", aria: { label: "Scheduler's OHIO ID", describedby: "domain_append" } %>
-          <div class="input-group-append">
-            <span class="input-group-text" id="domain-append">@<%= Settings.domain %></span>
-          </div>
-        </div>
-      </div>
-      <%= f.hidden_field :start_at %>
-      <div class="form-group">
-        <%= f.label :date %>
-        <%= f.text_field :date, type: :date, min: "TODO", max: "TODO", required: true %>
-      </div>
-      <div class="form-group">
-        <%= f.label :time %>
-        <%= f.text_field :time, type: :time, min: "TODO", max: "TODO", step: "1800", required: true %>
-      </div>
-      <div class="form-group">
-        <%= f.label :duration %>
-        <%= f.select :duration, options_for_select(f.object.duration_select_options, f.object.duration_select_default) %>
-      </div>
-      <div class="form-group">
-        <%= f.label :purpose %>
-        <%= f.text_area :purpose, class: "form-control", rows: 3 %>
-      </div>
-      <div class="form-group">
-        <%= f.submit "Request" %>
-      </div>
+    <%= bootstrap_form_for @form, url: room_event_requests_path, data: { controller: "event_request" } do |f| %>
+      <%= f.text_field :ohioid, placeholder: t("event.ohioid", scope: ["helpers", "label"]), append: "@" << Settings.domain %>
+      <%= f.hidden_field :start_at, data: { target: "event_request.dateTime" } %>
+      <%= f.date_field :date, min: "TODO", max: "TODO", required: true, data: { target: "event_request.date", action: "event_request#update" } %>
+      <%= f.time_field :time, min: "TODO", max: "TODO", step: "1800", required: true, data: { target: "event_request.time", action: "event_request#update" } %>
+      <%= f.select :duration, options_for_select(f.object.duration_select_options, f.object.duration_select_default) %>
+      <%= f.text_area :purpose, class: "form-control", rows: 3 %>
+      <%= f.submit "Request" %>
     <% end %>
   </div>
 </div>

@@ -1,0 +1,1 @@
+window.application = Stimulus.Application.start()

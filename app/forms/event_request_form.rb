@@ -10,6 +10,8 @@ class EventRequestForm < Rectify::Form
   mimic :event
 
   attribute :ohioid, String
+  attribute :date, Date # this is a placeholder attribute
+  attribute :time, Time # this is a placeholder attribute
   attribute :start_at, DateTimeWithZone
   attribute :duration, Integer
   attribute :purpose, String
@@ -40,17 +42,16 @@ class EventRequestForm < Rectify::Form
   end
 
   def date
-    next_available_time.strftime("%Y-%m-%d")
+    @date ||= next_available
   end
 
   def time
-    next_available_time.strftime("%H:%M")
+    @time ||= next_available
   end
 
   private
 
-  def next_available_time
-    # TODO
+  def next_available
     1.hour.from_now.beginning_of_hour
   end
 
@@ -73,6 +74,10 @@ class EventRequestForm < Rectify::Form
   def check_valid_date
     return unless start_at.presence
 
-    errors.add(:start_at, "must be in the future") if start_at < Time.current
+    if start_at < Time.current
+      errors.add(:start_at, "must be in the future")
+      errors.add(:date, "must be in the future")
+      errors.add(:time, "must be in the future")
+    end
   end
 end

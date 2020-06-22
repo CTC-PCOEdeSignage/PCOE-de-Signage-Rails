@@ -1,5 +1,9 @@
 //= require turbolinks
 
+//= require stimulus
+//= require ./controllers/setup_stimulus
+//= require ./controllers/event_request_controller
+
 var slideLength = function () {
   return parseInt(document.body.dataset.slideLength, 10) * 1000;
 }
@@ -10,10 +14,6 @@ var nextSlideUrl = function () {
 
 var isSlidePage = function () {
   return document.body.classList.contains('screen-layout') && (document.querySelectorAll('.slide').length === 1)
-}
-
-var isEventRequestFormPage = function () {
-  return document.body.classList.contains("EventRequestNew")
 }
 
 var advanceToNextSlide = function () {
@@ -78,30 +78,9 @@ var setupSlidePage = function () {
   goToNextSlideAfterTimeout();
 }
 
-var updateStartAt = function () {
-  var startAt = document.querySelector("form #event_start_at")
-
-  var eventDateValue = document.querySelector("form #event_date").value
-  var eventTimeValue = document.querySelector("form #event_time").value
-
-  if (eventDateValue && eventTimeValue) {
-    startAt.value = [eventDateValue, eventTimeValue].join("T")
-  }
-  console.log(startAt.value)
-}
-var setupEventRequestPage = function () {
-  if (!isEventRequestFormPage()) {
-    log('Not Event RequestFormPage');
-    return
-  }
-
-  document.querySelector("form #event_date").addEventListener("change", updateStartAt)
-  document.querySelector("form #event_time").addEventListener("change", updateStartAt)
-}
 
 var ready = function () {
   setupSlidePage()
-  setupEventRequestPage()
 }
 
 var keyDownEvent = function (event) {

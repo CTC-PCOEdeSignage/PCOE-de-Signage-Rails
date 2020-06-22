@@ -5,37 +5,54 @@ RSpec.describe "Request Event", :type => :system do
 
   before { visit new_room_event_request_path(room) }
 
-  include_examples "accessible"
+  describe "happy path" do
+    include_examples "accessible"
 
-  it "should have room name" do
-    expect(page).to have_text("Schedule #{room.name}")
+    it "should have room name" do
+      expect(page).to have_text("Schedule #{room.name}")
+    end
+
+    it "should allow you to request event and create user end event" do
+      submit_event_request
+
+      user, event = User.first, Event.first
+
+      expect(User.count).to eq(1)
+      expect(Event.count).to eq(1)
+      expect(user.email).to eq("rufus142@ohio.edu")
+      expect(event.start_at).to eq(1.day.from_now.beginning_of_hour)
+      expect(event.duration).to eq(120)
+      expect(event.purpose).to eq("Bobcat cage escape training")
+    end
+
+    it "should redirect to a confirmation page" do
+      submit_event_request
+
+      should_be_on_confirmation_page
+    end
+
+    it "should email a verification email" do
+      expect { submit_event_request }.to change { ActionMailer::Base.deliveries.size }.by(1)
+
+      mail = ActionMailer::Base.deliveries.last
+      expect(mail.to).to include("rufus142@ohio.edu")
+      expect(mail.body.encoded).to include("Verify")
+    end
   end
 
-  it "should allow you to request event and create user end event" do
-    submit_event_request
+  describe "when error" do
+    before { submit_event_request(ohioid: "too_long_ohio_id") }
 
-    user, event = User.first, Event.first
+    it "should show error message" do
+      expect(page).to have_content("must be valid OHIO ID")
+    end
 
-    expect(User.count).to eq(1)
-    expect(Event.count).to eq(1)
-    expect(user.email).to eq("rufus142@ohio.edu")
-    expect(event.start_at).to eq(1.day.from_now.beginning_of_hour)
-    expect(event.duration).to eq(120)
-    expect(event.purpose).to eq("Bobcat cage escape training")
-  end
+    it "should be fixable and re-submittable" do
+      submit_event_request
+      should_be_on_confirmation_page
+    end
 
-  it "should redirect to a confirmation page" do
-    submit_event_request
-
-    expect(page).to have_content("Event request received")
-  end
-
-  it "should email a verification email" do
-    expect { submit_event_request }.to change { ActionMailer::Base.deliveries.size }.by(1)
-
-    mail = ActionMailer::Base.deliveries.last
-    expect(mail.to).to include("rufus142@ohio.edu")
-    expect(mail.body.encoded).to include("Verify")
+    include_examples "accessible"
   end
 
   def submit_event_request(ohioid: "rufus142", duration: "2 hrs", base_time: 1.day.from_now.beginning_of_hour, purpose: "Bobcat cage escape training")
@@ -46,5 +63,9 @@ RSpec.describe "Request Event", :type => :system do
     fill_in "Purpose", with: purpose
 
     click_on "Request"
+  end
+
+  def should_be_on_confirmation_page
+    expect(page).to have_content("Event request received")
   end
 end
