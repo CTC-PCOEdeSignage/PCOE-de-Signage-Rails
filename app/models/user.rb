@@ -2,7 +2,7 @@ class User < ApplicationRecord
   include HasDurationOptions
 
   has_many :events
-  has_many :future_events, -> { future_events }, class_name: "Event"
+  has_many :future_events, -> { future }, class_name: "Event"
 
   validates :email, presence: true, uniqueness: true, formatted_email: true
   validates_presence_of :aasm_state

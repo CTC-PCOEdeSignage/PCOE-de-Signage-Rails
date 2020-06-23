@@ -5,7 +5,8 @@ class Event < ApplicationRecord
   validates_presence_of :verification_identifier
   validates_uniqueness_of :verification_identifier
 
-  scope :future_events, -> { where("start_at > ?", Time.current) }
+  scope :future, -> { where("start_at > ?", Time.current) }
+  scope :needs_approval, -> { future.verified.or(future.declined) }
 
   belongs_to :user
   belongs_to :room

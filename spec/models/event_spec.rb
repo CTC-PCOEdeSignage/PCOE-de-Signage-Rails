@@ -18,6 +18,23 @@ RSpec.describe Event, type: :model do
     it { is_expected.to validate_uniqueness_of(:verification_identifier) }
   end
 
+  describe "scopes" do
+    it ".needs_approval" do
+      create(:event, purpose: "not included")
+      create(:event, purpose: "INCLUDED", aasm_state: :verified)
+      create(:event, purpose: "not included", aasm_state: :approved)
+      create(:event, purpose: "INCLUDED", aasm_state: :declined)
+      create(:event, purpose: "not included", aasm_state: :finished)
+
+      need_approval = Event.needs_approval
+
+      expect(need_approval.count).to eq(2)
+      need_approval.each do |event|
+        expect(event.purpose).to eq("INCLUDED")
+      end
+    end
+  end
+
   describe "state machine" do
     subject { build(:event) }
 

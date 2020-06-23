@@ -39,9 +39,11 @@ ActiveAdmin.register Event do
   filter :start_at
 
   scope :all, default: true
+  scope :future
   scope :requested
   scope :verified
   scope :approved
   scope :declined
   scope :finished
+  scope :needs_approval
 end
