@@ -31,10 +31,14 @@ class EventRequestForm < Rectify::Form
     @user ||= User.find_or_create_by(email: full_email)
   end
 
+  def ohioid
+    @ohioid&.downcase&.strip
+  end
+
   def full_email
     return unless ohioid
 
-    [ohioid.downcase, "@", Settings.domain].join
+    [ohioid, "@", Settings.domain].join
   end
 
   def duration_select_options

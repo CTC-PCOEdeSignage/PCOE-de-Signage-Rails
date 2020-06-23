@@ -5,7 +5,7 @@ RSpec.describe EventRequestForm, type: :form do
   let(:base_time) { 1.day.from_now.beginning_of_hour }
   let(:valid_params) do
     {
-      ohioid: "rufus142",
+      ohioid: " rufus142  ", #extra space intentional to simulate extra space
       room_id: room.id,
       start_at: base_time.iso8601.to_s,
       duration: 60,
