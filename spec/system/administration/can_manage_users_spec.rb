@@ -63,6 +63,36 @@ RSpec.describe "Can Manage Users", :type => :system do
       user.reload
       expect(user.duration_options).to eq [15, 30, 90]
     end
+
+    it "can set events_in_future" do
+      within_dom_id(user) do
+        click_link("Edit")
+      end
+
+      expect(page).to have_content "Limit: Events in Future"
+
+      fill_in "Limit: Events in Future", with: 10
+      click_button "Update User"
+
+      expect(page).to have_content "EVENTS IN FUTURE 10"
+      user.reload
+      expect(user.events_in_future).to eq 10
+    end
+
+    it "can set days_in_future" do
+      within_dom_id(user) do
+        click_link("Edit")
+      end
+
+      expect(page).to have_content "Limit: Days in Future"
+
+      fill_in "Limit: Days in Future", with: 10
+      click_button "Update User"
+
+      expect(page).to have_content "DAYS IN FUTURE 10"
+      user.reload
+      expect(user.days_in_future).to eq 10
+    end
   end
 
   describe "bulk import" do

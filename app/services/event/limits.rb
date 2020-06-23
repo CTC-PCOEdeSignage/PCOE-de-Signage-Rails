@@ -11,13 +11,12 @@ class Event
     SITE_WIDE_DAYS_IN_FUTURE = Settings.limits.days_in_future
     SITE_WIDE_EVENTS_IN_FUTURE = Settings.limits.events_in_future
 
-    def initialize(room: nil, user: nil)
-      @room = room
+    def initialize(user: nil)
       @user = user
     end
 
     def days_in_future
-      (per_user_days_in_future || SITE_WIDE_DAYS_IN_FUTURE).days
+      per_user_days_in_future || SITE_WIDE_DAYS_IN_FUTURE
     end
 
     def events_in_future
@@ -27,11 +26,11 @@ class Event
     private
 
     def per_user_days_in_future
-      nil #TODO
+      @user&.days_in_future
     end
 
     def per_user_events_in_future
-      nil #TODO
+      @user&.events_in_future
     end
   end
 end

@@ -2,9 +2,12 @@ class User < ApplicationRecord
   include HasDurationOptions
 
   has_many :events
+  has_many :future_events, -> { future_events }, class_name: "Event"
 
   validates :email, presence: true, uniqueness: true, formatted_email: true
   validates_presence_of :aasm_state
+  validates_numericality_of :events_in_future, allow_nil: true, only_integer: true, greater_than_or_equal_to: 1
+  validates_numericality_of :days_in_future, allow_nil: true, only_integer: true, greater_than_or_equal_to: 1
 
   before_save { self.email = self.email.downcase }
 
@@ -36,5 +39,11 @@ class User < ApplicationRecord
     else
       email
     end
+  end
+
+  def ohioid
+    return unless email?
+
+    email.split("@").first
   end
 end

@@ -75,4 +75,55 @@ RSpec.describe EventRequestForm, type: :form do
       expect(subject.errors).to include(:purpose)
     end
   end
+
+  context "with existing user" do
+    let(:days_in_future) { 7 }
+    let(:events_in_future) { 2 }
+    let(:user) do
+      create(:user, email: "rufus142@ohio.edu",
+                    days_in_future: days_in_future,
+                    events_in_future: events_in_future)
+    end
+    let!(:event) { create(:event, user: user) }
+    let(:params) do
+      {
+        ohioid: "rufus142",
+        room_id: room.id,
+        start_at: start_at,
+        duration: 60,
+        purpose: Faker::Lorem.paragraph,
+      }
+    end
+    let(:ctx) { { room: room } }
+    let(:start_at) { 2.days.from_now.iso8601.to_s }
+
+    before { user }
+
+    it "should allow you to create another event if you have not reached your event limit" do
+      expect(EventRequestForm
+        .from_params(params)
+        .with_context(ctx)).to be_valid
+    end
+
+    context "when events in future is 1" do
+      let(:events_in_future) { 1 }
+
+      it "should not allow you to create another event if you have reached your event limit" do
+        subject = EventRequestForm.from_params(params).with_context(ctx)
+        expect(subject).to_not be_valid
+        expect(subject.errors.full_messages).to include("Time already reached event limit")
+      end
+    end
+
+    context "when days in future is 1" do
+      let(:days_in_future) { 1 }
+      let(:start_at) { 3.days.from_now.iso8601.to_s }
+
+      it "should not allow you to create an event too far into future" do
+        subject = EventRequestForm.from_params(params).with_context(ctx)
+        expect(subject).to_not be_valid
+        expect(subject.errors.full_messages).to include(/Time too far in future./)
+      end
+    end
+  end
 end

@@ -1,7 +1,7 @@
 ActiveAdmin.register User do
   menu priority: 1
 
-  permit_params :email, :first_name, :last_name, :duration_options_string
+  permit_params :email, :first_name, :last_name, :duration_options_string, :events_in_future, :days_in_future
 
   member_action :run, method: :post do
     event_to_run = params[:aasm_event]
@@ -87,6 +87,8 @@ ActiveAdmin.register User do
       f.input :last_name
       f.input :email
       f.input :duration_options_string, label: "Duration Options"
+      f.input :events_in_future, label: "Limit: Events in Future"
+      f.input :days_in_future, label: "Limit: Days in Future"
     end
     f.actions
   end

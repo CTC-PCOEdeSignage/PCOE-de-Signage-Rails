@@ -21,10 +21,14 @@ class EventRequestForm < Rectify::Form
   validate :check_room
   validate :check_ohioid
   validate :check_valid_date
+  validate :check_limit_days_in_future
+  validate :check_limit_events_in_future
   validates_length_of :purpose, within: 3..500
 
   def user
-    @user ||= User.find_by(email: full_email)
+    return nil unless full_email
+
+    @user ||= User.find_or_create_by(email: full_email)
   end
 
   def full_email
@@ -46,12 +50,11 @@ class EventRequestForm < Rectify::Form
   end
 
   def date_min
-    Time.current
+    next_available
   end
 
   def date_max
-    # TODO
-    2.weeks.from_now
+    (limits.days_in_future).days.from_now
   end
 
   def time
@@ -61,11 +64,20 @@ class EventRequestForm < Rectify::Form
   private
 
   def next_available
+    # TODO
     1.hour.from_now.beginning_of_hour
   end
 
   def duration_options
     @duration_options = Event::DurationOptions.new(room: context.room, user: user)
+  end
+
+  def limits
+    @limits ||= Event::Limits.new(user: user)
+  end
+
+  def limit_events_in_future
+    limits.events_in_future
   end
 
   def check_room
@@ -84,9 +96,29 @@ class EventRequestForm < Rectify::Form
     return unless start_at.presence
 
     if start_at < Time.current
-      errors.add(:start_at, "must be in the future")
-      errors.add(:date, "must be in the future")
-      errors.add(:time, "must be in the future")
+      add_errors_to_time_fields("must be in the future")
     end
+  end
+
+  def check_limit_days_in_future
+    return unless start_at
+
+    if start_at > limits.days_in_future.days.from_now
+      add_errors_to_time_fields("too far in future. Pick date less than #{limits.days_in_future} in future")
+    end
+  end
+
+  def check_limit_events_in_future
+    add_errors_to_time_fields("already reached event limit") if users_future_events.size == limit_events_in_future
+  end
+
+  def users_future_events
+    user&.future_events || []
+  end
+
+  def add_errors_to_time_fields(message)
+    errors.add(:start_at, message)
+    errors.add(:date, message)
+    errors.add(:time, message)
   end
 end

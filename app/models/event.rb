@@ -5,6 +5,8 @@ class Event < ApplicationRecord
   validates_presence_of :verification_identifier
   validates_uniqueness_of :verification_identifier
 
+  scope :future_events, -> { where("start_at > ?", Time.current) }
+
   belongs_to :user
   belongs_to :room
 
