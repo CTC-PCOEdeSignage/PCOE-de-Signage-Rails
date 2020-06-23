@@ -29,10 +29,7 @@ Config.setup do |config|
 
     required(:duration).hash do
       required(:default).filled(:integer)
-      required(:options).array(:hash, min_size?: 2) do
-        required(:text).filled(:string)
-        required(:minutes).filled(:integer)
-      end
+      required(:options).array(:integer, min_size?: 1)
     end
 
     required(:limits).hash do

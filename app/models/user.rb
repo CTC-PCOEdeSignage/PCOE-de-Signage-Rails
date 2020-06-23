@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include HasDurationOptions
+
   has_many :events
 
   validates :email, presence: true, uniqueness: true, formatted_email: true

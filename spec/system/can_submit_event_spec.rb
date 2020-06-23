@@ -55,7 +55,7 @@ RSpec.describe "Request Event", :type => :system do
     include_examples "accessible"
   end
 
-  def submit_event_request(ohioid: "rufus142", duration: "2 hrs", base_time: 1.day.from_now.beginning_of_hour, purpose: "Bobcat cage escape training")
+  def submit_event_request(ohioid: "rufus142", duration: "2 hours", base_time: 1.day.from_now.beginning_of_hour, purpose: "Bobcat cage escape training")
     fill_in "event[ohioid]", with: ohioid
     fill_in "Date", with: base_time
     fill_in "Time", with: base_time

@@ -48,6 +48,21 @@ RSpec.describe "Can Manage Users", :type => :system do
       user.reload
       expect(user).to be_declined
     end
+
+    it "can set duration_options for user" do
+      within_dom_id(user) do
+        click_link("Edit")
+      end
+
+      expect(page).to have_content "Duration Options"
+
+      fill_in "Duration Options", with: "15, 30, 90"
+      click_button "Update User"
+
+      expect(page).to have_content "15, 30, 90"
+      user.reload
+      expect(user.duration_options).to eq [15, 30, 90]
+    end
   end
 
   describe "bulk import" do

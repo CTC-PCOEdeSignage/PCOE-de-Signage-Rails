@@ -47,4 +47,6 @@ RSpec.describe User, type: :model do
       expect(subject).to allow_event(:approve)
     end
   end
+
+  include_examples "duration optionable", :user
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_17_184502) do
+ActiveRecord::Schema.define(version: 2020_06_22_215412) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 2020_06_17_184502) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "duration_options"
   end
 
   create_table "screens", force: :cascade do |t|
@@ -137,6 +138,7 @@ ActiveRecord::Schema.define(version: 2020_06_17_184502) do
     t.string "aasm_state", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "duration_options"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

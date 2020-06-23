@@ -45,6 +45,15 @@ class EventRequestForm < Rectify::Form
     @date ||= next_available
   end
 
+  def date_min
+    Time.current
+  end
+
+  def date_max
+    # TODO
+    2.weeks.from_now
+  end
+
   def time
     @time ||= next_available
   end
@@ -56,7 +65,7 @@ class EventRequestForm < Rectify::Form
   end
 
   def duration_options
-    @duration_options ||= Event::DurationOptions.new(room: context.room, user: user)
+    @duration_options = Event::DurationOptions.new(room: context.room, user: user)
   end
 
   def check_room

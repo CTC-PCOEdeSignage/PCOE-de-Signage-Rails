@@ -1,7 +1,7 @@
 ActiveAdmin.register User do
   menu priority: 1
 
-  permit_params :email, :first_name, :last_name
+  permit_params :email, :first_name, :last_name, :duration_options_string
 
   member_action :run, method: :post do
     event_to_run = params[:aasm_event]
@@ -86,6 +86,7 @@ ActiveAdmin.register User do
       f.input :first_name
       f.input :last_name
       f.input :email
+      f.input :duration_options_string, label: "Duration Options"
     end
     f.actions
   end

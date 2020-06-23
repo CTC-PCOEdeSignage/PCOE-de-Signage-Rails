@@ -9,4 +9,6 @@ RSpec.describe Room, type: :model do
     it { is_expected.to have_many(:events) }
     it { is_expected.to have_many(:screens) }
   end
+
+  include_examples "duration optionable", :room
 end

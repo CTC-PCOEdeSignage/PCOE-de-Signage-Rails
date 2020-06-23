@@ -1,7 +1,7 @@
 ActiveAdmin.register Room do
   menu priority: 4
 
-  permit_params :name, :building, :room
+  permit_params :name, :building, :room, :duration_options_string
 
   config.sort_order = "room_asc"
 
@@ -12,6 +12,7 @@ ActiveAdmin.register Room do
       f.input :name
       f.input :building
       f.input :room
+      f.input :duration_options_string, label: "Duration Options"
     end
     f.actions
   end

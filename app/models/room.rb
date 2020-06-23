@@ -1,4 +1,6 @@
 class Room < ApplicationRecord
+  include HasDurationOptions
+
   validates_presence_of :name, :building, :room
 
   has_many :events
