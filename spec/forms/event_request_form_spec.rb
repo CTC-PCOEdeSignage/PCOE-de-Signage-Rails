@@ -2,17 +2,16 @@ require "rails_helper"
 
 RSpec.describe EventRequestForm, type: :form do
   let(:room) { create(:room) }
-  let(:base_time) { 1.day.from_now.beginning_of_hour }
+  let(:time) { 1.day.from_now.beginning_of_hour }
   let(:valid_params) do
     {
       ohioid: " rufus142  ", #extra space intentional to simulate extra space
       room_id: room.id,
-      start_at: base_time.iso8601.to_s,
+      start_at: time.iso8601.to_s,
       duration: 60,
       purpose: Faker::Lorem.paragraph,
     }
   end
-
   let(:context) { { room: room } }
   subject { EventRequestForm.from_params(valid_params).with_context(context) }
 
@@ -50,7 +49,7 @@ RSpec.describe EventRequestForm, type: :form do
     it "should not be valid" do
       expect(subject).to_not be_valid
       expect(subject.errors).to_not be_empty
-      expect(subject.errors.messages).to include(start_at: ["must be in the future"])
+      expect(subject.errors.full_messages).to include(/Time must be in the future/)
     end
   end
 
@@ -107,22 +106,64 @@ RSpec.describe EventRequestForm, type: :form do
 
     context "when events in future is 1" do
       let(:events_in_future) { 1 }
+      subject { EventRequestForm.from_params(params).with_context(ctx) }
 
       it "should not allow you to create another event if you have reached your event limit" do
-        subject = EventRequestForm.from_params(params).with_context(ctx)
         expect(subject).to_not be_valid
-        expect(subject.errors.full_messages).to include("Time already reached event limit")
+        expect(subject.errors.full_messages).to include(/Time already reached event limit/)
       end
     end
 
     context "when days in future is 1" do
       let(:days_in_future) { 1 }
       let(:start_at) { 3.days.from_now.iso8601.to_s }
+      subject { EventRequestForm.from_params(params).with_context(ctx) }
 
       it "should not allow you to create an event too far into future" do
-        subject = EventRequestForm.from_params(params).with_context(ctx)
         expect(subject).to_not be_valid
         expect(subject.errors.full_messages).to include(/Time too far in future./)
+      end
+    end
+  end
+
+  describe "room availability" do
+    context "with successive event" do
+      let(:monday) { Date.today.next_occurring(:monday) }
+      let(:time) { monday.middle_of_day + 1.hour }
+
+      before { create(:event, start_at: monday.middle_of_day, duration: 60, room: room) }
+
+      it "should be valid if not overlapping" do
+        travel_to monday.middle_of_day do
+          expect(subject).to be_valid
+          expect(subject.errors.full_messages).to_not include(/Time not available/)
+        end
+      end
+    end
+
+    context "with overlapping event" do
+      let(:monday) { Date.today.next_occurring(:monday) }
+      let(:time) { monday.middle_of_day }
+
+      before { create(:event, start_at: monday.middle_of_day, duration: 60, room: room) }
+
+      it "should be invalid if overlapping" do
+        travel_to monday.middle_of_day do
+          expect(subject).to_not be_valid
+          expect(subject.errors.full_messages).to include(/Time not available/)
+        end
+      end
+    end
+
+    context "on a sunday" do
+      let(:sunday) { Date.today.next_occurring(:sunday) }
+      let(:time) { sunday.middle_of_day }
+
+      it "should be invalid when closed" do
+        travel_to sunday.middle_of_day do
+          expect(subject).to_not be_valid
+          expect(subject.errors.full_messages).to include(/Time not available/)
+        end
       end
     end
   end

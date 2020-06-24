@@ -1,7 +1,7 @@
 class Room
   class Availability
-    class Available < Base
-      def available?
+    class Closed < Base
+      def closed?
         true
       end
     end

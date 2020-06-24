@@ -33,3 +33,5 @@ module PcoeDeSignageRails
     config.time_zone = "Eastern Time (US & Canada)"
   end
 end
+
+require Rails.root.join("lib", "parse_time_in_context")

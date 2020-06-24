@@ -29,9 +29,31 @@ RSpec.describe Event, type: :model do
       need_approval = Event.needs_approval
 
       expect(need_approval.count).to eq(2)
-      need_approval.each do |event|
-        expect(event.purpose).to eq("INCLUDED")
-      end
+      expect(need_approval.map(&:purpose)).to all(eq "INCLUDED")
+    end
+
+    it ".impacting" do
+      create(:event, purpose: "INCLUDED")
+      create(:event, purpose: "INCLUDED", aasm_state: :verified)
+      create(:event, purpose: "INCLUDED", aasm_state: :approved)
+      create(:event, purpose: "not included", aasm_state: :declined)
+      create(:event, purpose: "INCLUDED", aasm_state: :finished)
+
+      impacting = Event.impacting
+
+      expect(impacting.count).to eq(4)
+      expect(impacting.map(&:purpose)).to all(eq "INCLUDED")
+    end
+
+    it ".on_date" do
+      create(:event, start_at: 1.hour.from_now, purpose: "Today")
+      create(:event, start_at: 1.day.from_now, purpose: "Tomorrow")
+
+      beginning_of_tomorrow = 1.day.from_now.beginning_of_day
+      tomorrows_events = Event.on_date(beginning_of_tomorrow)
+
+      expect(tomorrows_events.count).to eq(1)
+      expect(tomorrows_events.map(&:purpose)).to all(eq "Tomorrow")
     end
   end
 
@@ -138,6 +160,14 @@ RSpec.describe Event, type: :model do
           expect(subject.finished_at).to eq(Time.current)
         end
       end
+    end
+  end
+
+  describe "#end_at" do
+    let(:event) { build_stubbed(:event, start_at: 1.hour.from_now.beginning_of_hour, duration: 60) }
+
+    it "caculates based on start_at and duration" do
+      expect(event.end_at).to eq(2.hours.from_now.beginning_of_hour)
     end
   end
 end

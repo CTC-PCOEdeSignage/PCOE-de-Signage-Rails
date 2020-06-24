@@ -7,6 +7,8 @@ class Event < ApplicationRecord
 
   scope :future, -> { where("start_at > ?", Time.current) }
   scope :needs_approval, -> { future.verified.or(future.declined) }
+  scope :impacting, -> { requested.or(verified).or(approved).or(finished) }
+  scope :on_date, ->(date) { where("? < start_at", date.beginning_of_day).where("start_at < ?", date.end_of_day) }
 
   belongs_to :user
   belongs_to :room
@@ -50,6 +52,10 @@ class Event < ApplicationRecord
       ts_setter = %(#{aasm.to_state}_at=)
       respond_to?(ts_setter) && send(ts_setter, ::Time.current)
     end
+  end
+
+  def end_at
+    start_at + duration.minutes
   end
 
   def details

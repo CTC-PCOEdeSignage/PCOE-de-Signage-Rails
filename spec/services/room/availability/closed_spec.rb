@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Room::Availability::NotAvailable, :type => :service do
+RSpec.describe Room::Availability::Closed, :type => :service do
   subject { described_class.new(time) }
 
   context "30 minutes ago" do
@@ -8,7 +8,7 @@ RSpec.describe Room::Availability::NotAvailable, :type => :service do
 
     it { expect(subject.future?).to eq(false) }
     it { expect(subject.available?).to eq(false) }
-    it { expect(subject.closed?).to eq(false) }
+    it { expect(subject.closed?).to eq(true) }
   end
 
   context "30 minutes from now" do
@@ -16,6 +16,6 @@ RSpec.describe Room::Availability::NotAvailable, :type => :service do
 
     it { expect(subject.future?).to eq(true) }
     it { expect(subject.available?).to eq(false) }
-    it { expect(subject.closed?).to eq(false) }
+    it { expect(subject.closed?).to eq(true) }
   end
 end

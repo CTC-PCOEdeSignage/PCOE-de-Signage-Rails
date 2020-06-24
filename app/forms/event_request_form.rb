@@ -21,6 +21,7 @@ class EventRequestForm < Rectify::Form
   validate :check_room
   validate :check_ohioid
   validate :check_valid_date
+  validate :check_room_availability
   validate :check_limit_days_in_future
   validate :check_limit_events_in_future
   validates_length_of :purpose, within: 3..500
@@ -50,11 +51,11 @@ class EventRequestForm < Rectify::Form
   end
 
   def date
-    @date ||= next_available
+    @date ||= room_availability.next_available
   end
 
   def date_min
-    next_available
+    room_availability.next_available
   end
 
   def date_max
@@ -62,14 +63,13 @@ class EventRequestForm < Rectify::Form
   end
 
   def time
-    @time ||= next_available
+    @time ||= room_availability.next_available
   end
 
   private
 
-  def next_available
-    # TODO
-    1.hour.from_now.beginning_of_hour
+  def room_availability
+    @room_availability ||= Room::Availability.new(room: context.room)
   end
 
   def duration_options
@@ -104,6 +104,14 @@ class EventRequestForm < Rectify::Form
     end
   end
 
+  def check_room_availability
+    return unless start_at && duration
+
+    unless room_availability.available_between?(start_at, start_at + duration.minutes)
+      add_errors_to_time_fields("not available")
+    end
+  end
+
   def check_limit_days_in_future
     return unless start_at
 
@@ -113,7 +121,9 @@ class EventRequestForm < Rectify::Form
   end
 
   def check_limit_events_in_future
-    add_errors_to_time_fields("already reached event limit") if users_future_events.size == limit_events_in_future
+    if users_future_events.size == limit_events_in_future
+      add_errors_to_time_fields("already reached event limit. Wait until your other events have completed and then book again.")
+    end
   end
 
   def users_future_events

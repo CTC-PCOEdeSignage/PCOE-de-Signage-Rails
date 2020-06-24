@@ -1,25 +1,21 @@
 require "rails_helper"
 
 RSpec.describe Room::Availability::Available, :type => :service do
-  let(:availability_start_time) { "8 am" }
-  let(:availability_end_time) { "1 pm" }
-  subject { Room::Availability::Available.new(:monday, availability_start_time, availability_end_time) }
+  subject { described_class.new(time) }
 
-  context "when starts too early" do
-    let(:event_start_time) { Time.zone.parse("7 am") }
-    let(:event_end_time) { Time.zone.parse("10 am") }
+  context "30 minutes ago" do
+    let(:time) { 30.minutes.ago }
 
-    it "should not be_available" do
-      expect(subject.at?(event_start_time, event_end_time)).to eq(false)
-    end
+    it { expect(subject.future?).to eq(false) }
+    it { expect(subject.available?).to eq(true) }
+    it { expect(subject.closed?).to eq(false) }
   end
 
-  context "when within time boundaries" do
-    let(:event_start_time) { Time.zone.parse("10 am") }
-    let(:event_end_time) { Time.zone.parse("11 am") }
+  context "30 minutes from now" do
+    let(:time) { 30.minutes.from_now }
 
-    it "should not be available" do
-      expect(subject.at?(event_start_time, event_end_time)).to eq(true)
-    end
+    it { expect(subject.future?).to eq(true) }
+    it { expect(subject.available?).to eq(true) }
+    it { expect(subject.closed?).to eq(false) }
   end
 end
