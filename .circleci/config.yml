@@ -11,7 +11,8 @@ jobs:
           RAILS_ENV: test
       - image: redis:6.0.3-alpine
     environment:
-      - COVERAGE: "true"
+      TZ: "America/New_York"
+      COVERAGE: "true"
 
     steps:
       - checkout
