@@ -84,13 +84,14 @@ RSpec.describe Room::Availability, :type => :service do
     end
 
     context "with all day event that forces you to span to 2nd day" do
+      let(:tuesday) { Date.today.next_occurring(:tuesday).middle_of_day }
       it "get availability on any given tuesday" do
-        travel_to Date.today.next_occurring(:tuesday).middle_of_day + 1.minute do
-          create(:event, start_at: Time.current.beginning_of_hour, duration: 10 * 60, room: room)
+        travel_to tuesday + 1.minute do
+          create(:event, start_at: tuesday.beginning_of_hour, duration: 10 * 60, room: room)
 
           expect(
             subject.next_available
-          ).to eq(1.day.from_now.change(hour: 8))
+          ).to eq((tuesday + 1.day).change(hour: 8))
         end
       end
     end

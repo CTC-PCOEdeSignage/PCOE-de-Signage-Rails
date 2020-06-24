@@ -73,7 +73,7 @@ class Room
     end
 
     def steps_for_date(date, step_size)
-      (date.beginning_of_day.to_i..date.end_of_day.to_i).step(step_size).map { |time| Time.at(time) }
+      (date.beginning_of_day.to_i..date.end_of_day.to_i).step(step_size).map { |time| Time.zone.at(time) }
     end
 
     def global
