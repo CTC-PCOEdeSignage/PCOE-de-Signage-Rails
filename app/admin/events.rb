@@ -15,6 +15,12 @@ ActiveAdmin.register Event do
     column :user
     column :room
     column :start_at
+    column :duration do |event|
+      "#{event.duration} mins"
+    end
+    column :purpose do |event|
+      event.purpose.truncate(30)
+    end
     column "State" do |event|
       css_class = case
         when event.verified?
