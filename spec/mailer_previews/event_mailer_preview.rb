@@ -15,6 +15,10 @@ class EventMailerPreview < ActionMailer::Preview
     EventMailer.finish(event)
   end
 
+  def request_approval
+    EventMailer.request_approval(event)
+  end
+
   private
 
   def event

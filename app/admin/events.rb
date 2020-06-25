@@ -3,7 +3,7 @@ ActiveAdmin.register Event do
 
   permit_params :user_id, :room_id, :start_at, :duration, :purpose
 
-  member_action :run, method: :post do
+  member_action :run, method: [:get, :post] do
     event_to_run = params[:aasm_event]
     resource.aasm.fire!(event_to_run)
 

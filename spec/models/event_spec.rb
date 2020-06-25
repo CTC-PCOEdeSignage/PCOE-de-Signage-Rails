@@ -123,6 +123,12 @@ RSpec.describe Event, type: :model do
 
           expect(subject.verified_at).to eq(Time.current)
         end
+
+        it "determines auto approval/decline/quarentine" do
+          expect_to_trigger_callback_on(Event::RequestApprovalProcessor)
+
+          subject.verify
+        end
       end
 
       describe "on approve" do
@@ -134,6 +140,12 @@ RSpec.describe Event, type: :model do
           subject.approve
 
           expect(subject.approved_at).to eq(Time.current)
+        end
+
+        it "sends email to user" do
+          expect_to_trigger_callback_on(Senders::EventApprovedEmail)
+
+          subject.approve
         end
       end
 
@@ -147,6 +159,12 @@ RSpec.describe Event, type: :model do
 
           expect(subject.declined_at).to eq(Time.current)
         end
+
+        it "sends email to user" do
+          expect_to_trigger_callback_on(Senders::EventDeclinedEmail)
+
+          subject.decline
+        end
       end
 
       describe "on finish" do
@@ -159,6 +177,12 @@ RSpec.describe Event, type: :model do
 
           expect(subject.finished_at).to eq(Time.current)
         end
+
+        it "sends email to user" do
+          expect_to_trigger_callback_on(Senders::EventFinishedEmail)
+
+          subject.finish
+        end
       end
     end
   end
@@ -169,5 +193,11 @@ RSpec.describe Event, type: :model do
     it "caculates based on start_at and duration" do
       expect(event.end_at).to eq(2.hours.from_now.beginning_of_hour)
     end
+  end
+
+  def expect_to_trigger_callback_on(klass)
+    fake_callee = double(:fake, call: nil)
+    allow(klass).to receive(:new).with(subject).and_return(fake_callee)
+    expect(fake_callee).to receive(:call)
   end
 end

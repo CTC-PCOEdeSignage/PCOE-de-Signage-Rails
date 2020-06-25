@@ -26,8 +26,19 @@ class EventMailer < ApplicationMailer
   def finish(event)
     @event = event
     @user = event.user
-    @settings_base = Settings.emails.post_event
+    @settings_base = Settings.emails.finish
 
     mail to: @user.email, subject: @settings_base.subject
+  end
+
+  def request_approval(event)
+    emails = AdminUser.receive_event_approvals.map(&:email)
+    @event = event
+    @user = event.user
+    @settings_base = Settings.emails.request_approval
+
+    return unless emails.any?
+
+    mail to: emails, subject: @settings_base.subject
   end
 end

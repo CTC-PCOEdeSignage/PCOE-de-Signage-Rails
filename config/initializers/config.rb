@@ -19,7 +19,7 @@ Config.setup do |config|
       required(:from).filled(:string)
       required(:signature).filled(:string)
 
-      %i(verification approved declined post_event).each do |email_template|
+      %i(verification approved declined finish request_approval).each do |email_template|
         required(email_template).hash do
           required(:subject).filled(:string)
           required(:body).filled(:string)

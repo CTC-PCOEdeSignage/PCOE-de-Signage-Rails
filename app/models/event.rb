@@ -26,6 +26,8 @@ class Event < ApplicationRecord
 
     event :verify do
       transitions from: :requested, to: :verified
+
+      after -> { Event::RequestApprovalProcessor.new(self).call }
     end
 
     event :approve do

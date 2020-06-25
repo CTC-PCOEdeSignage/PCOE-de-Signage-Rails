@@ -20,7 +20,7 @@ RSpec.describe "Request Event", :type => :system do
       expect(User.count).to eq(1)
       expect(Event.count).to eq(1)
       expect(user.email).to eq("rufus142@ohio.edu")
-      expect(event.start_at).to eq(1.day.from_now.beginning_of_hour)
+      expect(event.start_at).to eq(Date.today.next_occurring(:monday).middle_of_day)
       expect(event.duration).to eq(120)
       expect(event.purpose).to eq("Bobcat cage escape training")
     end
@@ -55,7 +55,7 @@ RSpec.describe "Request Event", :type => :system do
     include_examples "accessible"
   end
 
-  def submit_event_request(ohioid: "rufus142", duration: "2 hours", base_time: 1.day.from_now.beginning_of_hour, purpose: "Bobcat cage escape training")
+  def submit_event_request(ohioid: "rufus142", duration: "2 hours", base_time: Date.today.next_occurring(:monday).middle_of_day, purpose: "Bobcat cage escape training")
     fill_in "event[ohioid]", with: ohioid
     fill_in "Date", with: base_time
     fill_in "Time", with: base_time

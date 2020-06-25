@@ -37,13 +37,17 @@ emails:
     body: |
       We’re sorry, but your project room request has been declined. If you think this has been an error, please
       contact someone at the CTC to clarify.
-  post_event:
+  finish:
     subject: "PCOE Project Room Event: How was your event?"
     body: |
       We hope your project room event went well. To improve the spaces and ensure the spaces continue to meet
       your needs, please take this survey to give us feedback on the space for the event below.
 
       https://ohio.qualtrics.com/the-awesome-survey
+  request_approval:
+    subject: "PCOE Project Room Event: Approve Event?"
+    body: |
+      Below is an event request from a quarantined user. Please review whether you'd like to approve or decline.
 duration:
   default: 30
   options:

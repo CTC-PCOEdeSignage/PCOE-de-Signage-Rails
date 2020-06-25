@@ -60,4 +60,20 @@ RSpec.describe EventMailer, type: :mailer do
       expect(mail.body.encoded).to match("survey")
     end
   end
+
+  describe "request_approval" do
+    let!(:admin) { create(:admin_user, email: "glorious-admin@ohio.edu", receive_event_approvals: true) }
+    let(:mail) { EventMailer.request_approval(event) }
+
+    it "renders the headers" do
+      expect(mail.subject).to include("Approve Event?")
+      expect(mail.to).to eq(["glorious-admin@ohio.edu"])
+      expect(mail.from).to eq(["DoNotReply@ohio.edu"])
+    end
+
+    it "renders the body" do
+      expect(mail.body.encoded).to match("Approve")
+      expect(mail.body.encoded).to match("Decline")
+    end
+  end
 end

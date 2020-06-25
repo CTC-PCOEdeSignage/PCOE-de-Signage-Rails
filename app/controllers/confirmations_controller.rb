@@ -10,7 +10,7 @@ class ConfirmationsController < ApplicationController
 
     raise "Invalid Verification Identifier" unless room && event && event.verification_identifier == verification_identifier
 
-    event.verify
+    event.verify! if event.requested?
 
     redirect_to room_event_request_confirmation_path(room, event)
   end

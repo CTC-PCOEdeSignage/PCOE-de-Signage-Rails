@@ -1,0 +1,10 @@
+<p>
+  <%= @settings_base.body %>
+</p>
+
+<h3>Actions</h3>
+<p>
+  <%= link_to "Approve", run_admin_event_url(@event, aasm_event: :approve), class: "btn" %>
+  <%= link_to "Decline", run_admin_event_url(@event, aasm_event: :decline), class: "btn btn-alert ml-4" %>
+</p>
+

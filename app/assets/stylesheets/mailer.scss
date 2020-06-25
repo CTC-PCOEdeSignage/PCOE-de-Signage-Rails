@@ -1,0 +1,88 @@
+@import "colors";
+
+@media only screen and (max-width: 620px) {
+	table[class=body] {
+		h1 {
+			font-size: 28px !important;
+			margin-bottom: 10px !important;
+		}
+		p {
+			font-size: 16px !important;
+		}
+		ul {
+			font-size: 16px !important;
+		}
+		ol {
+			font-size: 16px !important;
+		}
+		td {
+			font-size: 16px !important;
+		}
+		span {
+			font-size: 16px !important;
+		}
+		a {
+			font-size: 16px !important;
+		}
+		.wrapper {
+			padding: 10px !important;
+		}
+		.article {
+			padding: 10px !important;
+		}
+		.content {
+			padding: 0 !important;
+		}
+		.container {
+			padding: 0 !important;
+			width: 100% !important;
+		}
+		.main {
+			border-left-width: 0 !important;
+			border-radius: 0 !important;
+			border-right-width: 0 !important;
+		}
+		.btn {
+			table {
+				width: 100% !important;
+			}
+			a {
+				width: 100% !important;
+			}
+		}
+		.img-responsive {
+			height: auto !important;
+			max-width: 100% !important;
+			width: auto !important;
+		}
+	}
+}
+
+
+.btn {
+  display: inline-block;
+  color: #ffffff;
+  background-color: $green;
+  border: solid 1px $green;
+  border-radius: 5px;
+  box-sizing: border-box;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+  padding: 12px 25px;
+  text-transform: capitalize;
+  border-color: $green;
+}
+
+.btn-alert {
+  background-color: $red;
+  border: solid 1px $red;
+  border-color: $red;
+}
+
+
+.ml-4 {
+  margin-left: 4rem;
+}
