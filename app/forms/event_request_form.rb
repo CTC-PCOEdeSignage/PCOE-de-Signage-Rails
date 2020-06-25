@@ -2,7 +2,12 @@ class DateTimeWithZone < Virtus::Attribute
   def coerce(value)
     return unless value.presence
 
-    Time.zone.parse(value)
+    t = Time.zone.parse(value)
+    if t.min < 30
+      t.change(min: 0)
+    else
+      t.change(min: 30)
+    end
   end
 end
 
@@ -108,7 +113,7 @@ class EventRequestForm < Rectify::Form
     return unless start_at && duration
 
     unless room_availability.available_between?(start_at, start_at + duration.minutes)
-      add_errors_to_time_fields("not available")
+      add_errors_to_time_fields("not available at this time")
     end
   end
 
@@ -122,7 +127,7 @@ class EventRequestForm < Rectify::Form
 
   def check_limit_events_in_future
     if users_future_events.size == limit_events_in_future
-      add_errors_to_time_fields("already reached event limit. Wait until your other events have completed and then book again.")
+      errors.add(:ohioid, "already reached event limit for this user. Wait until your other events have completed and then book again.")
     end
   end
 

@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe EventRequestForm, type: :form do
   let(:room) { create(:room) }
-  let(:time) { 1.day.from_now.beginning_of_hour }
+  let(:time) { Date.today.next_occurring(:monday).middle_of_day }
   let(:valid_params) do
     {
       ohioid: " rufus142  ", #extra space intentional to simulate extra space
@@ -78,7 +78,7 @@ RSpec.describe EventRequestForm, type: :form do
   context "with existing user" do
     let(:days_in_future) { 7 }
     let(:events_in_future) { 2 }
-    let(:user) do
+    let!(:user) do
       create(:user, email: "rufus142@ohio.edu",
                     days_in_future: days_in_future,
                     events_in_future: events_in_future)
@@ -94,14 +94,11 @@ RSpec.describe EventRequestForm, type: :form do
       }
     end
     let(:ctx) { { room: room } }
-    let(:start_at) { 2.days.from_now.iso8601.to_s }
-
-    before { user }
+    let(:start_at) { Date.today.next_occurring(:monday).middle_of_day.iso8601.to_s }
 
     it "should allow you to create another event if you have not reached your event limit" do
-      expect(EventRequestForm
-        .from_params(params)
-        .with_context(ctx)).to be_valid
+      form = EventRequestForm.from_params(params).with_context(ctx)
+      expect(form).to be_valid
     end
 
     context "when events in future is 1" do
@@ -110,13 +107,13 @@ RSpec.describe EventRequestForm, type: :form do
 
       it "should not allow you to create another event if you have reached your event limit" do
         expect(subject).to_not be_valid
-        expect(subject.errors.full_messages).to include(/Time already reached event limit/)
+        expect(subject.errors.full_messages).to include(/Ohioid already reached event limit/)
       end
     end
 
     context "when days in future is 1" do
       let(:days_in_future) { 1 }
-      let(:start_at) { 3.days.from_now.iso8601.to_s }
+      let(:start_at) { (Date.today.next_occurring(:monday).middle_of_day + 7.days).iso8601.to_s }
       subject { EventRequestForm.from_params(params).with_context(ctx) }
 
       it "should not allow you to create an event too far into future" do
