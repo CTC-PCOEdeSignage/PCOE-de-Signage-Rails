@@ -9,16 +9,20 @@ class Room
     end
 
     def availability(on:)
-      on = on.to_date
-      events_on_date = room.events.impacting.on_date(on).to_a
+      @availability_cache ||= {}
 
-      base_availability(on)
-        .map do |availability|
-        next(availability) if availability.not_available?
-        next(availability) unless available_during_events?(availability, events_on_date)
+      @availability_cache[on] ||= begin
+          on = on.to_date
+          events_on_date = room.events.impacting.on_date(on).to_a
 
-        NotAvailable.new(availability.time)
-      end
+          base_availability(on)
+            .map do |availability|
+            next(availability) if availability.not_available?
+            next(availability) unless available_during_events?(availability, events_on_date)
+
+            NotAvailable.new(availability.time)
+          end
+        end
     end
 
     def available_between?(start_at, end_at)
