@@ -1,5 +1,3 @@
-using ParseInTimeContext
-
 class Room
   class Availability
     DAYS_OF_WEEK = Date::DAYNAMES.map(&:downcase)
@@ -32,6 +30,16 @@ class Room
       end
     end
 
+    def availability_at(time)
+      availability(on: time).find { |a| a.time == time }
+    end
+
+    def available_now?
+      now = Time.current.floor_to(30.minutes)
+
+      available_between?(now, now + 30.minutes)
+    end
+
     def next_available
       date = Date.today
 
@@ -52,13 +60,15 @@ class Room
     attr_reader :room
 
     def base_availability(date)
-      day_of_the_week = date.strftime("%A").downcase
+      day_of_the_week = date.to_formatted_s(:day).downcase
       start_time, end_time = global[day_of_the_week].start, global[day_of_the_week].end
 
       start_time = date.time_parse_in_context(start_time) if start_time
       end_time = date.time_parse_in_context(end_time) if end_time
 
-      steps_for_date(date, 30.minutes)
+      date
+        .beginning_of_day
+        .ranged_by(24.hours, step: 30.minutes)
         .map do |time|
         if (start_time <= time) && (time < end_time)
           Available.new(time)
@@ -74,10 +84,6 @@ class Room
 
     def within_time?(time, start_at:, end_at:)
       start_at <= time && time < end_at
-    end
-
-    def steps_for_date(date, step_size)
-      (date.beginning_of_day.to_i..date.end_of_day.to_i).step(step_size).map { |time| Time.zone.at(time) }
     end
 
     def global

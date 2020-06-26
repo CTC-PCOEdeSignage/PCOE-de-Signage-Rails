@@ -3,11 +3,7 @@ class DateTimeWithZone < Virtus::Attribute
     return unless value.presence
 
     t = Time.zone.parse(value)
-    if t.min < 30
-      t.change(min: 0)
-    else
-      t.change(min: 30)
-    end
+    t.floor_to(30.minutes)
   end
 end
 

@@ -43,7 +43,7 @@ class SlideDecorator < Draper::Decorator
 
   def cached(*keys)
     keys.push(object)
-    Rails.cache.fetch(keys, expires_in: 5.minutes) do
+    Rails.cache.fetch(keys, expires_in: 1.minutes) do
       Rails.logger.info("[CACHE MISS] #{keys}")
       yield
     end

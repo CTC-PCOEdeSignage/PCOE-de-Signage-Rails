@@ -34,4 +34,6 @@ module PcoeDeSignageRails
   end
 end
 
+require Rails.root.join("lib", "float_is_whole")
 require Rails.root.join("lib", "parse_time_in_context")
+require Rails.root.join("lib", "time_ranged_by_step")

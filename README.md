@@ -6,7 +6,7 @@ This is a simple, web-based digital signage system that is written in Ruby on Ra
 
 - A single image (poster)
 - Text / HTML Markup
-- LibCal All Schedules Slide
+- All Schedules Slide
 - Other custom slides
 
 **Other Features**
@@ -15,7 +15,6 @@ This is a simple, web-based digital signage system that is written in Ruby on Ra
 - Specific slide length per playlist
 - Single or Dual Layout
 - Rotate `90` or `270`
-- LibCal Integration
 
 ![URL](https://github.com//CTC-PCOEdeSignage/PCOE-de-Signage-Rails/blob/master/documentation/example_screen.png?raw=true")
 
@@ -43,12 +42,6 @@ The system has several concepts that are important to know, before logging in:
   - `markup` - which shows html markup; ONLY WHEN `markup` is specified will the markup text be used. NOTE: you can also include style tags or javascript, if needed, but be careful to keep these pages as simple as possible.
   - `image` - which shows a single image, centered on the screen. Images should be 1000 pixels high and 720 pixels wide at 72 DPI; ONLY WHEN `image` is specified will the image file be used. NOTE: Files should be JPG or GIF (pngs are supported, but load poorly). Images should also be optimized and cropped to be exactly 1000px X 720px
   - `other` - these are custom slides; The system looks in the server folder under `app/views/slides` for files ending in `.html.erb`; In the style selector for a slide, these will show up as the file name. NOTE: These slides may take longer to render if the . See [How to Develop Custom Slides](#how-to-develop-custom-slides) for more information.
-
-
-## Other Helpful Links
-
-- [LibCal Project Rooms](https://ohio-pattoncollege.libcal.com/booking/projectrooms)
-- [LibCal Login](https://ohio-pattoncollege.libcal.com/admin/home?ali=1)
 
 
 # How To Use
@@ -136,12 +129,6 @@ Each `Playlist` has an option to change the slide length, per slide, as well.
 NOTE: We do not recommend slide lengths less than 10 seconds.
 
 
-## LibCal API Keys
-
-The username/password to capture the LibCal-related information is stored in the `.env` keys under them
-`LIBCAL_CLIENT_ID` and `LIBCAL_CLIENT_SECRET`. In order to change the keys in the future, edit the `.env` file and restart the server. If you need to change the keys, you may do so by creating new keys at  [https://ohio-pattoncollege.libcal.com/admin-only/api/authentication].
-
-
 # Setup your Server
 
 This guide assumes you have an Ubuntu 18.04 LTS box already setup. Instead of maintaining our own guide, we've found this helpful guide on [this gorails](https://gorails.com/setup/ubuntu/18.04). NOTE: You may skip the directions for "Setting Up MySQL, Setting Up PostgresSQL, and Final Steps". Also, our Ruby version is 2.6.6
@@ -160,8 +147,6 @@ Clone the repository `git clone git@github.com:CTC-PCOEdeSignage/PCOE-de-Signage
 In the root of the project, create a file called `.env` and have make it's contents the following:
 
 ```
-LIBCAL_CLIENT_ID=
-LIBCAL_CLIENT_SECRET=
 DEFAULT_SLIDE_LENGTH=30 # Seconds
 RAILS_ENV=production
 PORT=5000
@@ -170,8 +155,6 @@ SMTP_SERVER="smtp.Office365.com"
 SMTP_PORT="587"
 SMTP_USERNAME="coe-projrms-sa@ohio.edu"
 ```
-
-To determine `LIBCAL_CLIENT_ID` and `LIBCAL_CLIENT_SECRET`, you will need to follow the [directions above](#libcal-api-keys) and then place them in the file.
 
 To generate a possible value for `RAILS_KEY_BASE`, run `bin/rails secret` and copy the contents from that command into your `.env` file.
 

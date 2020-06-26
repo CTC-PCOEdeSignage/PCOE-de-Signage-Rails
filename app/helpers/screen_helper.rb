@@ -8,8 +8,7 @@ module ScreenHelper
   end
 
   def now_time
-    # Hour Minute AM/PM
-    Time.current.strftime("%l:%M %p")
+    Time.current.to_formatted_s(:hour_min_ampm)
   end
 
   def dual_layout?

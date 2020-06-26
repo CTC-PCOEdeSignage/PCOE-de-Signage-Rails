@@ -2,7 +2,7 @@
 <style>
 div.all-schedule-frame {
   padding-top: 250px;
-  font-size: 24px;
+  font-size: 22px;
   color: black;
 }
 div.all-schedule-frame table th {
@@ -17,7 +17,7 @@ div.all-schedule-frame table td {
   color: black;
 }
 div.all-schedule-frame .name {
-  padding-right: 20px;
+  padding-right: 18px;
 }
 div.all-schedule-frame table td.timeslot {
   background-color: #a10037;
@@ -36,21 +36,11 @@ div.all-schedule-frame .legend .legend-item {
   display: inline-block;
   color: white;
 }
-
-div.all-schedule-frame .legend .available {
-  background-color: #0a8324;
-}
-
-div.all-schedule-frame .legend .unavailable {
-  background-color: #a10037;
-}
 </style>
 
 <!-- Variables -->
-<% all_times = 5.times.map do |index| %>
-  <% Time.current.change(min: 0, sec: 0, nsec: 0) + index.hour %>
-<% end %>
-<% all_rooms = Room.with_libcal_identifier.decorate %>
+<% all_times = Time.current.floor_to(60.minutes).ranged_by(5.hours, step: 30.minutes) %>
+<% all_rooms = Room.all.decorate %>
 
 <!-- Markup/Logic -->
 <div class="grid">
@@ -61,18 +51,17 @@ div.all-schedule-frame .legend .unavailable {
         <tr>
           <th>Room Name</th>
           <% all_times.each do |time| %>
-            <th><%= time.strftime("%l %p") %></th>
+            <th><%= time.to_formatted_s(:hour_min_ampm) %></th>
           <% end %>
         </tr>
         <% all_rooms.each do |room| %>
           <tr>
             <!-- Name of Room -->
-            <td class="name"><%= room.name %></td>
+            <td class="name" style="min-width: 175px"><%= room.name %></td>
 
             <!-- Available Times -->
             <% all_times.each do |time| %>
-              <% avaliable_class = room.is_available_at?(time) ? "available" : nil %>
-              <td class="<%= ["timeslot", avaliable_class].compact.join(" ") %>"></td>
+              <%= content_tag :td, "", class: ["timestamp", room.available_class_for(time)] %>
             <% end %>
           </tr>
         <% end %>
@@ -82,10 +71,13 @@ div.all-schedule-frame .legend .unavailable {
           Legend:
         </div>
         <div class="legend-item available">
-          Room Available
+          Available
         </div>
         <div class="legend-item unavailable">
-          Room Unavailable
+          Unavailable
+        </div>
+        <div class="legend-item closed">
+          Closed
         </div>
       </div>
     </div>

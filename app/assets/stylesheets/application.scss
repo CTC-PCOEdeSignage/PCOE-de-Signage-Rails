@@ -80,16 +80,23 @@ body.screen-layout {
       }
     }
   }
-
-  &.available {
-    background-color: $cutler;
-  }
-
   .arrow {
     font-size: 60px;
     font-weight: bold;
     height: 20px;
   }
+}
+
+.available {
+  background-color: $cutler;
+}
+
+.unavailable {
+  background-color: $brick;
+}
+
+.closed {
+  background-color: $putnam;
 }
 
 .room-details__top {

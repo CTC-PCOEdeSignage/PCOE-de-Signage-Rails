@@ -97,6 +97,86 @@ RSpec.describe Room::Availability, :type => :service do
     end
   end
 
+  describe "#available_now?" do
+    context "with no events" do
+      it "get availability on any given monday" do
+        travel_to Date.today.next_occurring(:monday).middle_of_day + 1.minute do
+          expect(
+            subject.available_now?
+          ).to eq(true)
+        end
+      end
+    end
+
+    context "with 1 event" do
+      it "get availability on any given tuesday" do
+        travel_to Date.today.next_occurring(:tuesday).middle_of_day + 1.minute do
+          create(:event, start_at: Time.current.beginning_of_hour, duration: 60, room: room)
+
+          expect(
+            subject.available_now?
+          ).to eq(false)
+        end
+      end
+    end
+
+    context "with 2 events (one approved, one declined" do
+      it "get availability on any given tuesday" do
+        travel_to Date.today.next_occurring(:tuesday).middle_of_day + 1.minute do
+          create(:event, :declined, start_at: Time.current.beginning_of_hour, duration: 60, room: room)
+          create(:event, :approved, start_at: Time.current.beginning_of_hour + 1.hour, duration: 60, room: room)
+
+          expect(
+            subject.available_now?
+          ).to eq(true)
+        end
+      end
+    end
+  end
+
+  describe "#availability_at" do
+    let(:middle_of_day) { Time.current.floor_to(30.minutes) }
+
+    context "with no events" do
+      it "get availability on any given monday" do
+        travel_to Date.today.next_occurring(:monday).middle_of_day + 1.minute do
+          expect(
+            subject.availability_at(middle_of_day)
+          ).to be_a Room::Availability::Available
+        end
+      end
+    end
+
+    context "with 1 event" do
+      it "get availability on any given tuesday" do
+        travel_to Date.today.next_occurring(:tuesday).middle_of_day + 1.minute do
+          create(:event, start_at: Time.current.beginning_of_hour, duration: 60, room: room)
+
+          expect(
+            subject.availability_at(middle_of_day)
+          ).to be_a Room::Availability::NotAvailable
+        end
+      end
+    end
+
+    context "with 2 events (one approved, one declined" do
+      it "get availability on any given tuesday" do
+        travel_to Date.today.next_occurring(:tuesday).middle_of_day + 1.minute do
+          create(:event, :declined, start_at: Time.current.beginning_of_hour, duration: 60, room: room)
+          create(:event, :approved, start_at: Time.current.beginning_of_hour + 1.hour, duration: 60, room: room)
+
+          expect(
+            subject.availability_at(middle_of_day)
+          ).to be_a Room::Availability::Available
+
+          expect(
+            subject.availability_at(middle_of_day + 12.hours)
+          ).to be_a Room::Availability::Closed
+        end
+      end
+    end
+  end
+
   describe "#available_between" do
     context "with no events" do
       let(:monday) { Date.today.next_occurring(:monday).middle_of_day }

@@ -1,36 +1,40 @@
 class RoomDecorator < Draper::Decorator
   delegate_all
 
-  def availability
-    # TODO
-    "Available Now"
-  end
-
   def available_class
-    # TODO
-    "available"
+    "available" if room_availability.available_now?
   end
 
-  # def availability
-  #   libcal_availability = object.libcal_availability
-  #   return "Available Now" if libcal_availability.is_available_now?
+  def availability
+    return "Available Now" if room_availability.available_now?
 
-  #   if libcal_availability.available_soon?
-  #     start_time = libcal_availability.next_available_start_time.strftime("%l %p")
+    next_available = room_availability.next_available
 
-  #     "Available at #{start_time}"
-  #   else
-  #     "Not available soon; Try another room."
-  #   end
-  # end
+    if next_available.to_date == Date.today
+      "Available at #{next_available.to_formatted_s(:hour_min_ampm)}"
+    else
+      "Not available soon; Try another room."
+    end
+  end
 
-  # def is_available_at?(time)
-  #   object.libcal_availability.is_available_at?(time)
-  # end
+  def is_available_at?(time)
+    room_availability.available_between?(time, time + 30.minutes)
+  end
 
-  # def available_class
-  #   if object.libcal_availability.is_available_now?
-  #     "available"
-  #   end
-  # end
+  def available_class_for(time)
+    case room_availability.availability_at(time)
+    when Room::Availability::Available
+      "available"
+    when Room::Availability::NotAvailable
+      "unavailable"
+    when Room::Availability::Closed
+      "closed"
+    end
+  end
+
+  private
+
+  def room_availability
+    @room_availability ||= Room::Availability.new(room: object)
+  end
 end

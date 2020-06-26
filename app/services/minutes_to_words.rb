@@ -1,13 +1,3 @@
-module FloatWholeNumber
-  refine Float do
-    def is_whole?
-      self % 1 == 0
-    end
-  end
-end
-
-using FloatWholeNumber
-
 class MinutesToWords
   def self.convert(duration)
     seconds = duration.to_i
