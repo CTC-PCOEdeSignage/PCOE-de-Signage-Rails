@@ -1,4 +1,4 @@
-<h1><%= @event.purpose %></h1>
+<h1><%= @event.purpose.truncate(25) %></h1>
 
 <% if @event.requested? %>
   <p><%= Settings.web.requested %></p>
@@ -16,10 +16,18 @@
   <p><%= Settings.web.finished %></p>
 <% end %>
 
-
 <h2>Event Details</h2>
 <% @event.details.each do |(key, value)| %>
   <p style="font-family: sans-serif; font-size: 16px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
     <b><%= key.titleize %>:</b>&nbsp;<span><%= value.strip %></span>
   </p>
 <% end %>
+
+<div class="row">
+  <div class="col text-center">
+    <%= ohio_image(color: :black) %>
+  </div>
+  <div class="col text-center">
+    <%= patton_college_image %>
+  </div>
+</div>
