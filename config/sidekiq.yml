@@ -1,0 +1,14 @@
+---
+:verbose: false
+:concurrency: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+# Set timeout to 8 on Heroku, longer if you manage your own systems
+:timeout: 25
+
+# Be careful when increasing the `critical` queue as race conditions may crop up
+:queues:
+  - default
+  - mailers
+
+production:
+  :concurrency: <%= ENV["SIDEKIQ_CONCURRENCY"] || ENV["RAILS_MAX_THREADS"] || 2 %>

@@ -6,6 +6,7 @@ class Event < ApplicationRecord
   validates_uniqueness_of :verification_identifier
 
   scope :future, -> { where("start_at > ?", Time.current) }
+  scope :past, -> { where("start_at <= ?", Time.current) }
   scope :needs_approval, -> { future.verified.or(future.declined) }
   scope :impacting, -> { requested.or(verified).or(approved).or(finished) }
   scope :on_date, ->(date) { where("? < start_at", date.beginning_of_day).where("start_at < ?", date.end_of_day) }
@@ -58,6 +59,10 @@ class Event < ApplicationRecord
 
   def end_at
     start_at + duration.minutes
+  end
+
+  def past?
+    end_at < Time.current
   end
 
   def details
