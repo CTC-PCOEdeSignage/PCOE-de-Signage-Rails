@@ -6,9 +6,9 @@ class Event
 
     def call
       if @event.user.approved?
-        @event.approve
+        @event.approve!
       elsif @event.user.declined?
-        @event.decline
+        @event.decline!
       else
         Senders::EventRequestApprovalEmail.new(@event).call
       end

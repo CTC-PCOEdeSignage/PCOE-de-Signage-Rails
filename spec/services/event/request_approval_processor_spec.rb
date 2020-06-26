@@ -1,34 +1,36 @@
 require "rails_helper"
 
 RSpec.describe Event::RequestApprovalProcessor, :type => :service do
-  let(:user) { build_stubbed(:user) }
-  let(:room) { build_stubbed(:room) }
+  let(:user) { build(:user) }
+  let(:room) { build(:room) }
   let(:event) { build(:event, :verified, room: room, user: user) }
 
   subject { Event::RequestApprovalProcessor.new(event) }
 
   context "when user is approved" do
-    let(:user) { build_stubbed(:user, :approved) }
+    let(:user) { build(:user, :approved) }
 
     it "should approve the event" do
       subject.call
 
+      event.reload
       expect(event).to be_approved
     end
   end
 
   context "when user is declined" do
-    let(:user) { build_stubbed(:user, :declined) }
+    let(:user) { build(:user, :declined) }
 
     it "should decline the event" do
       subject.call
 
+      event.reload
       expect(event).to be_declined
     end
   end
 
   context "when user is quarentined" do
-    let(:user) { build_stubbed(:user, :quarantined) }
+    let(:user) { build(:user, :quarantined) }
 
     it "should keep the event verified" do
       subject.call
