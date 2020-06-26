@@ -3,12 +3,12 @@ require "rails_helper"
 RSpec.describe Event::RequestApprovalProcessor, :type => :service do
   let(:user) { build_stubbed(:user) }
   let(:room) { build_stubbed(:room) }
-  let(:event) { build(:event, room: room, user: user, aasm_state: "verified") }
+  let(:event) { build(:event, :verified, room: room, user: user) }
 
   subject { Event::RequestApprovalProcessor.new(event) }
 
   context "when user is approved" do
-    let(:user) { build_stubbed(:user, aasm_state: "approved") }
+    let(:user) { build_stubbed(:user, :approved) }
 
     it "should approve the event" do
       subject.call
@@ -18,7 +18,7 @@ RSpec.describe Event::RequestApprovalProcessor, :type => :service do
   end
 
   context "when user is declined" do
-    let(:user) { build_stubbed(:user, aasm_state: "declined") }
+    let(:user) { build_stubbed(:user, :declined) }
 
     it "should decline the event" do
       subject.call
@@ -28,7 +28,7 @@ RSpec.describe Event::RequestApprovalProcessor, :type => :service do
   end
 
   context "when user is quarentined" do
-    let(:user) { build_stubbed(:user, aasm_state: "quarantined") }
+    let(:user) { build_stubbed(:user, :quarantined) }
 
     it "should keep the event verified" do
       subject.call

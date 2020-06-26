@@ -37,8 +37,8 @@ RSpec.describe Room::Availability, :type => :service do
 
     it "allows you to get availability for wednesday (a day with 2 events - one approved; one declined)" do
       start_at = Time.current.next_occurring(:wednesday).change(hour: 12)
-      create(:event, start_at: start_at, duration: 120, room: room)
-      create(:event, start_at: start_at + 3.hours, duration: 60, room: room, aasm_state: :declined)
+      create(:event, :requested, start_at: start_at, duration: 120, room: room)
+      create(:event, :declined, start_at: start_at + 3.hours, duration: 60, room: room)
       availables, not_availables = get_availability_for_next(:wednesday).partition(&:available?)
 
       available_slots = time_slots_for_hours(9) - 4 # 4 time slots for the requested event + 0 for declined event
@@ -73,8 +73,8 @@ RSpec.describe Room::Availability, :type => :service do
     context "with 2 events (one approved, one declined" do
       it "get availability on any given tuesday" do
         travel_to Date.today.next_occurring(:tuesday).middle_of_day + 1.minute do
-          create(:event, start_at: Time.current.beginning_of_hour, duration: 60, room: room)
-          create(:event, start_at: Time.current.beginning_of_hour + 1.hour, duration: 60, aasm_state: :declined, room: room)
+          create(:event, :requested, start_at: Time.current.beginning_of_hour, duration: 60, room: room)
+          create(:event, :declined, start_at: Time.current.beginning_of_hour + 1.hour, duration: 60, room: room)
 
           expect(
             subject.next_available
@@ -128,8 +128,8 @@ RSpec.describe Room::Availability, :type => :service do
 
       it "is available during a declined event" do
         travel_to tuesday + 1.minute do
-          create(:event, start_at: Time.current.beginning_of_hour, duration: 60, room: room)
-          create(:event, start_at: Time.current.beginning_of_hour + 1.hour, duration: 60, aasm_state: :declined, room: room)
+          create(:event, :requested, start_at: Time.current.beginning_of_hour, duration: 60, room: room)
+          create(:event, :declined, start_at: Time.current.beginning_of_hour + 1.hour, duration: 60, room: room)
 
           expect(
             subject.available_between?(tuesday + 1.hour, tuesday + 2.hours)

@@ -20,11 +20,11 @@ RSpec.describe Event, type: :model do
 
   describe "scopes" do
     it ".needs_approval" do
-      create(:event, purpose: "not included")
-      create(:event, purpose: "INCLUDED", aasm_state: :verified)
-      create(:event, purpose: "not included", aasm_state: :approved)
-      create(:event, purpose: "INCLUDED", aasm_state: :declined)
-      create(:event, purpose: "not included", aasm_state: :finished)
+      create(:event, :requested, purpose: "not included")
+      create(:event, :verified, purpose: "INCLUDED")
+      create(:event, :approved, purpose: "not included")
+      create(:event, :declined, purpose: "INCLUDED")
+      create(:event, :finished, purpose: "not included")
 
       need_approval = Event.needs_approval
 
@@ -33,11 +33,11 @@ RSpec.describe Event, type: :model do
     end
 
     it ".impacting" do
-      create(:event, purpose: "INCLUDED")
-      create(:event, purpose: "INCLUDED", aasm_state: :verified)
-      create(:event, purpose: "INCLUDED", aasm_state: :approved)
-      create(:event, purpose: "not included", aasm_state: :declined)
-      create(:event, purpose: "INCLUDED", aasm_state: :finished)
+      create(:event, :requested, purpose: "INCLUDED")
+      create(:event, :verified, purpose: "INCLUDED")
+      create(:event, :approved, purpose: "INCLUDED")
+      create(:event, :declined, purpose: "not included")
+      create(:event, :finished, purpose: "INCLUDED")
 
       impacting = Event.impacting
 
@@ -114,7 +114,7 @@ RSpec.describe Event, type: :model do
       end
 
       describe "on verify" do
-        subject { build(:event, aasm_state: "requested") }
+        subject { build(:event, :requested) }
 
         it "sets verified_at" do
           expect(subject.verified_at).to_not be_present
@@ -132,7 +132,7 @@ RSpec.describe Event, type: :model do
       end
 
       describe "on approve" do
-        subject { build(:event, aasm_state: "verified") }
+        subject { build(:event, :verified) }
 
         it "sets approved_at" do
           expect(subject.approved_at).to_not be_present
@@ -150,7 +150,7 @@ RSpec.describe Event, type: :model do
       end
 
       describe "on decline" do
-        subject { build(:event, aasm_state: "verified") }
+        subject { build(:event, :verified) }
 
         it "sets approved_at" do
           expect(subject.declined_at).to_not be_present
@@ -168,7 +168,7 @@ RSpec.describe Event, type: :model do
       end
 
       describe "on finish" do
-        subject { build(:event, aasm_state: "approved") }
+        subject { build(:event, :approved) }
 
         it "sets finished_at" do
           expect(subject.finished_at).to_not be_present

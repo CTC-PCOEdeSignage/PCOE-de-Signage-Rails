@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Admin::EventsController, type: :controller do
   let(:admin) { create(:admin_user) }
 
-  let(:event) { create(:event, aasm_state: "verified") }
+  let(:event) { create(:event, :verified) }
 
   before { sign_in admin }
 
