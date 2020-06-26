@@ -7,6 +7,12 @@ RSpec.describe "Can View Slideshow", :type => :system do
   let!(:playlist) { create(:playlist) }
   let!(:slide) { Slide.default_slide.tap(&:save!) }
 
+  around do |example|
+    travel_to Date.today.next_occurring(:monday).middle_of_day do
+      example.run
+    end
+  end
+
   before do
     room.update name: "Primary Room"
     screen.update layout: "single"
