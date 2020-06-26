@@ -35,13 +35,11 @@ emails:
   declined:
     subject: "PCOE Project Room Event: Declined"
     body: |
-      We’re sorry, but your project room request has been declined. If you think this has been an error, please
-      contact someone at the CTC to clarify.
+      We’re sorry, but your project room request has been declined. If you think this has been an error, please contact someone at the CTC to clarify.
   finish:
     subject: "PCOE Project Room Event: How was your event?"
     body: |
-      We hope your project room event went well. To improve the spaces and ensure the spaces continue to meet
-      your needs, please take this survey to give us feedback on the space for the event below.
+      We hope your project room event went well. To improve the spaces and ensure the spaces continue to meet your needs, please take this survey to give us feedback on the space for the event below.
 
       https://ohio.qualtrics.com/the-awesome-survey
   request_approval:
