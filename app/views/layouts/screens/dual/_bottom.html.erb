@@ -1,23 +1,19 @@
 <div class="room-details room-details__bottom half-height <%= room.available_class %>">
-  <div class="grid">
-    <div class="grid__col grid__col--12-of-12 center">
-      <h1 id="room-name"><%= room.name %></h1>
-    </div>
-  </div>
-
-  <div class="grid">
-    <div class="grid__col grid__col--2-of-12 center">
-      <p><%= arrow %></p>
+  <div class="d-flex justify-content-around align-items-center text-center">
+    <div class="p-2">
+      <%= arrow %>
     </div>
 
-    <div class="grid__col grid__col--8-of-12 center">
-      <p id="up-next"><%= room.availability %></p>
+    <div class="px-2">
+      <div class="d-flex flex-column">
+        <h1 id="room-name"><%= room.name %></h1>
+        <p id="up-next"><%= room.availability %></p>
+      </div>
     </div>
 
-    <div class="grid__col grid__col--2-of-12 center">
+    <div class="p-2">
       <p><%= qr_code(room) %></p>
-      <p class="center">Schedule Room</p>
+      <p><%= t("scan-qr-code_html") %></p>
     </div>
-
   </div>
 </div>

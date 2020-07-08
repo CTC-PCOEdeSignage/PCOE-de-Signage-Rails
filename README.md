@@ -69,23 +69,20 @@ You can provide complex HTML pages (with style) by creating a new Slide (in the 
   }
 </style>
 
-<div class="grid">
-  <div class="grid__col grid__col--12-of-12 center">
+<div class="row">
+  <div class="col-12 text-center">
       <div class="head">
         <h1>Div</h1>
       </div>
   </div>
-  <div class="grid__col grid__col--6-of-12 center">
+  <div class="col-6 text-center">
     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
   </div>
-  <div class="grid__col grid__col--6-of-12 center">
+  <div class="col-6 text-center">
     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
   </div>
 </div>
 ```
-
-Note: We use the CSS grid library called Toast. Review the documentation there. https://daneden.github.io/Toast/
-
 
 ## How To Develop Custom Slides
 
@@ -96,16 +93,16 @@ Once you've created the file, you may go into the admin interface and choose `Sl
 These custom slide files, when rendered by the server, are cached for 5 minutes before they are regenerated.
 
 ```erb
-<div class="grid">
-  <div class="grid__col grid__col--12-of-12 center">
+<div class="row">
+  <div class="col-12 text-center">
       <div class="head">
         <h1><%= Time.current.to_s %></h1>
       </div>
   </div>
-  <div class="grid__col grid__col--6-of-12 center">
+  <div class="col-6 text-center">
     <p><%= ['a','b','c'].sample %></p>
   </div>
-  <div class="grid__col grid__col--6-of-12 center">
+  <div class="col-6 text-center">
     <p><%= ['x','y','z'].sample %></p>
   </div>
 </div>

@@ -2,11 +2,19 @@ class RoomDecorator < Draper::Decorator
   delegate_all
 
   def available_class
-    "available" if room_availability.available_now?
+    case
+    when room_availability.available_now?
+      "available"
+    when room_availability.closed_now?
+      "closed"
+    else
+      "unavailable"
+    end
   end
 
   def availability
-    return "Available Now" if room_availability.available_now?
+    return "Room Available Now" if room_availability.available_now?
+    return "Room Closed" if room_availability.closed_now?
 
     next_available = room_availability.next_available
 

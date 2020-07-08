@@ -6,3 +6,5 @@ en:
     label:
       event:
         ohioid: OHIO ID
+
+  scan-qr-code_html: Scan QR code to<br />schedule room

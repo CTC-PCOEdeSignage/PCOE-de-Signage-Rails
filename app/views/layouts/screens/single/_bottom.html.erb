@@ -1,28 +1,30 @@
 <div class="room-details room-details__bottom full-height <%= room.decorate.available_class %>">
-  <div class="grid">
-    <div class="grid__col grid__col--12-of-12 center">
+  <div class="pt-4 d-flex justify-content-around align-items-base text-center">
+    <div class="pt-4">
+      <div class="d-flex flex-column">
+        <div class="p-1">
+          <%= qr_code(room) %>
+        </div>
+        <div class="p-1">
+          <p><%= t("scan-qr-code_html") %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-0">
       <h1 id="room-name"><%= room.name %></h1>
-    </div>
-  </div>
-
-  <div class="grid">
-    <div class="grid__col grid__col--3-of-12 center">
-      <p><%= qr_code(room) %></p>
-      <p class="center">Schedule Room</p>
-    </div>
-
-    <div class="grid__col grid__col--6-of-12 center">
       <p id="up-next"><%= room.decorate.availability %></p>
       <p id="ou-logo">
         <%= ohio_image %>
       </p>
     </div>
 
-    <div class="grid__col grid__col--3-of-12 center">
-      <p id="logo">
+    <div class="pt-4">
+      <div class="d-flex flex-column">
+      <div class="p-1" id="logo">
         <%= patton_college_image %>
-      </p>
-      <p id="clock">
+      </div>
+      <div class="p-1" id="clock">
         <%= now_time %>
       </h2>
     </div>

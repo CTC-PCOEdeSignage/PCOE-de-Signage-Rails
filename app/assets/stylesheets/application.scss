@@ -3,7 +3,6 @@
  */
 
 @import "rails_bootstrap_forms";
-@import "toast/grid";
 @import "colors";
 @import "bootstrap/custom";
 
@@ -30,7 +29,7 @@ $uptown: #f2ff0f;
 $wheat: #ffdb00;
 $off_white: #fcf4ea;
 
-$footer-height: 280px;
+$footer-height: 300px;
 $footer-half-height: ($footer-height / 2);
 
 body.screen-layout {
@@ -60,7 +59,7 @@ body.screen-layout {
 }
 
 .room-details__top, .room-details__bottom {
-  width: 720px;
+  width: 1080px;
   background-color: $brick;
   margin: 0;
   padding: 0;
@@ -73,17 +72,16 @@ body.screen-layout {
     height: $footer-half-height;
 
     .qrcode {
-      margin-top: -60px;
       height: 65px;
       img {
         height: 75px;
       }
     }
   }
+
   .arrow {
-    font-size: 60px;
+    font-size: 40px;
     font-weight: bold;
-    height: 20px;
   }
 }
 
@@ -109,4 +107,9 @@ body.screen-layout {
   }
 }
 
-@import "slides/defaults.scss"
+@import "slides/defaults.scss";
+
+p {
+  font-size: 12px;
+  line-height: 14px;
+}

@@ -50,8 +50,8 @@ class SlideDecorator < Draper::Decorator
   end
 
   def twelve_column_grid(extra_classes: nil)
-    h.content_tag(:div, class: "grid") do
-      h.content_tag(:div, class: "grid__col grid__col--12-of-12 #{extra_classes}") do
+    h.content_tag(:div, class: "row") do
+      h.content_tag(:div, class: "col-12 #{extra_classes}") do
         yield
       end
     end

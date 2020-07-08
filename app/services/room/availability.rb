@@ -24,10 +24,11 @@ class Room
     end
 
     def available_between?(start_at, end_at)
-      availability(on: start_at).any? do |availability|
-        availability.available? &&
-          within_time?(availability.time, start_at: start_at, end_at: end_at)
-      end
+      is_state_between?(:available?, start_at, end_at)
+    end
+
+    def closed_between?(start_at, end_at)
+      is_state_between?(:closed?, start_at, end_at)
     end
 
     def availability_at(time)
@@ -35,9 +36,11 @@ class Room
     end
 
     def available_now?
-      now = Time.current.floor_to(30.minutes)
-
       available_between?(now, now + 30.minutes)
+    end
+
+    def closed_now?
+      closed_between?(now, now + 30.minutes)
     end
 
     def next_available
@@ -58,6 +61,17 @@ class Room
     private
 
     attr_reader :room
+
+    def now
+      Time.current.floor_to(30.minutes)
+    end
+
+    def is_state_between?(type_check, start_at, end_at)
+      availability(on: start_at).any? do |availability|
+        availability.send(type_check) &&
+          within_time?(availability.time, start_at: start_at, end_at: end_at)
+      end
+    end
 
     def base_availability(date)
       day_of_the_week = date.to_formatted_s(:day).downcase
