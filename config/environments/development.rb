@@ -65,4 +65,6 @@ Rails.application.configure do
   config.action_mailer.preview_path = Rails.root.join("spec", "mailer_previews")
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
+
+  config.hosts.clear
 end
