@@ -134,6 +134,38 @@ RSpec.describe Room::Availability, :type => :service do
     end
   end
 
+  describe "#closed_now?" do
+    context "with no events" do
+      it "get availability on any given sunday" do
+        travel_to Date.today.next_occurring(:sunday).middle_of_day do
+          expect(
+            subject.closed_now?
+          ).to eq(true)
+        end
+      end
+
+      it "get availability on any given tuesday" do
+        travel_to Date.today.next_occurring(:tuesday).middle_of_day do
+          expect(
+            subject.closed_now?
+          ).to eq(false)
+        end
+      end
+    end
+
+    context "with 1 event" do
+      it "get availability on any given tuesday" do
+        travel_to Date.today.next_occurring(:tuesday).beginning_of_day do
+          create(:event, start_at: Date.today.next_occurring(:tuesday).middle_of_day, duration: 60, room: room)
+
+          expect(
+            subject.closed_now?
+          ).to eq(true)
+        end
+      end
+    end
+  end
+
   describe "#availability_at" do
     let(:middle_of_day) { Time.current.floor_to(30.minutes) }
 
