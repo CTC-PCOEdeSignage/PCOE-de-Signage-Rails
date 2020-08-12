@@ -28,7 +28,7 @@ module PcoeDeSignageRails
     # Don't generate system test files.
     config.generators.system_tests = nil
     config.active_storage.service = :local
-    config.active_job.queue_adapter = :sidekiq
+    config.active_job.queue_adapter = :delayed_job
 
     config.time_zone = "Eastern Time (US & Canada)"
   end

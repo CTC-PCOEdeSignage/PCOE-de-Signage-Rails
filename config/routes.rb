@@ -1,6 +1,3 @@
-require "sidekiq/web"
-require "sidekiq/cron/web"
-
 Rails.application.routes.draw do
   resources :screens, only: [:index, :show]
 
@@ -12,10 +9,6 @@ Rails.application.routes.draw do
         get :verify
       end
     end
-  end
-
-  authenticate :admin_user do
-    mount Sidekiq::Web => "/sidekiq"
   end
 
   devise_for :admin_users, ActiveAdmin::Devise.config

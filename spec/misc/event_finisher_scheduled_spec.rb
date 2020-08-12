@@ -1,16 +1,17 @@
 require "rails_helper"
 
 RSpec.describe "event_finisher cron job" do
-  # If any of these testse are failing, you will need to manually
+  # If any of these tests are failing, you will need to manually
   # remove all cron jobs (using Sidekiq cron web interface) and
   # then re-run the test suite.
-  subject { Sidekiq::Cron::Job.find "event_finisher" }
+  before { EventFinisherJob.schedule }
 
-  it "should be scheduled" do
-    expect(subject).to be_present
+  it "should be scheduable" do
+    expect(EventFinisherJob).to respond_to(:schedule)
+    expect(EventFinisherJob).to respond_to(:scheduled?)
   end
 
   it "should happen ever hour; 5 after the hour" do
-    expect(subject.cron).to eq("5 * * * *")
+    expect(EventFinisherJob.cron_expression).to eq("5 * * * *")
   end
 end

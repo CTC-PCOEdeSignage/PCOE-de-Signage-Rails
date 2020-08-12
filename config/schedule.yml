@@ -1,4 +1,0 @@
-event_finisher:
-  cron: "5 * * * *"
-  class: "EventFinisherJob"
-  queue: default
