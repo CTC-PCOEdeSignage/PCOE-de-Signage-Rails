@@ -180,14 +180,19 @@ RSpec.describe Room::Availability, :type => :service do
     end
 
     context "with 1 event" do
-      it "get availability on any given tuesday" do
+      around do |example|
         travel_to Date.today.next_occurring(:tuesday).middle_of_day + 1.minute do
-          create(:event, start_at: Time.current.beginning_of_hour, duration: 60, room: room)
-
-          expect(
-            subject.availability_at(middle_of_day)
-          ).to be_a Room::Availability::NotAvailable
+          example.run
         end
+      end
+
+      let!(:event) { create(:event, start_at: Time.current.beginning_of_hour, duration: 60, room: room) }
+
+      it "get availability on any given tuesday" do
+        availability = subject.availability_at(middle_of_day)
+        expect(availability).to be_a Room::Availability::NotAvailable
+        expect(availability.blocking_event?).to eq(true)
+        expect(availability.blocking_event).to eq(event)
       end
     end
 

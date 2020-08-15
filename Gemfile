@@ -21,6 +21,7 @@ gem 'premailer-rails'
 gem 'puma'
 gem 'rails', '~> 6'
 gem 'rectify'
+gem 'recurring_select', github: "rickychilcott/recurring_select", branch: "rails_6_support"
 gem 'redcarpet'
 gem 'rounding'
 gem 'rqrcode'

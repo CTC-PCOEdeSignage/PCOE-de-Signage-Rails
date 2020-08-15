@@ -1,3 +1,15 @@
+GIT
+  remote: https://github.com/rickychilcott/recurring_select.git
+  revision: e42ab39cfd640391d0bb2ac828e42d159caf59f0
+  branch: rails_6_support
+  specs:
+    recurring_select (2.1.0)
+      coffee-rails (>= 3.1)
+      ice_cube (>= 0.11)
+      jquery-rails (>= 3.0)
+      rails (>= 3.2)
+      sass-rails (>= 4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -117,6 +129,13 @@ GEM
     coderay (1.1.2)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
+    coffee-rails (5.0.0)
+      coffee-script (>= 2.2.0)
+      railties (>= 5.2.0)
+    coffee-script (2.4.1)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.12.2)
     concurrent-ruby (1.1.6)
     config (2.2.1)
       deep_merge (~> 1.2, >= 1.2.1)
@@ -218,6 +237,7 @@ GEM
       domain_name (~> 0.5)
     i18n (1.8.3)
       concurrent-ruby (~> 1.0)
+    ice_cube (0.16.3)
     ice_nine (0.11.2)
     inherited_resources (1.11.0)
       actionpack (>= 5.0, < 6.1)
@@ -473,6 +493,7 @@ DEPENDENCIES
   puma
   rails (~> 6)
   rectify
+  recurring_select!
   redcarpet
   rest-client
   rounding

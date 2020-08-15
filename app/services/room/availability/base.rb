@@ -21,7 +21,11 @@ class Room
         false
       end
 
-      attr_reader :time
+      attr_reader :time, :blocking_event
+
+      def blocking_event?
+        !!blocking_event
+      end
     end
   end
 end

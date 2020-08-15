@@ -6,29 +6,6 @@
 @import "colors";
 @import "bootstrap/custom";
 
-$appalachian_sunset: #ff701a;
-$athens_sky: #29ffd1;
-$baker: #7b9f02;
-$brick: #a10037;
-$bunch_of_grapes: #5b08ae;
-$cutler: #0a8324;
-$gateway: #35312e;
-$heritage: #f7faf7;
-$hocking: #007e71;
-$innovation: #8aff1a;
-$lindley: #c9c7ba;
-$northwest: #e33500;
-$paw_paw: #deff63;
-$putnam: #544e49;
-$regionals: #30ff14;
-$saki: #991aff;
-$satellite: #ff0047;
-$templeton: #e3faed;
-$under_the_elms: #063e0c;
-$uptown: #f2ff0f;
-$wheat: #ffdb00;
-$off_white: #fcf4ea;
-
 $footer-height: 300px;
 $footer-half-height: ($footer-height / 2);
 
@@ -60,7 +37,7 @@ body.screen-layout {
 
 .room-details__top, .room-details__bottom {
   width: 1080px;
-  background-color: $brick;
+  background-color: $red;
   margin: 0;
   padding: 0;
 
@@ -83,18 +60,6 @@ body.screen-layout {
     font-size: 40px;
     font-weight: bold;
   }
-}
-
-.available {
-  background-color: $cutler;
-}
-
-.unavailable {
-  background-color: $brick;
-}
-
-.closed {
-  background-color: $putnam;
 }
 
 .room-details__top {

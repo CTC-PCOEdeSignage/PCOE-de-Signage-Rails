@@ -1,0 +1,8 @@
+<% events = availability.events %>
+<h2>Events</h2>
+<p>Scheduled <%= events.size %> events and declined any overlapping</p>
+<ul>
+  <% events.each do |event| %>
+    <li><%= "#{event.purpose} (#{event.start_at.to_formatted_s(:full_datetime)} - #{event.duration} minutes)" %></li>
+  <% end %>
+</ul>

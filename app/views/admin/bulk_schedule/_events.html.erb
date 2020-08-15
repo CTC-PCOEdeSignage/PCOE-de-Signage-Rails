@@ -1,0 +1,39 @@
+<% room_availability = availability.room_availability %>
+<% dates = availability.schedule.map { |date_range| [date_range.begin, date_range.end] } %>
+<h2>Event Availability</h2>
+<p>Note: Events that are "Not Availble" may mean the room is simply closed</p>
+<table>
+  <tr>
+    <th>
+      Event Start
+    </th>
+    <th>
+      Event End
+    </th>
+    <% room_availability.each do |room_availability| %>
+      <th>
+        <%= room_availability.room.name %>
+      </th>
+    <% end %>
+  </tr>
+  <% dates.each do |start_time, end_time| %>
+    <tr>
+      <td>
+        <%= start_time.to_formatted_s(:full_datetime) %>
+      </td>
+      <td>
+        <%= end_time.to_formatted_s(:full_datetime) %>
+      </td>
+      <% room_availability.each do |room_availability| %>
+        <td>
+        <% is_available = room_availability.available_between?(start_time, end_time) %>
+          <% if is_available %>
+            <span style="padding: 0.3rem; color: white;" class="available">Available</span>
+          <% else %>
+            <span style="padding: 0.3rem; color: white;" class="unavailable">Not Available</span>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

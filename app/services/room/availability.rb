@@ -11,14 +11,16 @@ class Room
 
       @availability_cache[on] ||= begin
           on = on.to_date
-          events_on_date = room.events.impacting.on_date(on).to_a
+          events_on_the_date = events_on_date(on)
 
           base_availability(on)
             .map do |availability|
             next(availability) if availability.not_available?
-            next(availability) unless available_during_events?(availability, events_on_date)
+            next(availability) unless available_during_events?(availability, events_on_the_date)
 
-            NotAvailable.new(availability.time)
+            NotAvailable.new(availability.time).tap do |na|
+              na.blocking_event = blocking_events(availability, events_on_the_date).first
+            end
           end
         end
     end
@@ -27,12 +29,17 @@ class Room
       is_state_between?(:available?, start_at, end_at)
     end
 
+    def not_available_between?(start_at, end_at)
+      is_state_between?(:not_available?, start_at, end_at)
+    end
+
     def closed_between?(start_at, end_at)
       is_state_between?(:closed?, start_at, end_at)
     end
 
     def availability_at(time)
-      availability(on: time).find { |a| a.time == time }
+      availability(on: time)
+        .find { |a| a.time == time }
     end
 
     def available_now?
@@ -58,9 +65,13 @@ class Room
       end
     end
 
+    attr_reader :room
+
     private
 
-    attr_reader :room
+    def events_on_date(on)
+      room.events.impacting.on_date(on).to_a
+    end
 
     def now
       Time.current.floor_to(30.minutes)
@@ -93,7 +104,11 @@ class Room
     end
 
     def available_during_events?(availability, events)
-      events.any? { |event| within_time?(availability.time, start_at: event.start_at, end_at: event.end_at) }
+      blocking_events(availability, events).one?
+    end
+
+    def blocking_events(availability, events)
+      events.select { |event| within_time?(availability.time, start_at: event.start_at, end_at: event.end_at) }
     end
 
     def within_time?(time, start_at:, end_at:)

@@ -9,3 +9,16 @@ $yellow:  darken(#ffc107, 10%);
 $green:   darken(#28a745, 10%);
 $teal:    darken(#20c997, 10%);
 $cyan:    darken(#17a2b8, 10%);
+$off_white: #fcf4ea;
+
+.available {
+  background-color: $green;
+}
+
+.unavailable {
+  background-color: $red;
+}
+
+.closed {
+  background-color: $purple;
+}

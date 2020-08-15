@@ -1,0 +1,47 @@
+<%= form_with(url: { action: :schedule }, remote: false, id: "bulk_schedule", builder: ActiveAdmin::FormBuilder) do |f| %>
+  <%= f.label :event_purpose %>
+  <%= f.text_field :event_purpose, required: true %>
+
+  <br /><br />
+
+  <%= f.label :event_email %>
+  <%= f.text_field :event_email, value: current_admin_user.email, required: true %>
+
+  <br /><br />
+
+  <%= f.label :recurring_rule, "Recurring Rules" %>
+  <%= f.select_recurring :recurring_rule %>
+
+  <br /><br />
+
+  <%= f.label :start_time, "Start time" %>
+  <%= f.time_field :start_time, step: 1800, required: true %>
+
+  <br /><br />
+
+  <%= f.label :duration, "Duration (minutes)" %>
+  <%= f.number_field :duration, required: true, min: 30, max: (8 * 60), step: 30 %>
+
+  <br /><br />
+
+  <%= f.label :end_date, "End date" %>
+  <%= f.date_field :end_date, min: Date.today + 1.day, max: 1.year.from_now.to_date, required: true %>
+
+  <br /><br />
+
+  <%= f.label :rooms %>
+  <%= f.collection_check_boxes :rooms, Room.all, :id, :name do |b| %>
+    <% b.label(:"data-value" => b.value) do %>
+      <div style="padding-left: 1rem;">
+        <%= b.check_box %>
+        <span style="padding-left: 0.25rem;"><%= b.text %></span>
+      </div>
+    <% end %>
+  <% end %>
+  <%= f.actions do %>
+    <%= f.submit "Check Dates", name: :check %>
+    <%= f.submit "Schedule Dates", name: :set, data: { confirm: "Are you sure you want to schedule these events? We recommend checking dates first. This cannot be undone." } %>
+  <% end %>
+<% end %>
+
+<div class="results"></div>
