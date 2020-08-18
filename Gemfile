@@ -6,6 +6,7 @@ ruby File.read(".ruby-version").strip
 gem 'aasm'
 gem 'activeadmin'
 gem 'acts_as_list'
+gem 'autoprefixer-rails'
 gem 'babel-transpiler'
 gem 'bootstrap', '~> 4.5'
 gem 'bootstrap_form', '~> 4.0'

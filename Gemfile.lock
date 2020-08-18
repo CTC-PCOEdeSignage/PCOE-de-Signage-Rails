@@ -470,6 +470,7 @@ DEPENDENCIES
   aasm
   activeadmin
   acts_as_list
+  autoprefixer-rails
   axe-matchers
   babel-transpiler
   bootsnap (>= 1.1.0)

@@ -1,0 +1,85 @@
+@import "colors";
+
+$width: 1280px - 2px * 2;
+$height: 720px - 2px * 2;
+
+$footer-height: $width * 0.25;
+$footer-half-height: ($footer-height / 2);
+
+body {
+  border: 1px solid black;
+  color: $off_white;
+  width: $width;
+  height: $height;
+  background-color: $off_white;
+  position: absolute;
+  margin: 0;
+
+  &.rotate-90 {
+    transform: rotate(90deg);
+  }
+
+  &.rotate-270 {
+    transform: rotate(270deg);
+  }
+}
+
+.slide {
+  height: $width - $footer-height;
+}
+
+.room-details__top, .room-details__bottom {
+  width: $width;
+  background-color: $red;
+  margin: 0;
+  padding: 0;
+  height: $footer-height;
+  color: $black;
+
+  &.half-height {
+    height: $footer-half-height !important;
+
+    .qrcode {
+      height: 65px;
+
+      img {
+        height: 75px;
+      }
+    }
+  }
+
+  .arrow {
+    font-size: 40px;
+    font-weight: bold;
+  }
+}
+
+.room-details__top {
+  &.half-height {
+    .arrow {
+      margin-top: -30px;
+      -webkit-transform: rotate(180deg);
+      transform: rotate(180deg);
+    }
+  }
+}
+
+@import "slides/defaults";
+
+p {
+  font-size: 12px;
+  line-height: 14px;
+}
+
+$gutter: 12px;
+$col-width: ($width - $gutter)/ 12;
+
+.row { width: $width; height: 100%; }
+.col-12 { width: $col-width * 12; }
+.col-6 {width: $col-width * 6; }
+.pt-2 { padding-top: 0.5rem; }
+.pt-4 { padding-top: 0.5rem; }
+.p-1 { padding: 0.25rem; }
+.p-0 { padding: 0rem; }
+.px-2 { padding: 0rem 0.5rem 0rem 0.25rem }
+.text-center { text-align: center; }

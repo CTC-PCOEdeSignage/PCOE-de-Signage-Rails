@@ -12,4 +12,7 @@ module ApplicationHelper
   def patton_college_image
     image_tag("CalledToLead-Blue.gif", alt: "Patton College of Education", style: "height: 100px;")
   end
+
+  def comment
+  end
 end

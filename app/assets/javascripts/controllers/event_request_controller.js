@@ -1,5 +1,3 @@
-console.log("loaded event request")
-
 window.application.register('event_request', class extends Stimulus.Controller {
   static targets = ["dateTime", "date", "time"]
 

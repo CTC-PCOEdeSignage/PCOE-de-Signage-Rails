@@ -3,17 +3,12 @@
   <head>
     <meta charset="utf-8">
     <title><% t("site.title", name: @screen.name) %></title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
     <!-- Don't have turbolinks cache -->
     <meta name="turbolinks-cache-control" content="no-cache">
-
-    <%= stylesheet_link_tag "application", media: "all", 'data-turbolinks-track': "reload" %>
-    <%= javascript_include_tag "application", 'data-turbolinks-track': "reload" %>
+    <%= stylesheet_link_tag "screen", media: "all", "data-turbolinks-track": "reload" %>
+    <%# javascript_include_tag "screen", "data-turbolinks-track": "reload" %>
   </head>
-
-  <body class="screen-layout <%= screen_rotation_class %>" data-next-slide-url="<%= next_slide_url %>" data-slide-length="<%= slide_length %>">
+  <%= content_tag :body, class: screen_rotation_class, data: {next_slide_url: next_slide_url, slide_length: slide_length} do %>
     <% if @screen.rooms.empty? %>
       <%= render partial: "layouts/screens/no_rooms" %>
     <% elsif dual_layout? && @screen.rooms.one? %>
@@ -27,5 +22,5 @@
     <% else %>
       <%= render partial: "layouts/screens/single" %>
     <% end %>
-  </body>
+  <% end %>
 </html>
