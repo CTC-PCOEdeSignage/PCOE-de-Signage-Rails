@@ -11,14 +11,14 @@ class QrCode
   end
 
   def as_data_url
-    "data:image/png;base64,#{Base64.strict_encode64(as_png)}"
+    "data:image/svg+xml;base64,#{Base64.strict_encode64(as_svg)}"
   end
 
   private
 
-  def as_png
+  def as_svg
     qr_code
-      .as_png(
+      .as_svg(
         bit_depth: 1,
         border_modules: 2, # only a little border
         color_mode: ChunkyPNG::COLOR_GRAYSCALE,
