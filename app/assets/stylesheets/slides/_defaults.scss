@@ -3,7 +3,8 @@
   color: black;
 }
 
-#clock, #up-next {
+#clock,
+#up-next {
   font-size: 20px;
 }
 
@@ -11,7 +12,8 @@ h1#room-name {
   font-size: 24px;
 }
 
-#logo, .qrcode {
+#logo,
+.qrcode {
   img {
     height: 140px;
   }
@@ -28,4 +30,8 @@ h1#room-name {
   img {
     height: 1000px;
   }
+}
+
+.text-center {
+  text-align: center;
 }

@@ -41,8 +41,8 @@
 <% all_times = Time.current.floor_to(60.minutes).ranged_by(4.hours, step: 30.minutes) %>
 <% all_rooms = Room.all.decorate %>
 <!-- Markup/Logic -->
-<div class="text-center px-2">
-  <div class="all-schedule-frame">
+<div class="grid text-center px-2">
+  <div class="grid__col grid__col--12-of-12 all-schedule-frame">
     <h3>Project Room Availability</h3>
     <table align="center">
       <tr>

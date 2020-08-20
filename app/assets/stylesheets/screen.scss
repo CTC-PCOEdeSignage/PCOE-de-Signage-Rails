@@ -1,10 +1,12 @@
 @import "colors";
+@import "toast";
 
-$width: 1280px - 2px * 2;
-$height: 720px - 2px * 2;
-
-$footer-height: $width * 0.25;
-$footer-half-height: ($footer-height / 2);
+$border_width: 1px;
+$width: 720px - $border_width * 4;
+$height: 1280px - $border_width * 4;
+$footer-height: $height * 0.20;
+$footer-half-height: $footer-height / 2;
+$slide-height: $height - $footer-height;
 
 body {
   border: 1px solid black;
@@ -14,6 +16,8 @@ body {
   background-color: $off_white;
   position: absolute;
   margin: 0;
+  top: -280px;
+  left: 280px;
 
   &.rotate-90 {
     transform: rotate(90deg);
@@ -25,16 +29,24 @@ body {
 }
 
 .slide {
-  height: $width - $footer-height;
+  height: $slide-height;
 }
 
-.room-details__top, .room-details__bottom {
+.room-details__top,
+.room-details__bottom {
   width: $width;
   background-color: $red;
   margin: 0;
   padding: 0;
   height: $footer-height;
   color: $black;
+
+
+  .qrcode {
+    height: 65px;
+    width: 65px;
+    background-color: white;
+  }
 
   &.half-height {
     height: $footer-half-height !important;
@@ -74,12 +86,22 @@ p {
 $gutter: 12px;
 $col-width: ($width - $gutter)/ 12;
 
-.row { width: $width; height: 100%; }
-.col-12 { width: $col-width * 12; }
-.col-6 {width: $col-width * 6; }
-.pt-2 { padding-top: 0.5rem; }
-.pt-4 { padding-top: 0.5rem; }
-.p-1 { padding: 0.25rem; }
-.p-0 { padding: 0rem; }
-.px-2 { padding: 0rem 0.5rem 0rem 0.25rem }
-.text-center { text-align: center; }
+.pt-2 {
+  padding-top: 0.5rem;
+}
+
+.pt-4 {
+  padding-top: 0.5rem;
+}
+
+.p-1 {
+  padding: 0.25rem;
+}
+
+.p-0 {
+  padding: 0rem;
+}
+
+.px-2 {
+  padding: 0rem 0.5rem 0rem 0.25rem
+}

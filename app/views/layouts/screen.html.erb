@@ -2,13 +2,13 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title><% t("site.title", name: @screen.name) %></title>
+    <title><%= t("site.title", name: @screen.name) %></title>
     <!-- Don't have turbolinks cache -->
     <meta name="turbolinks-cache-control" content="no-cache">
-    <%= stylesheet_link_tag "screen", media: "all", "data-turbolinks-track": "reload" %>
-    <%# javascript_include_tag "screen", "data-turbolinks-track": "reload" %>
+    <%= stylesheet_link_tag "screen", media: "all", 'data-turbolinks-track': "reload" %>
+    <%= javascript_include_tag "screen", 'data-turbolinks-track': "reload" %>
   </head>
-  <%= content_tag :body, class: screen_rotation_class, data: {next_slide_url: next_slide_url, slide_length: slide_length} do %>
+  <%= content_tag :body, class: screen_rotation_class, data: { next_slide_url: next_slide_url, slide_length: slide_length } do %>
     <% if @screen.rooms.empty? %>
       <%= render partial: "layouts/screens/no_rooms" %>
     <% elsif dual_layout? && @screen.rooms.one? %>
