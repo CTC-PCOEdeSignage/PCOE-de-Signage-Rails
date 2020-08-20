@@ -1,7 +1,7 @@
 //= require turbolinks
 
 var slideLength = function () {
-  return parseInt(document.body.dataset.slideLength, 10) * 1000;
+  return (parseInt(document.body.dataset.slideLength, 10) * 1000);
 }
 
 var nextSlideUrl = function () {
@@ -9,7 +9,7 @@ var nextSlideUrl = function () {
 }
 
 var isSlidePage = function () {
-  return document.body.classList.contains('screen-layout') && (document.querySelectorAll('.slide').length === 1)
+  return (document.querySelectorAll('.slide').length === 1);
 }
 
 var advanceToNextSlide = function () {
@@ -19,22 +19,22 @@ var advanceToNextSlide = function () {
 
 var pingNextSlideUrl = function (opts) {
   var request = new XMLHttpRequest();
-  request.open('get', nextSlideUrl(), true);
+  request.open('HEAD', nextSlideUrl(), true);
 
   request.onload = function () {
     if (request.status >= 200 && request.status < 400) {
-      if (opts.success !== undefined) {
+      if (opts.success) {
         opts.success();
       }
     } else {
-      if (opts.failure !== undefined) {
+      if (opts.failure) {
         opts.failure();
       }
     }
   };
 
   request.onerror = function () {
-    if (opts.failure !== undefined) {
+    if (opts.failure) {
       opts.failure();
     }
   };
@@ -42,7 +42,7 @@ var pingNextSlideUrl = function (opts) {
   request.send();
 }
 
-var tryToAdvanceToNextSlide = function (opts) {
+var tryToAdvanceToNextSlide = function () {
   pingNextSlideUrl({
     success: advanceToNextSlide,
     failure: goToNextSlideAfterTimeout
@@ -50,39 +50,39 @@ var tryToAdvanceToNextSlide = function (opts) {
 }
 
 var goToNextSlideAfterTimeout = function () {
-  if (window.goToNextSlideAfterTimeoutId !== undefined) {
+  if (window.goToNextSlideAfterTimeoutId) {
     clearTimeout(window.goToNextSlideAfterTimeoutId);
     window.goToNextSlideAfterTimeoutId = undefined;
   }
 
-  window.goToNextSlideAfterTimeoutId =
-    setTimeout(function () {
-      tryToAdvanceToNextSlide();
-    }, slideLength())
+  window.goToNextSlideAfterTimeoutId = setTimeout(tryToAdvanceToNextSlide, slideLength());
 }
 
-var log = function (stuff) {
-  console.log(stuff);
+var log = function (string) {
+  console.log(string);
 }
 
 var setupSlidePage = function () {
   if (!isSlidePage()) {
     log('Not Slide Page');
-    return
+    return;
   }
 
   goToNextSlideAfterTimeout();
 }
 
-
 var ready = function () {
-  setupSlidePage()
+  setupSlidePage();
 }
 
+var keyEvents = {
+  39: advanceToNextSlide // right arrow key
+};
+
 var keyDownEvent = function (event) {
-  // right arrow key
-  if (event.keyCode === 39) {
-    advanceToNextSlide();
+  var lookup = keyEvents[event.keyCode];
+  if (lookup) {
+    lookup(event);
   }
 };
 
