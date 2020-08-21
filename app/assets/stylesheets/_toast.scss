@@ -11,10 +11,10 @@
   Assuming default values:
 
   <div class="grid">
-    <div class="grid__col grid__col--1-of-2">
+    <div class="grid-col grid-col-1">
       A half-width column.
     </div>
-    <div class="grid__col grid__col--1-of-4 grid__col--pull-1-of-4">
+    <div class="grid-col grid-col-1 grid-col-pull-1">
       A quarter, pulled left by its own width. You get this, right?
     </div>
   </div>
@@ -26,7 +26,7 @@
   $toast-grid-namespace and $toast-grid-column-namespace
   adjusts the class names for the grid. With
   default values, grid wrappers have a class
-  of '.grid' and columns '.grid__col'.
+  of '.grid' and columns '.grid-col'.
 
   $toast-col-groups(n) adjusts column divisions.
   For example, $toast-col-groups(12) will produce
@@ -43,12 +43,12 @@
 // Namespaces
 // This stops me from being overzealous with enforcing classes
 $toast-grid-namespace: "grid" !default;
-$toast-grid-column-namespace: "grid__col" !default;
+$toast-grid-column-namespace: "grid-col" !default;
 
 // $col-groups are the column groups you want
 // For example, $col-groups: (3, 4, 5) will output:
-// .grid__col--n-of-3, .grid__col--n-of-4, [...]
-$toast-col-groups: (2, 3, 4, 5, 6, 8, 12) !default;
+// .grid-col-n, .grid-col-n, [...]
+$toast-col-groups: (12) !default;
 
 // Gutter width
 $toast-gutter-width: 20px !default;
@@ -63,7 +63,7 @@ $toast-pulls: true !default;
 
 .#{$toast-grid-namespace} {
   list-style: none;
-  margin-left: -$toast-gutter-width;
+  // margin-left: -$toast-gutter-width;
 }
 
 %span-all {
@@ -155,7 +155,7 @@ $toast-pulls: true !default;
 
   // For each column width from 1 to the column group...
   @for $i from 1 through $group {
-    .#{$toast-grid-column-namespace}--#{$i}-of-#{$group} {
+    .#{$toast-grid-column-namespace}-#{$i} {
       @if percentage($i/$group)==percentage(1/1) {
         @extend %span-all;
       }
@@ -192,7 +192,7 @@ $toast-pulls: true !default;
     }
 
     @if ($toast-pushes) {
-      .#{$toast-grid-column-namespace}--push-#{$i}-of-#{$group} {
+      .#{$toast-grid-column-namespace}-push-#{$i} {
         @if percentage($i/$group)==percentage(1/1) {
           @extend %push-span-all;
         }
@@ -232,7 +232,7 @@ $toast-pulls: true !default;
     // end pushes
 
     @if ($toast-pulls) {
-      .#{$toast-grid-column-namespace}--pull-#{$i}-of-#{$group} {
+      .#{$toast-grid-column-namespace}-pull-#{$i} {
 
         @if percentage($i/$group)==percentage(1/1) {
           @extend %pull-span-all;
@@ -286,7 +286,7 @@ $toast-pulls: true !default;
   display: inline-block;
   margin-right: -.25em;
   min-height: 1px;
-  padding-left: $toast-gutter-width;
+  // padding-left: $toast-gutter-width;
   vertical-align: top;
 
   @media (max-width: $toast-breakpoint-medium) {
@@ -297,87 +297,87 @@ $toast-pulls: true !default;
   }
 
   @media (max-width: $toast-breakpoint-medium) and (min-width: $toast-breakpoint-small) {
-    &[class*="#{$toast-grid-column-namespace}--m-"] {
+    &[class*="#{$toast-grid-column-namespace}-m"] {
       display: inline-block;
       margin-right: -.24em;
     }
 
-    &.#{$toast-grid-column-namespace}--m-1-of-2 {
+    &.#{$toast-grid-column-namespace}-m-1 {
       width: percentage(1/2);
     }
 
-    &.#{$toast-grid-column-namespace}--m-1-of-3 {
+    &.#{$toast-grid-column-namespace}-m-1 {
       width: percentage(1/3);
     }
 
-    &.#{$toast-grid-column-namespace}--m-2-of-3 {
+    &.#{$toast-grid-column-namespace}-m-2 {
       width: percentage(2/3);
     }
 
-    &.#{$toast-grid-column-namespace}--m-1-of-4 {
+    &.#{$toast-grid-column-namespace}-m-1 {
       width: percentage(1/4);
     }
 
-    &.#{$toast-grid-column-namespace}--m-2-of-4 {
-      @extend .#{$toast-grid-column-namespace}--m-1-of-2;
+    &.#{$toast-grid-column-namespace}-m-2 {
+      @extend .#{$toast-grid-column-namespace}-m-1;
     }
 
-    &.#{$toast-grid-column-namespace}--m-3-of-4 {
+    &.#{$toast-grid-column-namespace}-m-3 {
       width: percentage(3/4);
     }
   }
 
   @media (max-width: $toast-breakpoint-small) {
-    &[class*="#{$toast-grid-column-namespace}--s-"] {
+    &[class*="#{$toast-grid-column-namespace}-s-"] {
       display: inline-block;
       margin-right: -.24em;
     }
 
-    &.#{$toast-grid-column-namespace}--s-1-of-2 {
+    &.#{$toast-grid-column-namespace}-s-1 {
       width: percentage(1/2);
     }
 
-    &.#{$toast-grid-column-namespace}--s-1-of-3 {
+    &.#{$toast-grid-column-namespace}-s-1 {
       width: percentage(1/3);
     }
 
-    &.#{$toast-grid-column-namespace}--s-2-of-3 {
+    &.#{$toast-grid-column-namespace}-s-2 {
       width: percentage(2/3);
     }
 
-    &.#{$toast-grid-column-namespace}--s-1-of-4 {
+    &.#{$toast-grid-column-namespace}-s-1 {
       width: percentage(1/4);
     }
 
-    &.#{$toast-grid-column-namespace}--s-2-of-4 {
-      @extend .#{$toast-grid-column-namespace}--s-1-of-2;
+    &.#{$toast-grid-column-namespace}-s-2 {
+      @extend .#{$toast-grid-column-namespace}-s-1;
     }
 
-    &.#{$toast-grid-column-namespace}--s-3-of-4 {
+    &.#{$toast-grid-column-namespace}-s-3 {
       width: percentage(3/4);
     }
   }
 }
 
 // Centers the column in the grid and clears the row of all other columns
-.#{$toast-grid-column-namespace}--centered {
+.#{$toast-grid-column-namespace}-centered {
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
 // Displays the column as the first in its row
-.#{$toast-grid-column-namespace}--d-first {
+.#{$toast-grid-column-namespace}-d-first {
   float: left;
 }
 
 // Displays the column as the last in its row
-.#{$toast-grid-column-namespace}--d-last {
+.#{$toast-grid-column-namespace}-d-last {
   float: right;
 }
 
 // Removes gutters from the columns
-.#{$toast-grid-namespace}--no-gutter {
+.#{$toast-grid-namespace}-no-gutter {
   margin-left: 0;
   width: 100%;
 
@@ -385,18 +385,18 @@ $toast-pulls: true !default;
     padding-left: 0;
   }
 
-  .#{$toast-grid-column-namespace}--span-all {
+  .#{$toast-grid-column-namespace}-span-all {
     margin-left: 0;
     width: 100%;
   }
 }
 
 // Align column to the bottom.
-.#{$toast-grid-column-namespace}--ab {
+.#{$toast-grid-column-namespace}-ab {
   vertical-align: bottom;
 }
 
 // Align column to the middle.
-.#{$toast-grid-column-namespace}--am {
+.#{$toast-grid-column-namespace}-am {
   vertical-align: middle;
 }

@@ -1,33 +1,43 @@
-<h1><%= @event.purpose.truncate(25) %></h1>
+<div class="row pt-4">
+  <div class="col-md-8">
+    <h1><%= @event.purpose.truncate(25) %></h1>
 
-<% if @event.requested? %>
-  <p><%= Settings.web.requested %></p>
-<% end %>
-<% if @event.verified? %>
-  <p><%= Settings.web.pending %></p>
-<% end %>
-<% if @event.approved? %>
-  <p><%= Settings.web.approved %></p>
-<% end %>
-<% if @event.declined? %>
-  <p><%= Settings.web.declined %></p>
-<% end %>
-<% if @event.finished? %>
-  <p><%= Settings.web.finished %></p>
-<% end %>
+    <% if @event.requested? %>
+      <p class="h5 text-success"><%= Settings.web.requested %></p>
+    <% end %>
+    <% if @event.verified? %>
+      <p class="h5 text-success"><%= Settings.web.pending %></p>
+    <% end %>
+    <% if @event.approved? %>
+      <p class="h5 text-success"><%= Settings.web.approved %></p>
+    <% end %>
+    <% if @event.declined? %>
+      <p class="h5 text-danger"><%= Settings.web.declined %></p>
+    <% end %>
+    <% if @event.finished? %>
+      <p class="h5 text-success"><%= Settings.web.finished %></p>
+    <% end %>
 
-<h2>Event Details</h2>
-<% @event.details.each do |(key, value)| %>
-  <p style="font-family: sans-serif; font-size: 16px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
-    <b><%= key.titleize %>:</b>&nbsp;<span><%= value.strip %></span>
-  </p>
-<% end %>
-
-<div class="row">
-  <div class="col text-center">
+    <h2 class="pt-4">Event Details</h2>
+    <% @event.details.each do |(key, value)| %>
+      <p style="font-family: sans-serif; font-size: 16px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
+        <b><%= key.titleize %>:</b>&nbsp;<span><%= value.strip %></span>
+      </p>
+    <% end %>
+  </div>
+  <div class="col-4 col-md-2 pt-4 pt-md-0">
+    <div class="m-auto">
+      <%= patton_college_image %>
+    </div>
+  </div>
+  <div class="d-block d-md-none col-8 pt-4 pt-md-0">
     <%= ohio_image(color: :black) %>
   </div>
-  <div class="col text-center">
-    <%= patton_college_image %>
+
+</div>
+
+<div class="row">
+  <div class="d-none d-md-block col-md-3 text-center">
+    <%= ohio_image(color: :black) %>
   </div>
 </div>

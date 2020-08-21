@@ -1,20 +1,17 @@
-<div class="room-details room-details__top half-height <%= room.available_class %>">
-  <div class="d-flex justify-content-around align-items-center text-center">
-    <div class="p-2">
-      <p><%= qr_code(room) %></p>
+<div class="room-details room-details__top half-height <%= room.decorate.available_class %> px-2">
+  <div class="container">
+    <div class="item">
+      <div class="pt-2"><%= qr_code(room) %></div>
       <p><%= t("scan-qr-code_html") %></p>
     </div>
 
-    <div class="px-2">
-      <div class="d-flex flex-column">
-        <h1 id="room-name"><%= room.name %></h1>
-        <p id="up-next"><%= room.availability %></p>
-      </div>
+    <div class="item grow text-center" style="position: relative; top: -1rem;">
+      <h1 id="room-name"><%= room.name %></h1>
+      <p id="up-next"><%= room.availability %></p>
     </div>
 
-    <div class="p-2">
+    <div class="item">
       <%= arrow %>
     </div>
   </div>
 </div>
-
