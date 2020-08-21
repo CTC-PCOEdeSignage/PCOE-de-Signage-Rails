@@ -1,6 +1,12 @@
 require "rails_helper"
 
 RSpec.describe Event, type: :model do
+  around do |example|
+    travel_to Date.today.next_occurring(:tuesday).middle_of_day + 1.minute do
+      example.run
+    end
+  end
+
   describe "validations" do
     subject { create(:event) }
 
@@ -107,12 +113,6 @@ RSpec.describe Event, type: :model do
     end
 
     describe "events" do
-      around do |example|
-        freeze_time do
-          example.run
-        end
-      end
-
       describe "on verify" do
         subject { build(:event, :requested) }
 
