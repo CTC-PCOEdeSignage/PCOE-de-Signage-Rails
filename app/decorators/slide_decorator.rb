@@ -26,7 +26,7 @@ class SlideDecorator < Draper::Decorator
   def render_image_tag
     cached(:image) do
       twelve_column_grid(extra_classes: "image-slide") do
-        h.image_tag("data:#{object.image.content_type};base64,#{base64_of_image}", height: "1000", width: "720")
+        h.image_tag("data:#{object.image.content_type};base64,#{base64_of_image}", height: "1022", width: "720")
       end
     end
   end

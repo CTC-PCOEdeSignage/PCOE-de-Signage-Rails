@@ -40,7 +40,7 @@ The system has several concepts that are important to know, before logging in:
 - *Slides* - A `Slide` represents a single slide of information. They can be pure images, HTML markup, or special slides that contain ruby code. See [How to Develop Custom Slides](#how-to-develop-custom-slides) for more information.
 - *Slide Style* - A `Slide` has a property which specifies what type it is. There are three major types:
   - `markup` - which shows html markup; ONLY WHEN `markup` is specified will the markup text be used. NOTE: you can also include style tags or javascript, if needed, but be careful to keep these pages as simple as possible.
-  - `image` - which shows a single image, centered on the screen. Images should be 1000 pixels high and 720 pixels wide at 72 DPI; ONLY WHEN `image` is specified will the image file be used. NOTE: Files should be JPG or GIF (pngs are supported, but load poorly). Images should also be optimized and cropped to be exactly 1000px X 720px
+  - `image` - which shows a single image, centered on the screen. Images should be 1022 pixels high and 720 pixels wide at 72 DPI; ONLY WHEN `image` is specified will the image file be used. NOTE: Files should be JPG or GIF (pngs are supported, but load poorly). Images should also be optimized and cropped to be exactly 1022px X 720px
   - `other` - these are custom slides; The system looks in the server folder under `app/views/slides` for files ending in `.html.erb`; In the style selector for a slide, these will show up as the file name. NOTE: These slides may take longer to render if the . See [How to Develop Custom Slides](#how-to-develop-custom-slides) for more information.
 
 
