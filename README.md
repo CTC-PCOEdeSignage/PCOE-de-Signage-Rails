@@ -151,6 +151,7 @@ RAILS_KEY_BASE=_value_from_below_
 SMTP_SERVER="smtp.Office365.com"
 SMTP_PORT="587"
 SMTP_USERNAME="coe-projrms-sa@ohio.edu"
+HOST="webserver.coe.ohio.edu"
 ```
 
 To generate a possible value for `RAILS_KEY_BASE`, run `bin/rails secret` and copy the contents from that command into your `.env` file.

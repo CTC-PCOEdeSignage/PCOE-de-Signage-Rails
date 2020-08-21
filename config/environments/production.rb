@@ -113,4 +113,6 @@ Rails.application.configure do
     :authentication => "plain",
     :enable_starttls_auto => true,
   }
+  config.action_mailer.default_url_options = { host: ENV["HOST"] || "webserver.coe.ohio.edu" }
+  Rails.application.routes.default_url_options = config.action_mailer.default_url_options
 end
