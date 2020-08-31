@@ -5,7 +5,7 @@
 </div>
 
 <div class="row pt-2">
-  <div class="col-6">
+  <div class="col-12 col-md-6">
     <ul class="list-group">
       <% @screens.each do |screen| %>
         <li class="list-group-item"><%= link_to screen.name, screen_path(screen) %></li>
@@ -16,7 +16,7 @@
 
 <div class="row pt-2">
   <div class="col-6">
-    <%= link_to "Room Page", rooms_path, class: "btn btn-info" %>
-    <%= link_to "Administrator Login", admin_root_path, class: "btn btn-secondary" %>
+    <%= link_to "Room Page", rooms_path, class: "btn btn-info my-1 m-md-0" %>
+    <%= link_to "Administrator Login", admin_root_path, class: "btn btn-secondary my-1 m-md-0" %>
   </div>
 </div>

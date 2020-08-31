@@ -5,7 +5,7 @@
 </div>
 
 <div class="row pt-2">
-  <div class="col-6">
+  <div class="col-12 col-md-6">
     <ul class="list-group">
       <% @rooms.each do |room| %>
         <li class="list-group-item"><%= link_to room.name, new_room_event_request_path(room) %></li>
@@ -16,7 +16,7 @@
 
 <div class="row pt-2">
   <div class="col">
-    <%= link_to "Screens Page", screens_path, class: "btn btn-info" %>
-    <%= link_to "Administrator Login", admin_root_path, class: "btn btn-secondary" %>
+    <%= link_to "Screens Page", screens_path, class: "btn btn-info my-1 m-md-0" %>
+    <%= link_to "Administrator Login", admin_root_path, class: "btn btn-secondary my-1 m-md-0" %>
   </div>
 </div>
