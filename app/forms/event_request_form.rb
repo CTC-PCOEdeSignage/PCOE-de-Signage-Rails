@@ -25,7 +25,7 @@ class EventRequestForm < Rectify::Form
   validate :check_room_availability
   validate :check_limit_days_in_future
   validate :check_limit_events_in_future
-  validates_length_of :purpose, within: 3..500
+  validates_length_of :purpose, within: Event::PURPOSE_LENGTH_CONSTRAINT
 
   def user
     return nil unless full_email

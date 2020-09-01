@@ -41,18 +41,35 @@ RSpec.describe "Request Event", :type => :system do
   end
 
   describe "when error" do
-    before { submit_event_request(ohioid: "too_long_ohio_id") }
+    context "with too long ohio id" do
+      before { submit_event_request(ohioid: "too_long_ohio_id") }
 
-    it "should show error message" do
-      expect(page).to have_content("must be valid OHIO ID")
+      it "should show error message" do
+        expect(page).to have_content("must be valid OHIO ID")
+      end
+
+      it "should be fixable and re-submittable" do
+        submit_event_request
+        should_be_on_confirmation_page
+      end
+
+      include_examples "accessible"
     end
 
-    it "should be fixable and re-submittable" do
-      submit_event_request
-      should_be_on_confirmation_page
-    end
+    context "with short purpose" do
+      before { submit_event_request(purpose: "abcd") }
 
-    include_examples "accessible"
+      it "should show error message" do
+        expect(page).to have_content("Purpose\nabcd\nis too short (minimum is 5 characters)")
+      end
+
+      it "should be fixable and re-submittable" do
+        submit_event_request
+        should_be_on_confirmation_page
+      end
+
+      include_examples "accessible"
+    end
   end
 
   def submit_event_request(ohioid: "rufus142", duration: "2 hours", base_time: Date.today.next_occurring(:monday).middle_of_day, purpose: "Bobcat cage escape training")

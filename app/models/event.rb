@@ -1,6 +1,7 @@
 class Event < ApplicationRecord
+  PURPOSE_LENGTH_CONSTRAINT = 5..500
   validates_presence_of :purpose, :start_at, :duration, :aasm_state
-  validates_length_of :purpose, minimum: 5
+  validates_length_of :purpose, within: PURPOSE_LENGTH_CONSTRAINT
 
   validates_presence_of :verification_identifier
   validates_uniqueness_of :verification_identifier
