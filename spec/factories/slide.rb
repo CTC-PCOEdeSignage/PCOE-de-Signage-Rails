@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :slide do
-    name { Faker::Name.name }
+    name { Faker::Name.unique.name }
     style { Slide::STYLE_OPTIONS.sample }
 
     trait :all_schedule_slide do
