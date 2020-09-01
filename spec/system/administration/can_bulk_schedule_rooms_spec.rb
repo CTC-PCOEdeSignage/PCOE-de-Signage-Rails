@@ -10,7 +10,7 @@ RSpec.describe "Can Bulk Schedule Rooms", :type => :system do
   end
 
   around do |example|
-    travel_to Date.today.next_occurring(:monday).middle_of_day do
+    travel_to Date.parse("1/1/2020").next_occurring(:monday).middle_of_day do
       example.run
     end
   end
