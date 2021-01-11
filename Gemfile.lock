@@ -351,7 +351,7 @@ GEM
       activesupport (>= 4.1.0)
       virtus (~> 1.0.5)
       wisper (>= 1.6.1)
-    redcarpet (3.5.0)
+    redcarpet (3.5.1)
     regexp_parser (1.7.0)
     request_store (1.5.0)
       rack (>= 1.4)
