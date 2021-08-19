@@ -3,6 +3,10 @@ ActiveAdmin.register Event do
 
   permit_params :user_id, :room_id, :start_at, :duration, :purpose
 
+  action_item only: :index do
+    link_to "Bulk Schedule", admin_bulk_schedule_path
+  end
+
   member_action :run, method: [:get, :post] do
     event_to_run = params[:aasm_event]
     resource.aasm.fire!(event_to_run)

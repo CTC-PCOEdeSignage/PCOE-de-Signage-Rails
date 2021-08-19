@@ -1,4 +1,6 @@
 ActiveAdmin.register_page "Bulk Schedule" do
+  menu false
+
   page_action :schedule, method: :post do
     permitted_params = params.permit(:recurring_rule, :event_purpose, :event_email, :start_time, :duration, :end_date, rooms: [])
 
