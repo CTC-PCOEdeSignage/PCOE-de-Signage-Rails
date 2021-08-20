@@ -3,7 +3,7 @@
   <%= f.inputs name: "CSV Import" do %>
     <%= f.input :file, as: :file %>
     <%= f.input :options, as: :radio,
-                          collection: { "Approve All (default)" => "approve_all",
+                          collection: { "Approve All" => "approve_all",
                                         "Quarantine All" => "quarantine_all",
                                         "Decline All" => "decline_all" },
                           selected: "approve_all" %>
