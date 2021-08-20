@@ -30,7 +30,7 @@ class EventRequestForm < Rectify::Form
   def user
     return nil unless full_email
 
-    @user ||= User.find_or_create_by(email: full_email)
+    @user ||= User.find_or_initialize_by(email: full_email)
   end
 
   def ohioid
