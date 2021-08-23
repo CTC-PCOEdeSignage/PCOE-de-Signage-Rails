@@ -9,6 +9,7 @@ ActiveAdmin.register_page "Dashboard" do
         panel "Help Resources" do
           ul do
             li link_to "How To Use", "https://drive.google.com/open?id=18OxBkqPzaDKkIlOYtt329OuILu5qJTHb"
+            li link_to "How to Schedule/Events", "https://www.youtube.com/watch?v=_GC-DMGj_9o"
             li link_to "Create Custom Slide", "https://drive.google.com/open?id=1wJPoc9JG9ga3tdNUjDd1ZSB9mPwNWNZ4"
             li link_to "PCOE Overview and Setup", "https://github.com/CTC-PCOEdeSignage/PCOE-de-Signage-Rails/blob/master/README.md"
             li link_to "Other Documentation", "https://github.com/CTC-PCOEdeSignage/PCOE-de-Signage-Rails/tree/master/documentation"
