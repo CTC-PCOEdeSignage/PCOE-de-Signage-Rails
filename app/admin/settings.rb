@@ -7,9 +7,9 @@ ActiveAdmin.register_page "Settings" do
   page_action :update, method: :post do
     @raw_yaml = params["settings"]["yaml"]
 
-    settings = YAML.load(@raw_yaml)
-    schema = Config.schema.call(settings.try(:deep_symbolize_keys))
-    raise InvalidSchema, schema.errors(full: true).to_a.map(&:to_s).to_sentence unless schema.errors.empty?
+    settings = YAML.load(@raw_yaml).try(:deep_symbolize_keys)
+    schema = Config.schema.call(settings)
+    raise InvalidSchema, schema.errors(full: true).to_a.map(&:to_s).to_sentence if schema.errors.any?
 
     FileUtils.mkdir_p(Rails.root.join("config/settings"))
     File.write(Rails.root.join("config/settings/#{Rails.env}.yml"), @raw_yaml)

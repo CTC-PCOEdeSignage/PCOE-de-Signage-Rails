@@ -23,7 +23,7 @@ RSpec.describe "Can Manage Users", :type => :system do
     it "should have existing settings" do
       visit admin_settings_path
 
-      expect(page).to have_selector("form #editor")
+      expect(page).to have_selector("form")
       expect(page).to have_content("---")
       expect(page).to have_content("domain: ohio.edu")
     end
@@ -67,13 +67,7 @@ RSpec.describe "Can Manage Users", :type => :system do
     end
 
     def fill_settings_yaml(string)
-      script =
-        <<~SCRIPT
-          var editor = ace.edit("editor")
-          editor.setValue("#{escape_javascript(string)}")
-        SCRIPT
-
-      page.execute_script(script)
+      fill_in(id: "settings_yaml", with: string)
     end
   end
 end

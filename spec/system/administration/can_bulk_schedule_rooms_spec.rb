@@ -31,6 +31,8 @@ RSpec.describe "Can Bulk Schedule Rooms", :type => :system do
         expect(page).to have_content("Events")
         expect(page).to have_content(rooms.first.name.upcase)
       end
+
+      expect(Event.count).to eq(0)
     end
   end
 

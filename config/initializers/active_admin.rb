@@ -193,15 +193,11 @@ ActiveAdmin.setup do |config|
   # and feel.
   #
   # To load a stylesheet:
-  config.register_stylesheet "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-yaml.min.js"
   #
   # You can provide an options hash for more control, which is passed along to stylesheet_link_tag():
   #   config.register_stylesheet 'my_print_stylesheet.css', media: :print
   #
   # To load a javascript file:
-  config.register_javascript "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js"
-  config.register_javascript "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ext-beautify.min.js"
-  config.register_javascript "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-yaml.min.js"
 
   # == CSV options
   #

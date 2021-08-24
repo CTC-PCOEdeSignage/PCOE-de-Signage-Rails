@@ -1,13 +1,9 @@
-<% @raw_yaml ||= Settings.to_hash.deep_stringify_keys.to_yaml %>
-
+<% @raw_yaml ||= Settings.to_hash.deep_stringify_keys.to_yaml(UseFold: true, UseBlock: true) %>
 <%= semantic_form_for :settings, url: { action: :update } do |f| %>
-  <%= f.inputs "Settings" do %>
-    <%= f.input :yaml, as: :hidden, input_html: { value: @raw_yaml, class: "autogrow", rows: 10, cols: 20 } %>
-    <div id="editor" data-mirror-with="#settings_yaml">
-      <%= @raw_yaml %>
-    </div>
-  <% end %>
   <%= f.actions do %>
     <%= f.action :submit, label: "Verify and Save", button_html: { data: { disable_with: "Verifying..." } } %>
+  <% end %>
+  <%= f.inputs "Settings" do %>
+    <%= f.text_area :yaml, value: @raw_yaml, rows: 40, cols: 30 %>
   <% end %>
 <% end %>
