@@ -6,7 +6,7 @@ ActiveAdmin.register Room do
   config.sort_order = "room_asc"
 
   form do |f|
-    f.semantic_errors *f.object.errors.attribute_names
+    f.semantic_errors *f.object.errors.keys
 
     f.inputs do
       f.input :name
