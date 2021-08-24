@@ -1,22 +1,26 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "Missing Encryption",
-      "warning_code": 109,
-      "fingerprint": "6a26086cd2400fbbfb831b2f8d7291e320bcc2b36984d2abc359e41b3b63212b",
-      "check_name": "ForceSSL",
-      "message": "The application does not force use of HTTPS: `config.force_ssl` is not enabled",
-      "file": "config/environments/production.rb",
-      "line": 1,
-      "link": "https://brakemanscanner.org/docs/warning_types/missing_encryption/",
-      "code": null,
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "1d8e8e422bf8a164cb6cb90e4af60e464e98672137535bf842da46319259231b",
+      "check_name": "FileAccess",
+      "message": "Model attribute used in file name",
+      "file": "app/decorators/slide_decorator.rb",
+      "line": 62,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.read(Slide::STYLES_PATH.join(object.style))",
       "render_path": null,
-      "location": null,
-      "user_input": null,
-      "confidence": "High",
-      "note": "Client cannot configure SSL certificate."
+      "location": {
+        "type": "method",
+        "class": "SlideDecorator",
+        "method": "compute_md5_of_style"
+      },
+      "user_input": "Slide::STYLES_PATH.join(object.style)",
+      "confidence": "Weak",
+      "note": ""
     }
   ],
-  "updated": "2020-04-07 17:23:51 -0400",
-  "brakeman_version": "4.8.1"
+  "updated": "2021-08-24 17:44:31 -0400",
+  "brakeman_version": "5.1.1"
 }

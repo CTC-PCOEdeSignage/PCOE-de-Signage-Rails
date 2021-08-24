@@ -63,7 +63,7 @@ jobs:
 
       - run:
           name: Brakeman
-          command: brakeman --exit-on-warn --progress --run-all-checks
+          command: brakeman --no-exit-on-warn
 
       # Run rspec
       - run:
