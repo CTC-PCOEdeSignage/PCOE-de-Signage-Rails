@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe QrCode, :type => :service do
+RSpec.describe QrCode, type: :service do
   let(:room) { create(:room) }
 
   it "QrCode.data_url_for(room)" do

@@ -1,3 +1,11 @@
+User::IMPORT_HEADER_ROWS ||=
+  [
+    "email",
+    "first_name",
+    "last_name",
+    "status"
+  ]
+
 ActiveAdmin.register User do
   menu priority: 1
 
@@ -19,25 +27,31 @@ ActiveAdmin.register User do
   end
 
   collection_action :import_users_csv, method: :post do
+    if params[:users].nil? || params[:users][:file].nil?
+      flash[:alert] = "Import error: Import not valid. Please select a CSV file and default status option"
+      redirect_to import_users_admin_users_path
+      return
+    end
+
     csv_file = params[:users][:file].read
-    default_state = case params[:users][:options]
-      when "decline_all"
-        "declined"
-      when "quarantine_all"
-        "quarantined"
+    default_status_option = params[:users][:default_status_option]
+    default_status =
+      if ["declined", "quarantined", "approved"].include?(default_status_option)
+        default_status_option
       else
         "approved"
       end
     user_count = 0
 
     CSV.parse(csv_file, headers: true) do |row|
-      row = row.to_h.transform_keys { |key| key.strip.downcase.gsub(/\s/, "_") }
-      obj = User.find_or_initialize_by(email: row["email"])
+      row = row.to_h
+      row = row.transform_keys { |key| key.strip.downcase.gsub(/\s/, "_") }
+      user = User.find_or_initialize_by(email: row["email"])
 
-      row = row.slice("email", "first_name", "last_name", "status")
-      row["aasm_state"] = row.delete("status") || default_state
+      row = row.slice(*User::IMPORT_HEADER_ROWS)
+      row["aasm_state"] = (row.delete("status").presence || default_status).downcase
 
-      obj.update(row)
+      user.update(row)
       user_count += 1
     rescue => e
       flash[:alert] = "Import error: #{e.message}"
@@ -47,6 +61,11 @@ ActiveAdmin.register User do
 
     flash[:notice] = "Successfully imported #{user_count} users."
     redirect_to action: :index
+  end
+
+  collection_action :import_users_example_csv, method: :get do
+    render plain: CSV.generate { |csv| csv << User::IMPORT_HEADER_ROWS },
+           content_type: "text/csv"
   end
 
   index do

@@ -1,14 +1,14 @@
-
 <%= semantic_form_for :users, url: { action: :import_users_csv }, html: { multipart: true } do |f| %>
   <%= f.inputs name: "CSV Import" do %>
     <%= f.input :file, as: :file %>
-    <%= f.input :options, as: :radio,
-                          collection: { "Approve All" => "approve_all",
-                                        "Quarantine All" => "quarantine_all",
-                                        "Decline All" => "decline_all" },
-                          selected: "approve_all" %>
+    <%= f.input :default_status_option, as: :radio,
+                                        collection: { "Approved (default)" => "approved",
+                                                      "Quarantined" => "quarantined",
+                                                      "Declined" => "declined" },
+                                        hint: "Select a default option for all imported users to have as their 'status'. You may override, per user, in the csv import file." %>
   <% end %>
   <%= f.actions do %>
     <%= f.action :submit, label: "Import", button_html: { data: { disable_with: "Importing" } } %>
+    <%= link_to "Example CSV File", import_users_example_csv_admin_users_path %>
   <% end %>
 <% end %>

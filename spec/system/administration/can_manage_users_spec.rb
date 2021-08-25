@@ -104,15 +104,15 @@ RSpec.describe "Can Manage Users", :type => :system do
         expect(User.approved.count).to eq(3)
       end
 
-      it "should allow bulk and setting to Decline All" do
-        bulk_import_users(EXAMPLE_PATH, "Decline All")
+      it "should allow bulk and setting to Declined" do
+        bulk_import_users(EXAMPLE_PATH, "Declined")
 
         expect(User.count).to eq(3)
         expect(User.declined.count).to eq(3)
       end
 
-      it "should allow bulk and setting to Quarantine All" do
-        bulk_import_users(EXAMPLE_PATH, "Quarantine All")
+      it "should allow bulk and setting to Quarantined" do
+        bulk_import_users(EXAMPLE_PATH, "Quarantined")
 
         expect(User.count).to eq(3)
         expect(User.quarantined.count).to eq(3)
