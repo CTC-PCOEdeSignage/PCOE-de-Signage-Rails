@@ -5,7 +5,7 @@ RSpec.describe EventRequestForm, type: :form do
   let(:time) { Date.today.next_occurring(:monday).middle_of_day }
   let(:valid_params) do
     {
-      ohioid: " rufus142  ", #extra space intentional to simulate extra space
+      ohioid: " rb141412  ", #extra space intentional to simulate extra space
       room_id: room.id,
       start_at: time.iso8601.to_s,
       duration: 60,
@@ -26,6 +26,44 @@ RSpec.describe EventRequestForm, type: :form do
 
     it "should not be valid" do
       expect(subject).to_not be_valid
+      expect(subject.errors).to_not be_empty
+      expect(subject.errors).to include(:ohioid)
+    end
+  end
+
+  context "with Don's ohioid" do
+    before { valid_params[:ohioid] = "weekley" }
+    subject { EventRequestForm.from_params(valid_params).with_context(context) }
+
+    it "should be valid" do
+      expect(subject).to be_valid
+    end
+  end
+
+  context "with Didi's ohioid" do
+    before { valid_params[:ohioid] = "chilcotd" }
+    subject { EventRequestForm.from_params(valid_params).with_context(context) }
+
+    it "should be valid" do
+      expect(subject).to be_valid
+    end
+  end
+
+  context "with Ricky's student ohioid" do
+    before { valid_params[:ohioid] = "rc324204" }
+    subject { EventRequestForm.from_params(valid_params).with_context(context) }
+
+    it "should be valid" do
+      expect(subject).to be_valid
+    end
+  end
+
+  context "with bad student ohioid" do
+    before { valid_params[:ohioid] = "rc324204X" }
+    subject { EventRequestForm.from_params(valid_params).with_context(context) }
+
+    it "should not be valid" do
+      expect(subject).not_to be_valid
       expect(subject.errors).to_not be_empty
       expect(subject.errors).to include(:ohioid)
     end
@@ -79,14 +117,14 @@ RSpec.describe EventRequestForm, type: :form do
     let(:days_in_future) { 7 }
     let(:events_in_future) { 2 }
     let!(:user) do
-      create(:user, email: "rufus142@ohio.edu",
+      create(:user, email: "rb141412@ohio.edu",
                     days_in_future: days_in_future,
                     events_in_future: events_in_future)
     end
     let!(:event) { create(:event, user: user) }
     let(:params) do
       {
-        ohioid: "rufus142",
+        ohioid: "rb141412",
         room_id: room.id,
         start_at: start_at,
         duration: 60,

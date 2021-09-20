@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe EventMailer, type: :mailer do
-  let(:user) { build_stubbed(:user, email: "rufus142@ohio.edu") }
+  let(:user) { build_stubbed(:user, email: "rb141412@ohio.edu") }
   let(:event) { build_stubbed(:event, user: user) }
 
   describe "validate_user" do
@@ -9,7 +9,7 @@ RSpec.describe EventMailer, type: :mailer do
 
     it "renders the headers" do
       expect(mail.subject).to include("Verification")
-      expect(mail.to).to eq(["rufus142@ohio.edu"])
+      expect(mail.to).to eq(["rb141412@ohio.edu"])
       expect(mail.from).to eq(["DoNotReply@ohio.edu"])
     end
 
@@ -24,7 +24,7 @@ RSpec.describe EventMailer, type: :mailer do
 
     it "renders the headers" do
       expect(mail.subject).to include("Approve")
-      expect(mail.to).to eq(["rufus142@ohio.edu"])
+      expect(mail.to).to eq(["rb141412@ohio.edu"])
       expect(mail.from).to eq(["DoNotReply@ohio.edu"])
     end
 
@@ -38,7 +38,7 @@ RSpec.describe EventMailer, type: :mailer do
 
     it "renders the headers" do
       expect(mail.subject).to include("Decline")
-      expect(mail.to).to eq(["rufus142@ohio.edu"])
+      expect(mail.to).to eq(["rb141412@ohio.edu"])
       expect(mail.from).to eq(["DoNotReply@ohio.edu"])
     end
 
@@ -52,7 +52,7 @@ RSpec.describe EventMailer, type: :mailer do
 
     it "renders the headers" do
       expect(mail.subject).to include("How was your event?")
-      expect(mail.to).to eq(["rufus142@ohio.edu"])
+      expect(mail.to).to eq(["rb141412@ohio.edu"])
       expect(mail.from).to eq(["DoNotReply@ohio.edu"])
     end
 

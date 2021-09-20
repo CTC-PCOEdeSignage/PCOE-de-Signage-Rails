@@ -92,7 +92,7 @@ class EventRequestForm < Rectify::Form
   end
 
   def check_ohioid
-    return if ohioid && ohioid.length == 8
+    return if ohioid && (ohioid.match(/\A[a-z]+\z/) || ohioid.match(/\A[a-z]{2}\d{6}\z/))
 
     errors.add(:ohioid, "must be valid OHIO ID")
   end
