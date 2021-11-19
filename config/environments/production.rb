@@ -107,13 +107,13 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: ENV["SMTP_SERVER"] || "smtp.office365.com",
-    port: (ENV["SMTP_PORT"] || 587).to_i,
-    user_name: ENV["SMTP_USERNAME"] || "coe-projrms-sa@ohio.edu",
-    password: ENV["SMTP_PASSWORD"] || "",
+    address: ENV.fetch("SMTP_HOST", "outlook.office365.com"),
+    port: ENV.fetch("SMTP_PORT", 587).to_i,
+    user_name: ENV.fetch("SMTP_USER", "coe-projrms-sa@ohio.edu"),
+    password: ENV.fetch("SMTP_PASSWORD", ""),
+    domain: ENV.fetch("SMTP_DOMAIN", "ohio.edu"),
     authentication: :login,
-    domain: "ohio.edu",
-    enable_starttls_auto: true,
+    enable_starttls_auto: true
   }
   config.action_mailer.default_url_options = { host: ENV["HOST"] || "webserver.coe.ohio.edu" }
   Rails.application.routes.default_url_options = config.action_mailer.default_url_options
