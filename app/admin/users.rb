@@ -42,8 +42,7 @@ ActiveAdmin.register User do
 
   collection_action :import_users_csv, method: :post do
     if params[:users].nil? || params[:users][:file].nil?
-      flash[:alert] = "Import error: Import not valid. Please select a CSV file and default status option"
-      redirect_to import_users_admin_users_path
+      redirect_to import_users_admin_users_path, alert: "Import error: Import not valid. Please select a CSV file and default status option"
       return
     end
 
@@ -57,24 +56,24 @@ ActiveAdmin.register User do
       end
     user_count = 0
 
-    CSV.parse(csv_file, headers: true) do |row|
-      row = row.to_h
-      row = row.transform_keys { |key| key.strip.downcase.gsub(/\s/, "_") }
-      user = User.find_or_initialize_by(email: row["email"])
+    begin
+      CSV.parse(csv_file, headers: true) do |row|
+        row = row.to_h
+        row = row.transform_keys { |key| key.strip.downcase.gsub(/\s/, "_") }
+        user = User.find_or_initialize_by(email: row["email"])
 
-      row = row.slice(*User::IMPORT_HEADER_ROWS)
-      row["aasm_state"] = (row.delete("status").presence || default_status).downcase
+        row = row.slice(*User::IMPORT_HEADER_ROWS)
+        row["aasm_state"] = (row.delete("status").presence || default_status).downcase
 
-      user.update(row)
-      user_count += 1
+        user.update(row)
+        user_count += 1
+      end
     rescue => e
-      flash[:alert] = "Import error: #{e.message}"
-      redirect_to action: :index
+      redirect_to import_users_admin_users_path, alert: "Import error: #{e.message}"
       return
     end
 
-    flash[:notice] = "Successfully imported #{user_count} users."
-    redirect_to action: :index
+    redirect_to admin_users_path, notice: "Successfully imported #{user_count} users."
   end
 
   collection_action :import_users_example_csv, method: :get do
