@@ -11,4 +11,12 @@ RSpec.describe Room, type: :model do
   end
 
   include_examples "duration optionable", :room
+
+  describe "#availability" do
+    let(:room) { build(:room) }
+
+    it "returns an availability object" do
+      expect(room.availability).to be_a(Room::Availability)
+    end
+  end
 end

@@ -5,7 +5,7 @@ module Rooms
     end
 
     def availability
-      @availability ||= @rooms.map { |room| Room::Availability.new(room: room) }
+      @availability ||= @rooms.map(&:availability)
     end
   end
 end

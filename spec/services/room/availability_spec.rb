@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Room::Availability, :type => :service do
   let(:room) { create(:room) }
 
-  subject { Room::Availability.new(room: room) }
+  subject { room.availability }
 
   describe "#availability" do
     it "allows you to get availability for sunday" do
@@ -52,7 +52,7 @@ RSpec.describe Room::Availability, :type => :service do
       it "get availability on any given monday" do
         travel_to Date.today.next_occurring(:monday).middle_of_day + 1.minute do
           expect(
-            subject.next_available
+            subject.next_available.time
           ).to eq(Time.current.change(min: 30))
         end
       end
@@ -64,7 +64,7 @@ RSpec.describe Room::Availability, :type => :service do
           create(:event, start_at: Time.current.beginning_of_hour, duration: 60, room: room)
 
           expect(
-            subject.next_available
+            subject.next_available.time
           ).to eq(1.hour.from_now.beginning_of_hour)
         end
       end
@@ -77,7 +77,7 @@ RSpec.describe Room::Availability, :type => :service do
           create(:event, :declined, start_at: Time.current.beginning_of_hour + 1.hour, duration: 60, room: room)
 
           expect(
-            subject.next_available
+            subject.next_available.time
           ).to eq(1.hour.from_now.beginning_of_hour)
         end
       end
@@ -90,8 +90,94 @@ RSpec.describe Room::Availability, :type => :service do
           create(:event, start_at: tuesday.beginning_of_hour, duration: 10 * 60, room: room)
 
           expect(
-            subject.next_available
+            subject.next_available.time
           ).to eq((tuesday + 1.day).change(hour: 8))
+        end
+      end
+    end
+  end
+
+  describe "#last_available" do
+    context "with no events" do
+      it "get availability on any given monday" do
+        travel_to Date.today.next_occurring(:monday).middle_of_day + 1.minute do
+          expect(
+            subject.last_available.time
+          ).to eq(Time.current.beginning_of_hour + 4.5.hours)
+        end
+      end
+    end
+
+    context "with 1 event" do
+      it "get availability on any given tuesday" do
+        travel_to Date.today.next_occurring(:tuesday).middle_of_day + 1.minute do
+          create(:event, start_at: Time.current.beginning_of_hour, duration: 60, room: room)
+
+          expect(
+            subject.last_available
+          ).to eq(nil)
+        end
+      end
+    end
+
+    context "with 1 future approved event" do
+      it "get availability on any given tuesday" do
+        travel_to Date.today.next_occurring(:tuesday).middle_of_day + 1.minute do
+          create(:event, :approved, start_at: Time.current.beginning_of_hour + 1.hour, duration: 60, room: room)
+
+          expect(
+            subject.last_available.time
+          ).to eq(Time.current.change(min: 30))
+        end
+      end
+    end
+
+    context "with 1 future declined event" do
+      it "get availability on any given tuesday" do
+        travel_to Date.today.next_occurring(:tuesday).middle_of_day + 1.minute do
+          create(:event, :declined, start_at: Time.current.beginning_of_hour + 1.hour, duration: 60, room: room)
+
+          expect(
+            subject.last_available.time
+          ).to eq(Time.current.beginning_of_hour + 4.5.hours)
+        end
+      end
+    end
+
+    context "with 1 future verified event" do
+      it "get availability on any given tuesday" do
+        travel_to Date.today.next_occurring(:tuesday).middle_of_day + 1.minute do
+          create(:event, :verified, start_at: Time.current.beginning_of_hour + 1.hour, duration: 60, room: room)
+
+          expect(
+            subject.last_available.time
+          ).to eq(Time.current.change(min: 30))
+        end
+      end
+    end
+
+    context "with 2 events (one approved, one declined" do
+      it "get availability on any given tuesday" do
+        travel_to Date.today.next_occurring(:tuesday).middle_of_day + 1.minute do
+          create(:event, :requested, start_at: Time.current.beginning_of_hour, duration: 60, room: room)
+          create(:event, :declined, start_at: Time.current.beginning_of_hour + 1.hour, duration: 60, room: room)
+
+          expect(
+            subject.last_available
+          ).to eq(nil)
+        end
+      end
+    end
+
+    context "with all day event that forces you to span to 2nd day" do
+      let(:tuesday) { Date.today.next_occurring(:tuesday).middle_of_day }
+      it "get availability on any given tuesday" do
+        travel_to tuesday + 1.minute do
+          create(:event, start_at: tuesday.beginning_of_hour, duration: 10 * 60, room: room)
+
+          expect(
+            subject.last_available
+          ).to eq(nil)
         end
       end
     end

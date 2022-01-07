@@ -23,6 +23,10 @@ class Room
 
       attr_reader :time, :blocking_event
 
+      def end_time
+        time + 30.minutes
+      end
+
       def blocking_event?
         !!blocking_event
       end

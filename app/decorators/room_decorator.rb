@@ -12,7 +12,7 @@ class RoomDecorator < Draper::Decorator
     when room_availability.closed_now?
       "Room Closed"
     else
-      next_available = room_availability.next_available
+      next_available = room_availability.next_available.time
 
       if next_available.to_date == Date.today
         "Available at #{next_available.to_formatted_s(:hour_min_ampm)}"
@@ -40,6 +40,6 @@ class RoomDecorator < Draper::Decorator
   private
 
   def room_availability
-    @room_availability ||= Room::Availability.new(room: object)
+    @room_availability ||= object.availability
   end
 end

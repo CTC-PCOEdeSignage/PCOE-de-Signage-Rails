@@ -50,19 +50,43 @@ class Room
       closed_between?(now, now + 30.minutes)
     end
 
+    # next availability for the given room, may be the next day
     def next_available
       date = Date.today
 
       loop do
-        if available = availability(on: date)
-          .select(&:future?)
-          .select(&:available?)
-          .first
-          return available.time
+        if (available = availability(on: date).find {|a| a.future? && a.available? })
+          return available
         end
 
         date += 1.day
       end
+    end
+
+    # last availability for the given room
+    # if the room isn't available now OR is only available tomorrow OR is available later today but not in the next bit
+    # it will return nil
+    def last_available
+      @last_available ||= begin
+        return unless available_now?
+
+        today = Date.today
+
+        all_future_availabilities = availability(on: today).select(&:future?)
+        when_no_longer_available = all_future_availabilities.find(&:not_available?)
+
+        return unless when_no_longer_available
+        return unless today == when_no_longer_available.time.to_date
+
+        no_longer_available_index = all_future_availabilities.index(when_no_longer_available)
+
+        return if no_longer_available_index.zero?
+        all_future_availabilities[no_longer_available_index - 1]
+      end
+    end
+
+    def last_available?
+      !!last_available
     end
 
     attr_reader :room

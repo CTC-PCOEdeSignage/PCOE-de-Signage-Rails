@@ -52,25 +52,25 @@ class EventRequestForm < Rectify::Form
   end
 
   def date
-    @date ||= room_availability.next_available
+    @date ||= room_availability.next_available.time
   end
 
   def date_min
-    room_availability.next_available
+    room_availability.next_available.time
   end
 
   def date_max
-    (limits.days_in_future).days.from_now
+    limits.days_in_future.days.from_now
   end
 
   def time
-    @time ||= room_availability.next_available
+    @time ||= room_availability.next_available.time
   end
 
   private
 
   def room_availability
-    @room_availability ||= Room::Availability.new(room: context.room)
+    @room_availability ||= context.room.availability
   end
 
   def duration_options

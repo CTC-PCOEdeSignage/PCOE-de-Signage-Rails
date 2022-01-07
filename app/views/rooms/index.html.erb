@@ -3,20 +3,25 @@
     <h1><%= t("site.app_name") %> - All Rooms</h1>
   </div>
 </div>
-
 <div class="row pt-2">
   <div class="col-12 col-md-6">
     <ul class="list-group">
       <% @rooms.each do |room| %>
-        <li class="list-group-item"><%= link_to room.name, new_room_event_request_path(room) %></li>
+        <li class="list-group-item">
+          <%= link_to room.name, new_room_event_request_path(room) %>
+          <% if room.availability.last_available? %>
+            <span class="ml-3 px-3 py-2 badge badge-success">Available for <%= time_ago_in_words(room.availability.last_available.end_time) %></span>
+          <% else %>
+            <span class="ml-3 px-3 py-2 badge badge-dark">Room Not Available</span>
+          <% end %>
+        </li>
       <% end %>
     </ul>
   </div>
 </div>
-
 <div class="row pt-2">
   <div class="col">
-    <%= link_to "Screens Page", screens_path, class: "btn btn-info my-1 m-md-0" %>
-    <%= link_to "Administrator Login", admin_root_path, class: "btn btn-secondary my-1 m-md-0" %>
+    <%# link_to "Screens Page", screens_path, class: "btn btn-info my-1 m-md-0" %>
+    <%# link_to "Administrator Login", admin_root_path, class: "btn btn-secondary my-1 m-md-0" %>
   </div>
 </div>

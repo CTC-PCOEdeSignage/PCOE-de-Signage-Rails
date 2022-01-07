@@ -12,4 +12,8 @@ class Room < ApplicationRecord
   def to_param
     "#{id}-#{name.parameterize}"
   end
+
+  def availability
+    @availability ||= Availability.new(room: self)
+  end
 end
