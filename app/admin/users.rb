@@ -21,9 +21,23 @@ ActiveAdmin.register User do
   action_item only: :index do
     link_to "Import Users", action: :import_users
   end
+  action_item only: :index do
+    link_to "Delete All Users", delete_all_users_admin_users_path, method: :delete, data: { confirm: "Are you sure?" }
+  end
 
   collection_action :import_users, method: :get do
     render "admin/import/users"
+  end
+
+  collection_action :delete_all_users, method: :delete do
+    User.includes(:events).find_each do |user|
+      user.transaction do
+        user.events.each(&:destroy!)
+        user.destroy!
+      end
+    end
+
+    redirect_to admin_users_path, alert: "All users deleted."
   end
 
   collection_action :import_users_csv, method: :post do
