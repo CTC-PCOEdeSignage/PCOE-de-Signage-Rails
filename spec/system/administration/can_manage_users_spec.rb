@@ -138,10 +138,25 @@ RSpec.describe "Can Manage Users", :type => :system do
         # Re-import
         bulk_import_users(EXAMPLE_WITH_STATUS_PATH)
 
+        expect(page).to have_content(/Successfully imported/)
+
         expect(User.count).to eq(3)
         expect(User.approved.count).to eq(1)
         expect(User.quarantined.count).to eq(1)
         expect(User.declined.count).to eq(1)
+      end
+    end
+
+    describe "real world example" do
+      it "should allow real world bulk update" do
+        bulk_import_users(EXAMPLE_REAL_WORLD_PATH)
+
+        expect(page).to have_content(/Successfully imported or updated 1807 users/)
+
+        expect(User.count).to eq(1807)
+        expect(User.approved.count).to eq(1807)
+        expect(User.quarantined.count).to eq(0)
+        expect(User.declined.count).to eq(0)
       end
     end
   end
@@ -150,6 +165,7 @@ RSpec.describe "Can Manage Users", :type => :system do
 
   EXAMPLE_PATH = Rails.root.join("spec", "support", "files", "example_users.csv")
   EXAMPLE_WITH_STATUS_PATH = Rails.root.join("spec", "support", "files", "example_users_with_status.csv")
+  EXAMPLE_REAL_WORLD_PATH = Rails.root.join("spec", "support", "files", "example_real_world.csv")
 
   def bulk_import_users(path, select_import_option = nil)
     visit admin_users_path
