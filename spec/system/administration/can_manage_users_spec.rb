@@ -151,7 +151,8 @@ RSpec.describe "Can Manage Users", :type => :system do
       it "should allow real world bulk update" do
         bulk_import_users(EXAMPLE_REAL_WORLD_PATH)
 
-        expect(page).to have_content(/Successfully imported or updated 1807 users/)
+        expect(page).to have_content(/Successfully imported 1807 users/)
+        expect(page).to have_content(/updated 1827 users/)
 
         expect(User.count).to eq(1807)
         expect(User.approved.count).to eq(1807)

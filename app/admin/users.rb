@@ -51,7 +51,8 @@ ActiveAdmin.register User do
     default_status = default_status_option if ["declined", "quarantined", "approved"].include?(default_status_option)
     default_status ||= "approved"
 
-    user_count = 0
+    initial_user_count = User.count
+    line_count = 0
 
     begin
       User.transaction do
@@ -66,8 +67,9 @@ ActiveAdmin.register User do
 
           row["aasm_state"] = (row.delete("status").presence || default_status).downcase
 
-          user.update!(row)
-          user_count += 1
+          user.assign_attributes(row)
+          user.save!
+          line_count += 1
         end
       end
     rescue => e
@@ -75,7 +77,9 @@ ActiveAdmin.register User do
       return
     end
 
-    redirect_to admin_users_path, notice: "Successfully imported or updated #{user_count} users."
+    imported_user_count = User.count - initial_user_count
+
+    redirect_to admin_users_path, notice: "Successfully imported #{imported_user_count} users (or updated #{line_count} users)."
   end
 
   collection_action :import_users_example_csv, method: :get do
