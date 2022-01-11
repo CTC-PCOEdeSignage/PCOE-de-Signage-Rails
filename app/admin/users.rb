@@ -48,32 +48,34 @@ ActiveAdmin.register User do
 
     csv_file = params[:users][:file].read
     default_status_option = params[:users][:default_status_option]
-    default_status =
-      if ["declined", "quarantined", "approved"].include?(default_status_option)
-        default_status_option
-      else
-        "approved"
-      end
+    default_status = default_status_option if ["declined", "quarantined", "approved"].include?(default_status_option)
+    default_status ||= "approved"
+
     user_count = 0
 
     begin
-      CSV.parse(csv_file, headers: true) do |row|
-        row = row.to_h
-        row = row.transform_keys { |key| key.strip.downcase.gsub(/\s/, "_") }
-        user = User.find_or_initialize_by(email: row["email"])
+      User.transaction do
+        CSV.parse(csv_file, headers: true) do |row|
+          row = row.to_h
+          row = row.transform_keys { |key| key&.strip&.downcase&.gsub(/\s/, "_") }
+          row = row.slice(*User::IMPORT_HEADER_ROWS)
 
-        row = row.slice(*User::IMPORT_HEADER_ROWS)
-        row["aasm_state"] = (row.delete("status").presence || default_status).downcase
+          next unless row["email"].present?
 
-        user.update(row)
-        user_count += 1
+          user = User.find_or_initialize_by(email: row["email"])
+
+          row["aasm_state"] = (row.delete("status").presence || default_status).downcase
+
+          user.update!(row)
+          user_count += 1
+        end
       end
     rescue => e
       redirect_to import_users_admin_users_path, alert: "Import error: #{e.message}"
       return
     end
 
-    redirect_to admin_users_path, notice: "Successfully imported #{user_count} users."
+    redirect_to admin_users_path, notice: "Successfully imported or updated #{user_count} users."
   end
 
   collection_action :import_users_example_csv, method: :get do
