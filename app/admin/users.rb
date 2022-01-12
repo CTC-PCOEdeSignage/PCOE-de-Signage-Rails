@@ -58,7 +58,7 @@ ActiveAdmin.register User do
       User.transaction do
         CSV.parse(csv_file, headers: true) do |row|
           row = row.to_h
-          row = row.transform_keys { |key| key&.strip&.downcase&.gsub(/\s/, "_") }
+          row = row.transform_keys { |key| key&.force_encoding("ASCII")&.strip&.downcase&.gsub(/\s/, "_") }
           row = row.slice(*User::IMPORT_HEADER_ROWS)
 
           next unless row["email"].present?
