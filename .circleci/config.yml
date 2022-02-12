@@ -3,7 +3,7 @@ jobs:
   test:
     parallelism: 1
     docker:
-      - image: circleci/ruby:2.6.6-buster-node-browsers
+      - image: circleci/ruby:2.7.5-buster-node-browsers
         environment:
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
