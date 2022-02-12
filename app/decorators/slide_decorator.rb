@@ -33,10 +33,9 @@ class SlideDecorator < Draper::Decorator
 
   def render_slide_partial_as_string
     cached(:partial, object.style, compute_md5_of_style) do
-      view = ActionView::Base.new(ActionController::Base.view_paths, {})
       partial_path = "slides/#{object.style.match(/_(.*)/)[1]}"
       twelve_column_grid do
-        view.render(partial: partial_path).html_safe
+        ApplicationController.renderer.render(partial: partial_path).html_safe
       end
     end
   end
