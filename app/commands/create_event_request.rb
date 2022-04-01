@@ -28,7 +28,7 @@ class CreateEventRequest < Rectify::Command
       form
         .attributes
         .slice(:start_at, :duration, :purpose)
-        .merge({ user: user, room: form.context.room })
+        .merge({ user: user, room: form.room })
 
     @event = Event.create!(attrs)
   end

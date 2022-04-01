@@ -9,7 +9,7 @@ RSpec.describe "Request Event", :type => :system do
     include_examples "accessible"
 
     it "should have room name" do
-      expect(page).to have_text("Schedule #{room.name}")
+      expect(page).to have_text("Event Request")
     end
 
     it "should allow you to request event and create user end event" do
@@ -20,6 +20,25 @@ RSpec.describe "Request Event", :type => :system do
       expect(User.count).to eq(1)
       expect(Event.count).to eq(1)
       expect(user.email).to eq("rb141412@ohio.edu")
+      expect(event.room.name).to eq(room.name)
+      expect(event.start_at).to eq(Date.today.next_occurring(:monday).middle_of_day)
+      expect(event.duration).to eq(120)
+      expect(event.purpose).to eq("Bobcat cage escape training")
+    end
+
+    it "should allow you to change room after selecting another" do
+      another_room = create(:room, name: "Another Room")
+
+      refresh
+
+      submit_event_request(room: another_room)
+
+      user, event = User.first, Event.first
+
+      expect(User.count).to eq(1)
+      expect(Event.count).to eq(1)
+      expect(user.email).to eq("rb141412@ohio.edu")
+      expect(event.room.name).to eq("Another Room")
       expect(event.start_at).to eq(Date.today.next_occurring(:monday).middle_of_day)
       expect(event.duration).to eq(120)
       expect(event.purpose).to eq("Bobcat cage escape training")
@@ -72,8 +91,9 @@ RSpec.describe "Request Event", :type => :system do
     end
   end
 
-  def submit_event_request(ohioid: "rb141412", duration: "2 hours", base_time: Date.today.next_occurring(:monday).middle_of_day, purpose: "Bobcat cage escape training")
+  def submit_event_request(ohioid: "rb141412", duration: "2 hours", base_time: Date.today.next_occurring(:monday).middle_of_day, purpose: "Bobcat cage escape training", room: nil)
     fill_in "event[ohioid]", with: ohioid
+    select(room.name, from: "Room") if room
     fill_in "Date", with: base_time
     fill_in "Time", with: base_time
     select duration, from: "Duration"

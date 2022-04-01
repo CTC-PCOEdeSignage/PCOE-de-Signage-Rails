@@ -11,6 +11,7 @@ class EventRequestForm < Rectify::Form
   mimic :event
 
   attribute :ohioid, String
+  attribute :room_id, Integer
   attribute :date, Date # this is a placeholder attribute
   attribute :time, Time # this is a placeholder attribute
   attribute :start_at, DateTimeWithZone
@@ -67,14 +68,20 @@ class EventRequestForm < Rectify::Form
     @time ||= room_availability.next_available.time
   end
 
+  def room
+    return(@room) if @room&.id == room_id.to_i
+
+    @room = Room.find_by(id: room_id) || context.fallback_room
+  end
+
   private
 
   def room_availability
-    @room_availability ||= context.room.availability
+    @room_availability ||= room.availability
   end
 
   def duration_options
-    @duration_options = Event::DurationOptions.new(room: context.room, user: user)
+    @duration_options = Event::DurationOptions.new(room: room, user: user)
   end
 
   def limits
@@ -86,7 +93,7 @@ class EventRequestForm < Rectify::Form
   end
 
   def check_room
-    return if context.room
+    return if room
 
     errors.add(:room_id, "not a room")
   end
@@ -101,7 +108,7 @@ class EventRequestForm < Rectify::Form
     return unless start_at.presence
 
     if start_at < Time.current
-      add_errors_to_time_fields("must be in the future")
+      add_errors_to_time_fields("must be in the future.")
     end
   end
 
@@ -109,7 +116,8 @@ class EventRequestForm < Rectify::Form
     return unless start_at && duration
 
     unless room_availability.available_between?(start_at, start_at + duration.minutes)
-      add_errors_to_time_fields("not available at this time")
+      add_errors_to_time_fields("not available at this time.")
+      errors.add(:room_id, "consider selecting a different room.")
     end
   end
 
@@ -117,7 +125,7 @@ class EventRequestForm < Rectify::Form
     return unless start_at
 
     if start_at > limits.days_in_future.days.from_now
-      add_errors_to_time_fields("too far in future. Pick date less than #{limits.days_in_future} in future")
+      add_errors_to_time_fields("too far in future. Pick date less than #{limits.days_in_future} in future.")
     end
   end
 

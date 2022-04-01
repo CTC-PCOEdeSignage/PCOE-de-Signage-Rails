@@ -14,7 +14,7 @@ class EventRequestsController < ApplicationController
   private
 
   def set_form
-    @form = EventRequestForm.from_params(params).with_context(room: room)
+    @form = EventRequestForm.from_params(params).with_context(fallback_room: room)
   end
 
   def room

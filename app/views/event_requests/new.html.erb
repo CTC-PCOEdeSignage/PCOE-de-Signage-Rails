@@ -1,9 +1,10 @@
 <div class="row pt-2">
   <div class="col-lg-8">
-    <h1 class="pb-4">Schedule <%= @form.context.room.name %></h1>
+    <h1 class="pb-4">Event Request</h1>
     <%= bootstrap_form_for @form, url: room_event_requests_path,
                                   data: { controller: "event_request" } do |f| %>
       <%= f.text_field :ohioid, placeholder: t("event.ohioid", scope: ["helpers", "label"]), append: "@" << Settings.domain %>
+      <%= f.collection_select :room_id,  Room.all, :id, :name, { selected: @form.room.id } %>
       <%= f.hidden_field :start_at, data: { target: "event_request.dateTime" } %>
       <%= f.date_field :date, min: f.object.date_min, max: f.object.date_max, required: true, data: { target: "event_request.date", action: "event_request#update" } %>
       <%= f.time_field :time, step: "1800", required: true, data: { target: "event_request.time", action: "event_request#update" } %>
