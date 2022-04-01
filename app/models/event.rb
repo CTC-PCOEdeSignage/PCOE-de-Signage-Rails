@@ -77,6 +77,10 @@ class Event < ApplicationRecord
     duration_value = output["duration"] < 60 ? output["duration"] : output["duration"] / 60
     output["duration"] = [duration_value, duration_unit.pluralize(duration_value)].join(" ")
 
+    output["room"] = room.name
+    output["user_email"] = user.email
+    output["user_name"] = user.name
+
     output
   end
 end

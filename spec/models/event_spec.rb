@@ -195,6 +195,23 @@ RSpec.describe Event, type: :model do
     end
   end
 
+  describe "#details" do
+    let(:room) { create(:room, name: "Something") }
+    let(:user) { create(:user, email: "something@ohio.edu", first_name: "Somebody", last_name: "Nobody") }
+    let(:event) { create(:event, start_at: 1.hour.from_now.beginning_of_hour, duration: 60, purpose: "Shenanigans", room: room, user: user) }
+
+    it "caculates based on start_at and duration" do
+      details = event.details
+
+      expect(details["room"]).to eq("Something")
+      expect(details["start_at"]).to eq(1.hour.from_now.beginning_of_hour.to_formatted_s(:long))
+      expect(details["duration"]).to eq("1 hour")
+      expect(details["purpose"]).to eq("Shenanigans")
+      expect(details["user_email"]).to eq("something@ohio.edu")
+      expect(details["user_name"]).to eq("Nobody, Somebody")
+    end
+  end
+
   def expect_to_trigger_callback_on(klass)
     fake_callee = double(:fake, call: nil)
     allow(klass).to receive(:new).with(subject).and_return(fake_callee)
