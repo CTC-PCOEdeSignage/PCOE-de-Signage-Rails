@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe QrCode, type: :service do
-  let(:room) { create(:room) }
+  let(:room) { build_stubbed(:room, id: 1) }
 
   it "QrCode.data_url_for(room)" do
     svg = QrCode.data_url_for(room)
