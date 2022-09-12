@@ -1,5 +1,11 @@
 class User < ApplicationRecord
   include HasDurationOptions
+  IMPORT_HEADER_ROWS =   [
+    "email",
+    "first_name",
+    "last_name",
+    "status"
+  ]
 
   has_many :events
   has_many :future_events, -> { future }, class_name: "Event"

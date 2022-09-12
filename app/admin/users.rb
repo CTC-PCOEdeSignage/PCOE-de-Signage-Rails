@@ -1,11 +1,3 @@
-User::IMPORT_HEADER_ROWS ||=
-  [
-    "email",
-    "first_name",
-    "last_name",
-    "status"
-  ]
-
 ActiveAdmin.register User do
   menu priority: 1
 
@@ -56,10 +48,12 @@ ActiveAdmin.register User do
 
     begin
       User.transaction do
-        CSV.parse(csv_file, headers: true) do |row|
-          row = row.to_h
-          row = row.transform_keys { |key| key.dup&.force_encoding("ASCII")&.strip&.downcase&.gsub(/\s/, "_") }
-          row = row.slice(*User::IMPORT_HEADER_ROWS)
+        CSV.parse(csv_file, headers: true, encoding: "UTF-8") do |row|
+          row =
+            row
+              .to_h
+              .transform_keys { |key| key.dup&.force_encoding("ASCII")&.strip&.downcase&.gsub(/\s/, "_") }
+              .slice(*User::IMPORT_HEADER_ROWS)
 
           next unless row["email"].present?
 
