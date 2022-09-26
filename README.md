@@ -230,3 +230,18 @@ To update the server (from Github), you can run `bin/update` from the project ro
 ## Starting
 
 To startup the server, you can run `bin/start`
+
+# Troubleshooting
+
+## 502 Bad Gateway
+Often this is caused because the pcoe-de-signage application server is unable to start. Two common fixes:
+
+1) Stop the service, remove the pid file, restart the service.
+
+```shell
+systemctl stop pcoe-de-signage-master.service
+rm /opt/apps/PCOE-de-Signage-Rails/tmp/**/*.pid
+systemctl start pcoe-de-signage-master.service
+```
+
+2) Restart the computer
