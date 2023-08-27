@@ -19,7 +19,7 @@ gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'draper'
 gem 'formtastic'
 gem 'premailer-rails'
-gem 'puma'
+gem 'puma', "~> 6"
 gem 'rails', '~> 6.1'
 gem 'rectify'
 gem 'recurring_select', github: "rickychilcott/recurring_select", branch: "rails_6_support"
@@ -34,6 +34,8 @@ gem 'sqlite3'
 
 gem 'turbolinks', '~> 5'
 gem 'bootsnap', '>= 1.1.0', require: false
+
+gem "nokogiri"#, ">= 1.5"
 
 group :development, :test do
   gem 'capybara'
