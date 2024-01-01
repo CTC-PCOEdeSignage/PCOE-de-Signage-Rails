@@ -74,7 +74,7 @@ RSpec.configure do |config|
 
   TEST_CONFIG_PATH = Rails.root.join("config", "settings", "test.yml")
   config.before(:each) do
-    File.unlink(TEST_CONFIG_PATH) if File.exists?(TEST_CONFIG_PATH)
+    File.unlink(TEST_CONFIG_PATH) if File.file?(TEST_CONFIG_PATH)
     Config.reload!
   end
 

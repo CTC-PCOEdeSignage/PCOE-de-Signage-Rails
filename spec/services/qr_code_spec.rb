@@ -10,7 +10,7 @@ RSpec.describe QrCode, type: :service do
 
     uri, svg_string = svg.split("base64,")
     expect(uri).to eq("data:image/svg+xml;")
-    expect(svg_string).to end_with("==")
-    expect(svg_string.length).to eq 70_504
+    expect(svg_string).to end_with("zdmc+")
+    expect(svg_string.length).to eq 63_812
   end
 end

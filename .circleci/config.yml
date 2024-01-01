@@ -3,13 +3,13 @@ jobs:
   test:
     parallelism: 1
     docker:
-      - image: circleci/ruby:2.7.5-buster-node-browsers
+      - image: cimg/ruby:3.2.2-browsers
         environment:
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
-          BUNDLE_PATH: vendor/bundle
+          BUNDLE_PATH: .bundle
           RAILS_ENV: test
-      - image: redis:6.0.3-alpine
+      - image: redis:6.2.6
     environment:
       TZ: "America/New_York"
       COVERAGE: "true"
@@ -92,6 +92,6 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - main
     jobs:
       - test
