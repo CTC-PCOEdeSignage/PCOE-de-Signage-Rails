@@ -13,7 +13,7 @@ chdir APP_ROOT do
   # This script is a way to update your development environment automatically.
   # Add necessary update steps to this file.
   puts "== Pull latest code =="
-  system! "git pull origin master"
+  system! "git pull origin main"
 
   puts "== Installing dependencies =="
   system! "gem install bundler --conservative"
