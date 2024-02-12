@@ -3,7 +3,7 @@ module HasDurationOptions
   DURATION_OPTION_SEPARATOR = ","
 
   included do
-    serialize :duration_options, Array
+    serialize :duration_options, coder: YAML, type: Array
   end
 
   def duration_options
