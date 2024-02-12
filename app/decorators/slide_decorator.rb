@@ -34,8 +34,10 @@ class SlideDecorator < Draper::Decorator
   def render_slide_partial_as_string
     cached(:partial, object.style, compute_md5_of_style) do
       partial_path = "slides/#{object.style.match(/_(.*)/)[1]}"
+      partial_path_without_extension = partial_path.sub(/\..+$/, '')
+
       twelve_column_grid do
-        ApplicationController.renderer.render(partial: partial_path).html_safe
+        ApplicationController.renderer.render(partial: partial_path_without_extension).html_safe
       end
     end
   end

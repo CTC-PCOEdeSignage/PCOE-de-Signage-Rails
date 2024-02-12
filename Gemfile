@@ -20,13 +20,13 @@ gem "draper"
 gem "formtastic"
 gem "premailer-rails"
 gem "puma", "~> 6"
-gem "rails", "~> 6.1"
+gem "rails", "~> 7.1"
 gem "rectify"
-gem "recurring_select", github: "rickychilcott/recurring_select", branch: "rails_6_support"
+gem "recurring_select", github: "gregschmit/recurring_select", ref: "5dd3177e7ac4c04bed3e952996ffcb57b87481c9"
 gem "redcarpet"
 gem "rounding"
 gem "rqrcode"
-gem "sass-rails", "~> 5.0"
+gem "sass-rails", "~> 6.0"
 gem "stimulusjs-rails", "~> 1.1.1"
 gem "rest-client"
 gem "uglifier", ">= 1.3.0"
@@ -43,15 +43,13 @@ group :development, :test do
   gem "faker"
   gem "letter_opener"
   gem "pry-rails"
-  gem "rspec-rails", "~> 4.0.0"
+  gem "rspec-rails"#, "~> 4.0.0"
   gem "webdrivers"
 end
 
 group :development do
   gem "web-console", ">= 3.3.0"
-  gem "listen", ">= 3.0.5", "< 3.2"
-  gem "spring"
-  gem "spring-watcher-listen", "~> 2.0.0"
+  gem "listen"#b, ">= 3.0.5", "< 3.2"
 end
 
 group :test do
