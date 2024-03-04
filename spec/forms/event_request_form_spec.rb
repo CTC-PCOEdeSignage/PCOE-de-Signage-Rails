@@ -114,7 +114,7 @@ RSpec.describe EventRequestForm, type: :form do
   end
 
   context "with existing user" do
-    let(:days_in_future) { 7 }
+    let(:days_in_future) { 8 }
     let(:events_in_future) { 2 }
     let!(:user) do
       create(:user, email: "rb141412@ohio.edu",
@@ -122,6 +122,7 @@ RSpec.describe EventRequestForm, type: :form do
                     events_in_future: events_in_future)
     end
     let!(:event) { create(:event, user: user) }
+    let(:start_at) { Date.today.next_occurring(:monday).middle_of_day.iso8601.to_s }
     let(:params) do
       {
         ohioid: "rb141412",
@@ -132,7 +133,6 @@ RSpec.describe EventRequestForm, type: :form do
       }
     end
     let(:ctx) { { room: room } }
-    let(:start_at) { Date.today.next_occurring(:monday).middle_of_day.iso8601.to_s }
 
     it "should allow you to create another event if you have not reached your event limit" do
       form = EventRequestForm.from_params(params).with_context(ctx)
