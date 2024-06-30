@@ -10,9 +10,9 @@
         <li class="list-group-item">
           <%= link_to room.name, new_room_event_request_path(room) %>
           <% if room.availability.last_available? %>
-            <span class="ml-3 px-3 py-2 badge badge-success">Available for <%= time_ago_in_words(room.availability.last_available.end_time) %></span>
+            <span class="ms-3 px-3 py-2 badge bg-success">Available for <%= time_ago_in_words(room.availability.last_available.end_time) %></span>
           <% else %>
-            <span class="ml-3 px-3 py-2 badge badge-dark">Room Not Available</span>
+            <span class="ms-3 px-3 py-2 badge bg-dark">Room Not Available</span>
           <% end %>
         </li>
       <% end %>

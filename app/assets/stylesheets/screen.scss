@@ -115,6 +115,7 @@ $arrow_from_x: 0.5rem;
     }
   }
 }
+
 .room-details__bottom {
   &.half-height {
     .arrow {
@@ -136,22 +137,28 @@ p {
   .p-#{$i} {
     padding: 0.25rem * $i;
   }
+
   .pt-#{$i} {
     padding-top: 0.25rem * $i;
   }
-  .pl-#{$i} {
+
+  .ps-#{$i} {
     padding-left: 0.25rem * $i;
   }
+
   .pb-#{$i} {
     padding-bottom: 0.25rem * $i;
   }
+
   .pr-#{$i} {
     padding-right: 0.25rem * $i;
   }
+
   .px-#{$i} {
     padding-left: 0.25rem * $i;
     padding-right: 0.25rem * $i;
   }
+
   .py-#{$i} {
     padding-top: 0.25rem * $i;
     padding-bottom: 0.25rem * $i;
