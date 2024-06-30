@@ -29,7 +29,6 @@ gem "rounding"
 gem "rqrcode"
 gem "sass-rails", "~> 6.0"
 gem "stimulusjs-rails", "~> 1.1.1"
-gem "rest-client"
 gem "uglifier", ">= 1.3.0"
 gem "sqlite3"
 
