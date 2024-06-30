@@ -136,6 +136,9 @@ GEM
       actionpack (>= 5.2)
       activemodel (>= 5.2)
     builder (3.3.0)
+    bummr (1.1.0)
+      rainbow
+      thor
     capybara (3.40.0)
       addressable
       matrix
@@ -379,6 +382,7 @@ GEM
       rake (>= 12.2)
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
+    rainbow (3.1.1)
     rake (13.2.1)
     ransack (4.1.1)
       activerecord (>= 6.1.5)
@@ -515,6 +519,7 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   bootstrap (~> 4.5)
   bootstrap_form (~> 4.0)
+  bummr
   capybara
   config
   daemons

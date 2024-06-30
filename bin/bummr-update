@@ -1,0 +1,3 @@
+BUMMR_TEST="bin/rspec"
+
+bundle exec bummr update
