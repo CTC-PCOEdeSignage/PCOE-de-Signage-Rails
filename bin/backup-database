@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+require "fileutils"
+require "pathname"
+require "time"
+include FileUtils
+
+APP_ROOT = Pathname(File.expand_path("..", __dir__))
+
+to = ARGV[0] || ""
+
+raise "Usage: backup-database <to>" if to.empty?
+
+mkdir_p(to)
+now = Time.now.strftime("%Y%m%d%H%M%S")
+
+APP_ROOT
+  .join("storage")
+  .glob("*.sqlite3*")
+  .each do |file|
+    path, filename = File.split(file.to_s)
+    backup_filename = "#{filename}.#{now}"
+    backup_path = File.join(to, backup_filename)
+
+    cp(file, backup_path)
+    puts "Backup #{file} to #{backup_path}"
+end
