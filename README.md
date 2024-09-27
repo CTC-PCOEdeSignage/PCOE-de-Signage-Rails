@@ -23,9 +23,9 @@ This is a simple, web-based digital signage system that is written in Ruby on Ra
 This project uses many open source projects to work:
 
 - [Ruby on Rails](https://github.com/rails/rails)
-- [Ruby 2.6.6](https://www.ruby-lang.org/en/)
-- [Bootstrap 4](https://getbootstrap.com/)
-- [Turbolinks](https://github.com/turbolinks/turbolinks)
+- [Ruby 3.3.2](https://www.ruby-lang.org/en/)
+- [Bootstrap 5](https://getbootstrap.com/)
+- [Turbo](https://github.com/hotwire/turbo-rails)
 
 
 ## Data Model
