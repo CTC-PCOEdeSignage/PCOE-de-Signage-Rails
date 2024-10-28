@@ -398,8 +398,7 @@ GEM
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
-    rexml (3.3.6)
-      strscan
+    rexml (3.3.9)
     rounding (1.0.1)
     rqrcode (2.2.0)
       chunky_png (~> 1.0)
@@ -453,7 +452,6 @@ GEM
       mini_portile2 (~> 2.8.0)
     stimulusjs-rails (1.1.1)
     stringio (3.1.1)
-    strscan (3.1.0)
     thor (1.3.1)
     thread_safe (0.3.6)
     tilt (2.4.0)
