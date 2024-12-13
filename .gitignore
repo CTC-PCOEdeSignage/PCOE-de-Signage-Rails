@@ -36,3 +36,5 @@ Procfile.dev
 spec/examples.txt
 
 config/settings/*.yml
+
+gem_update_issues.log
