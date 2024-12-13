@@ -181,7 +181,7 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.5.1)
-    dotenv (3.1.2)
+    dotenv (3.1.6)
     draper (4.0.2)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
