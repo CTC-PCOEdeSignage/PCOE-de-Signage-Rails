@@ -1,0 +1,76 @@
+#!/usr/bin/env ruby
+require 'open3'
+require 'fileutils'
+
+# Log file to store issues
+LOG_FILE = 'gem_update_issues.log'
+
+# Clear the log file
+File.open(LOG_FILE, 'w') {}
+
+# Helper function to run commands and capture output
+def run_command(command)
+  stdout, stderr, status = Open3.capture3(command)
+  [stdout.strip, stderr.strip, status.success?]
+end
+
+# Step 1: Get outdated gems
+puts "Running 'bundle outdated'..."
+outdated_output, _, success = run_command('bundle outdated --parseable')
+
+# Parse outdated gems
+outdated_gems = outdated_output.lines.map { |line| line.split.first }.compact
+
+if outdated_gems.empty?
+  puts "No outdated gems found."
+  exit 0
+end
+
+puts "Outdated gems found: #{outdated_gems.join(', ')}"
+
+# Step 2: Iterate through each gem and update it
+issues = []
+outdated_gems.each do |gem_name|
+  puts "Updating gem: #{gem_name}..."
+
+  # Update the specific gem
+  _, stderr, success = run_command("bundle update #{gem_name}")
+
+  unless success
+    puts "Failed to update gem: #{gem_name}. Error: #{stderr}"
+    issues << { gem: gem_name, error: stderr }
+    next
+  end
+
+  # Run tests
+  puts "Running tests for gem: #{gem_name}..."
+  _, stderr, success = run_command('bin/rspec')
+
+  if success
+    # Commit the changes
+    puts "Tests passed for gem: #{gem_name}. Committing changes..."
+    _, stderr, success = run_command("git commit -am 'updating #{gem_name}'")
+
+    unless success
+      puts "Failed to commit changes for gem: #{gem_name}. Error: #{stderr}"
+      issues << { gem: gem_name, error: "Commit failed: #{stderr}" }
+    end
+  else
+    # Log the issue and reset changes
+    puts "Tests failed for gem: #{gem_name}. Resetting changes..."
+    run_command('git reset --hard')
+    issues << { gem: gem_name, error: "Tests failed: #{stderr}" }
+  end
+end
+
+# Step 3: Log issues
+if issues.any?
+  puts "Logging issues to #{LOG_FILE}..."
+  File.open(LOG_FILE, 'a') do |file|
+    issues.each do |issue|
+      file.puts("Gem: #{issue[:gem]} - Error: #{issue[:error]}")
+    end
+  end
+end
+
+puts "Process complete. Check #{LOG_FILE} for any issues."
