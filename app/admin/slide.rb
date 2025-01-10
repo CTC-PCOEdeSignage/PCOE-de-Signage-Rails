@@ -6,7 +6,7 @@ ActiveAdmin.register Slide do
   config.sort_order = "name_asc"
 
   form do |f|
-    f.semantic_errors *f.object.errors.keys
+    f.semantic_errors *f.object.errors.attribute_names
 
     f.inputs do
       f.input :name
