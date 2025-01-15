@@ -31,6 +31,10 @@ module PcoeDeSignageRails
     config.active_job.queue_adapter = :delayed_job
 
     config.time_zone = "Eastern Time (US & Canada)"
+
+    config.to_prepare do
+      ActiveStorage::Attachment.include(RansackedAttributes)
+    end
   end
 end
 
