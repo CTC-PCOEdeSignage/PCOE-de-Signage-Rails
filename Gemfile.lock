@@ -456,7 +456,7 @@ GEM
       mini_portile2 (~> 2.8.0)
     stimulusjs-rails (1.1.1)
     stringio (3.1.2)
-    thor (1.3.2)
+    thor (1.4.0)
     thread_safe (0.3.6)
     tilt (2.6.0)
     timeout (0.4.3)
