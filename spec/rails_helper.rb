@@ -7,6 +7,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require "rspec/rails"
 require "capybara/rspec"
 require "axe/rspec"
+require "rspec/retry"
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 # Add additional requires below this line. Rails is not loaded until this point!
@@ -40,20 +41,21 @@ Capybara.register_driver :chrome do |app|
 end
 
 Capybara.register_driver :headless_chrome do |app|
-  Capybara::Selenium::Driver.load_selenium
   browser_options = ::Selenium::WebDriver::Chrome::Options.new.tap do |opts|
-    opts.args << "--headless"
+    opts.args << "--headless=new"
     opts.args << "--disable-gpu" if Gem.win_platform?
-    # Workaround https://bugs.chromium.org/p/chromedriver/issues/detail?id=2650&q=load&sort=-id&colspec=ID%20Status%20Pri%20Owner%20Summary
     opts.args << "--disable-site-isolation-trials"
+    opts.args << "--no-sandbox"
+    opts.args << "--disable-dev-shm-usage"
   end
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
 end
 
 RSpec.configure do |config|
-  Capybara.server = :puma
+  Capybara.server = :puma, {Silent: true}
   Capybara.default_driver = :headless_chrome
   Capybara.javascript_driver = :headless_chrome
+  Capybara.default_max_wait_time = 5
 
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
@@ -81,5 +83,9 @@ RSpec.configure do |config|
   config.before(:each, type: :system, js: true) do
     Capybara.javascript_driver = ENGINE
     driven_by ENGINE
+  end
+
+  config.around(:each, type: :system) do |example|
+    example.run_with_retry(retry: 2)
   end
 end

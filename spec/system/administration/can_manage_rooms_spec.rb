@@ -33,6 +33,7 @@ RSpec.describe "Can Manage Users", :type => :system do
       fill_in "Duration Options", with: "15, 30, 90"
       click_button "Update Room"
 
+      expect(page).to have_content("was successfully updated")
       expect(page).to have_content "15, 30, 90"
       room.reload
       expect(room.duration_options).to eq [15, 30, 90]

@@ -15,6 +15,8 @@ RSpec.describe "Request Event", :type => :system do
     it "should allow you to request event and create user end event" do
       submit_event_request
 
+      should_be_on_confirmation_page
+
       user, event = User.first, Event.first
 
       expect(User.count).to eq(1)
@@ -32,6 +34,8 @@ RSpec.describe "Request Event", :type => :system do
       refresh
 
       submit_event_request(room: another_room)
+
+      should_be_on_confirmation_page
 
       user, event = User.first, Event.first
 
@@ -51,7 +55,12 @@ RSpec.describe "Request Event", :type => :system do
     end
 
     it "should email a verification email" do
-      expect { submit_event_request }.to change { ActionMailer::Base.deliveries.size }.by(1)
+      deliveries_before = ActionMailer::Base.deliveries.size
+
+      submit_event_request
+      should_be_on_confirmation_page
+
+      expect(ActionMailer::Base.deliveries.size).to eq(deliveries_before + 1)
 
       mail = ActionMailer::Base.deliveries.last
       expect(mail.to).to include("rb141412@ohio.edu")
@@ -61,7 +70,10 @@ RSpec.describe "Request Event", :type => :system do
 
   describe "when error" do
     context "with too long ohio id" do
-      before { submit_event_request(ohioid: "too_long_ohio_id") }
+      before do
+        submit_event_request(ohioid: "too_long_ohio_id")
+        expect(page).to have_content("must be valid OHIO ID")
+      end
 
       it "should show error message" do
         expect(page).to have_content("must be valid OHIO ID")
@@ -76,7 +88,10 @@ RSpec.describe "Request Event", :type => :system do
     end
 
     context "with short purpose" do
-      before { submit_event_request(purpose: "abcd") }
+      before do
+        submit_event_request(purpose: "abcd")
+        expect(page).to have_content("is too short")
+      end
 
       it "should show error message" do
         expect(page).to have_content("Purpose\nabcd\nis too short (minimum is 5 characters)")

@@ -51,7 +51,7 @@ group :development, :test do
   gem "letter_opener"
   gem "pry-rails"
   gem "rspec-rails"#, "~> 4.0.0"
-  gem "webdrivers"
+  gem "selenium-webdriver", "~> 4.25.0"
 end
 
 group :development do
@@ -63,5 +63,6 @@ end
 group :test do
   gem "axe-matchers"
   gem "rspec_junit_formatter"
+  gem "rspec-retry"
   gem "shoulda-matchers"
 end

@@ -99,6 +99,7 @@ RSpec.describe "Can Manage Users", :type => :system do
     describe "without status" do
       it "should allow bulk by not specifying status" do
         bulk_import_users(EXAMPLE_PATH)
+        expect(page).to have_content("Successfully imported")
 
         expect(User.count).to eq(3)
         expect(User.approved.count).to eq(3)
@@ -106,6 +107,7 @@ RSpec.describe "Can Manage Users", :type => :system do
 
       it "should allow bulk and setting to Declined" do
         bulk_import_users(EXAMPLE_PATH, "Declined")
+        expect(page).to have_content("Successfully imported")
 
         expect(User.count).to eq(3)
         expect(User.declined.count).to eq(3)
@@ -113,6 +115,7 @@ RSpec.describe "Can Manage Users", :type => :system do
 
       it "should allow bulk and setting to Quarantined" do
         bulk_import_users(EXAMPLE_PATH, "Quarantined")
+        expect(page).to have_content("Successfully imported")
 
         expect(User.count).to eq(3)
         expect(User.quarantined.count).to eq(3)
