@@ -318,7 +318,7 @@ GEM
       timeout
     net-smtp (0.5.0)
       net-protocol
-    nio4r (2.7.4)
+    nio4r (2.7.5)
     nokogiri (1.19.1)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
@@ -346,7 +346,7 @@ GEM
       date
       stringio
     public_suffix (7.0.5)
-    puma (6.5.0)
+    puma (7.2.1)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.1)
@@ -549,7 +549,7 @@ DEPENDENCIES
   nokogiri
   premailer-rails
   pry-rails
-  puma (~> 6)
+  puma (~> 7)
   rails (~> 7.1)
   rectify
   recurring_select!
