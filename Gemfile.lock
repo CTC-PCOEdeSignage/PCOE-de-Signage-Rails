@@ -332,7 +332,7 @@ GEM
     popper_js (2.11.8)
     pp (0.6.4)
       prettyprint
-    premailer (1.27.0)
+    premailer (1.29.0)
       addressable
       css_parser (>= 1.19.0)
       htmlentities (>= 4.0.0)
