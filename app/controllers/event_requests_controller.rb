@@ -5,9 +5,10 @@ class EventRequestsController < ApplicationController
   end
 
   def create
-    CreateEventRequest.call(@form) do
-      on(:ok) { |event| redirect_to room_event_request_confirmation_path(event.room, event) }
-      on(:invalid) { render :new }
+    if (event = CreateEventRequest.call(@form))
+      redirect_to room_event_request_confirmation_path(event.room, event)
+    else
+      render :new
     end
   end
 
