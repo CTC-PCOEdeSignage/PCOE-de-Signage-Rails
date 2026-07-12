@@ -1,23 +1,32 @@
-class DateTimeWithZone < Virtus::Attribute
-  def coerce(value)
-    return unless value.presence
+class EventRequestForm
+  include ActiveModel::Model
 
-    t = Time.zone.parse(value)
-    t.floor_to(30.minutes)
+  PARAM_KEYS = %i[ohioid room_id date time start_at duration purpose].freeze
+
+  attr_accessor :room_id, :purpose
+  attr_writer :ohioid, :date, :time
+  attr_reader :start_at, :duration
+
+  def self.model_name = ActiveModel::Name.new(self, nil, "Event")
+
+  def self.from_params(params)
+    attrs = params[:event] || params
+    attrs = attrs.permit(*PARAM_KEYS) if attrs.respond_to?(:permit)
+    new(attrs.to_h.symbolize_keys.slice(*PARAM_KEYS))
   end
-end
 
-class EventRequestForm < Rectify::Form
-  mimic :event
+  def with_context(ctx)
+    @fallback_room = ctx.to_h[:fallback_room]
+    self
+  end
 
-  attribute :ohioid, String
-  attribute :room_id, Integer
-  attribute :date, Date # this is a placeholder attribute
-  attribute :time, Time # this is a placeholder attribute
-  attribute :start_at, DateTimeWithZone
-  attribute :duration, Integer
-  attribute :purpose, String
-  attribute :user, User
+  def start_at=(value)
+    @start_at = value.is_a?(String) ? parse_start_at(value) : value
+  end
+
+  def duration=(value)
+    @duration = value.is_a?(String) ? Integer(value, exception: false) : value
+  end
 
   validates :ohioid, :start_at, :duration, presence: true
   validate :check_room
@@ -71,10 +80,16 @@ class EventRequestForm < Rectify::Form
   def room
     return(@room) if @room&.id == room_id.to_i
 
-    @room = Room.find_by(id: room_id) || context.fallback_room
+    @room = Room.find_by(id: room_id) || @fallback_room
   end
 
   private
+
+  def parse_start_at(value)
+    Time.zone.parse(value)&.floor_to(30.minutes)
+  rescue ArgumentError
+    nil
+  end
 
   def room_availability
     @room_availability ||= room.availability

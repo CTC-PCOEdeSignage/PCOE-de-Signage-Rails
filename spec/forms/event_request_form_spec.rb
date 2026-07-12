@@ -91,6 +91,16 @@ RSpec.describe EventRequestForm, type: :form do
     end
   end
 
+  context "with unparseable start_at" do
+    let(:params) { valid_params.merge(start_at: "banana") }
+    subject { EventRequestForm.from_params(params).with_context(context) }
+
+    it "should not be valid" do
+      expect(subject).to_not be_valid
+      expect(subject.errors).to include(:start_at)
+    end
+  end
+
   context "without duration" do
     let(:params) { valid_params.without(:duration) }
     subject { EventRequestForm.from_params(params).with_context(context) }
@@ -98,6 +108,16 @@ RSpec.describe EventRequestForm, type: :form do
     it "should not be valid" do
       expect(subject).to_not be_valid
       expect(subject.errors).to_not be_empty
+      expect(subject.errors).to include(:duration)
+    end
+  end
+
+  context "with a non-integer duration" do
+    let(:params) { valid_params.merge(duration: "1.5") }
+    subject { EventRequestForm.from_params(params).with_context(context) }
+
+    it "should not be valid" do
+      expect(subject).to_not be_valid
       expect(subject.errors).to include(:duration)
     end
   end

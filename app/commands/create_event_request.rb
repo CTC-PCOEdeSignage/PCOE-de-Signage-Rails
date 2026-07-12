@@ -1,18 +1,20 @@
-class CreateEventRequest < Rectify::Command
+class CreateEventRequest
+  def self.call(form) = new(form).call
+
   def initialize(form)
     @form = form
   end
 
   def call
-    return broadcast(:invalid) if form.invalid?
+    return if form.invalid?
 
-    transaction do
+    ActiveRecord::Base.transaction do
       find_or_create_user
       create_event
       send_user_validate_email
     end
 
-    broadcast(:ok, event)
+    event
   end
 
   private
@@ -24,13 +26,13 @@ class CreateEventRequest < Rectify::Command
   end
 
   def create_event
-    attrs =
-      form
-        .attributes
-        .slice(:start_at, :duration, :purpose)
-        .merge({ user: user, room: form.room })
-
-    @event = Event.create!(attrs)
+    @event = Event.create!(
+      start_at: form.start_at,
+      duration: form.duration,
+      purpose: form.purpose,
+      user: user,
+      room: form.room,
+    )
   end
 
   def send_user_validate_email
