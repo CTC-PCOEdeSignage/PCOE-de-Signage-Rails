@@ -24,13 +24,13 @@ class CreateEventRequest < Rectify::Command
   end
 
   def create_event
-    attrs =
-      form
-        .attributes
-        .slice(:start_at, :duration, :purpose)
-        .merge({ user: user, room: form.room })
-
-    @event = Event.create!(attrs)
+    @event = Event.create!(
+      start_at: form.start_at,
+      duration: form.duration,
+      purpose: form.purpose,
+      user: user,
+      room: form.room,
+    )
   end
 
   def send_user_validate_email
