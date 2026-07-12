@@ -1,6 +1,6 @@
 RSpec.shared_examples "accessible" do
   it "should be accessible" do
-    expect(page).to be_accessible
+    expect(page).to be_axe_clean
   end
 end
 
