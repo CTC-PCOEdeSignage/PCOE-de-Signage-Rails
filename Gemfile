@@ -28,7 +28,7 @@ gem "dry-validation", "1.10.0"
 gem "formtastic"
 gem "premailer-rails"
 gem "puma", "~> 7"
-gem "rails", "~> 7.1"
+gem "rails", "~> 7.2.3", ">= 7.2.3.1"
 gem "rectify"
 gem "recurring_select", github: "gregschmit/recurring_select", ref: "5dd3177e7ac4c04bed3e952996ffcb57b87481c9"
 gem "redcarpet"
@@ -58,6 +58,8 @@ group :development do
   gem "web-console", ">= 3.3.0"
   gem "listen"#b, ">= 3.0.5", "< 3.2"
   gem "bummr"
+  gem "brakeman", require: false
+  gem "bundler-audit", require: false
 end
 
 group :test do
