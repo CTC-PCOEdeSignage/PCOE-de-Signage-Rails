@@ -1,4 +1,3 @@
-require "dry/schema"
 require "fileutils"
 
 ActiveAdmin.register_page "Settings" do
@@ -8,8 +7,8 @@ ActiveAdmin.register_page "Settings" do
     @raw_yaml = params["settings"]["yaml"]
 
     settings = YAML.load(@raw_yaml).try(:deep_symbolize_keys)
-    schema = Config.schema.call(settings)
-    raise InvalidSchema, schema.errors(full: true).to_a.map(&:to_s).to_sentence if schema.errors.any?
+    schema_errors = SettingsSchema.errors(settings)
+    raise InvalidSchema, schema_errors.to_sentence if schema_errors.any?
 
     FileUtils.mkdir_p(Rails.root.join("config/settings"))
     File.write(Rails.root.join("config/settings/#{Rails.env}.yml"), @raw_yaml)
