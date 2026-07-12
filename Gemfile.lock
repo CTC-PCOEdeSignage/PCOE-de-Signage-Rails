@@ -410,12 +410,6 @@ GEM
       prism (>= 1.6.0)
       rbs (>= 4.0.0)
       tsort
-    rectify (0.13.0)
-      activemodel (>= 4.1.0)
-      activerecord (>= 4.1.0)
-      activesupport (>= 4.1.0)
-      virtus (~> 1.0.5)
-      wisper (>= 1.6.1)
     redcarpet (3.6.1)
     regexp_parser (2.10.0)
     reline (0.6.3)
@@ -515,7 +509,6 @@ GEM
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    wisper (2.0.1)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.8.2)
@@ -562,7 +555,6 @@ DEPENDENCIES
   pry-rails
   puma (~> 7)
   rails (~> 7.2.3, >= 7.2.3.1)
-  rectify
   recurring_select!
   redcarpet
   rounding
