@@ -5,7 +5,7 @@ class EventRequestForm
 
   attr_accessor :room_id, :purpose
   attr_writer :ohioid, :date, :time
-  attr_reader :start_at, :duration, :context
+  attr_reader :start_at, :duration
 
   def self.model_name = ActiveModel::Name.new(self, nil, "Event")
 
@@ -16,16 +16,16 @@ class EventRequestForm
   end
 
   def with_context(ctx)
-    @context = OpenStruct.new(ctx.to_h)
+    @fallback_room = ctx.to_h[:fallback_room]
     self
   end
 
   def start_at=(value)
-    @start_at = value.is_a?(String) ? (value.presence && Time.zone.parse(value).floor_to(30.minutes)) : value
+    @start_at = value.is_a?(String) ? parse_start_at(value) : value
   end
 
   def duration=(value)
-    @duration = value.presence&.to_i
+    @duration = value.is_a?(String) ? Integer(value, exception: false) : value
   end
 
   validates :ohioid, :start_at, :duration, presence: true
@@ -80,10 +80,16 @@ class EventRequestForm
   def room
     return(@room) if @room&.id == room_id.to_i
 
-    @room = Room.find_by(id: room_id) || context.fallback_room
+    @room = Room.find_by(id: room_id) || @fallback_room
   end
 
   private
+
+  def parse_start_at(value)
+    Time.zone.parse(value)&.floor_to(30.minutes)
+  rescue ArgumentError
+    nil
+  end
 
   def room_availability
     @room_availability ||= room.availability
