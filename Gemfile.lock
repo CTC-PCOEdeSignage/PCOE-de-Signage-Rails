@@ -328,7 +328,7 @@ GEM
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     orm_adapter (0.5.0)
-    ostruct (0.6.1)
+    ostruct (0.6.3)
     popper_js (2.11.8)
     pp (0.6.4)
       prettyprint
