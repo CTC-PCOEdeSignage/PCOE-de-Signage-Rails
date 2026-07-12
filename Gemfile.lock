@@ -1,12 +1,11 @@
 GIT
-  remote: https://github.com/gregschmit/recurring_select.git
-  revision: 5dd3177e7ac4c04bed3e952996ffcb57b87481c9
-  ref: 5dd3177e7ac4c04bed3e952996ffcb57b87481c9
+  remote: https://github.com/CTC-PCOEdeSignage/recurring_select.git
+  revision: 9f7d08279d7aedcb62f91f68f9e181057053a6a1
+  ref: 9f7d08279d7aedcb62f91f68f9e181057053a6a1
   specs:
     recurring_select (4.0.0)
       ice_cube (>= 0.11)
       rails (>= 6.1)
-      sass-rails (>= 6.0)
 
 GEM
   remote: https://rubygems.org/
@@ -160,6 +159,12 @@ GEM
       ssrf_filter (~> 1.5)
     csv (3.3.5)
     daemons (1.4.1)
+    dartsass-sprockets (3.2.1)
+      railties (>= 4.0.0)
+      sassc-embedded (~> 1.80.1)
+      sprockets (> 3.0)
+      sprockets-rails
+      tilt
     date (3.5.1)
     deep_merge (1.2.2)
     delayed_cron_job (0.9.0)
@@ -207,6 +212,9 @@ GEM
       raabro (~> 1.4)
     globalid (1.4.0)
       activesupport (>= 6.1)
+    google-protobuf (4.35.1)
+      bigdecimal
+      rake (~> 13.3)
     has_scope (0.9.0)
       actionpack (>= 7.0)
       activesupport (>= 7.0)
@@ -401,16 +409,11 @@ GEM
       rspec-core (>= 2, < 4, != 2.12.0)
     ruby2_keywords (0.0.5)
     rubyzip (2.4.1)
-    sass-rails (6.0.0)
-      sassc-rails (~> 2.1, >= 2.1.1)
-    sassc (2.4.0)
-      ffi (~> 1.9)
-    sassc-rails (2.1.2)
-      railties (>= 4.0.0)
-      sassc (>= 2.0)
-      sprockets (> 3.0)
-      sprockets-rails
-      tilt
+    sass-embedded (1.101.0)
+      google-protobuf (~> 4.31)
+      rake (>= 13)
+    sassc-embedded (1.80.9)
+      sass-embedded (~> 1.80)
     securerandom (0.4.1)
     selenium-webdriver (4.25.0)
       base64 (~> 0.2)
@@ -476,6 +479,7 @@ DEPENDENCIES
   capybara
   config
   daemons
+  dartsass-sprockets
   delayed_cron_job
   delayed_job_active_record
   devise
@@ -498,7 +502,6 @@ DEPENDENCIES
   rspec-rails
   rspec-retry
   rspec_junit_formatter
-  sass-rails (~> 6.0)
   selenium-webdriver (~> 4.25.0)
   shoulda-matchers
   sqlite3
