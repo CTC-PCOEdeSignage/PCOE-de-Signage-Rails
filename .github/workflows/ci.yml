@@ -6,8 +6,29 @@ on:
     branches: [main]
 
 jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Scan for vulnerable dependencies (bundler-audit)
+        run: bundle exec bundle-audit check --update
+
+      - name: Static analysis (Brakeman)
+        run: bundle exec brakeman --no-pager -q -z -x EOLRails # -x EOLRails: Rails 7.2 EOL tracked with the Rails 8 upgrade, not gating
+
   test:
     runs-on: ubuntu-latest
+
+    env:
+      TZ: America/New_York # match config.time_zone (Eastern); availability specs assert local wall-clock
 
     steps:
       - name: Install packages
