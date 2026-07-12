@@ -1,0 +1,5 @@
+pin "application"
+pin "screen"
+pin "@hotwired/turbo-rails", to: "turbo.min.js"
+pin "@hotwired/stimulus", to: "stimulus.min.js"
+pin "controllers/event_request_controller"

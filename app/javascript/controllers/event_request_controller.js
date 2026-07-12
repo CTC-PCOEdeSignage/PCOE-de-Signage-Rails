@@ -1,4 +1,6 @@
-window.application.register('event_request', class extends Stimulus.Controller {
+import { Controller } from "@hotwired/stimulus"
+
+export default class extends Controller {
   static targets = ["dateTime", "date", "time"]
 
   connect() {
@@ -10,4 +12,4 @@ window.application.register('event_request', class extends Stimulus.Controller {
       this.dateTimeTarget.value = [this.dateTarget.value, this.timeTarget.value].join("T")
     }
   }
-})
+}
