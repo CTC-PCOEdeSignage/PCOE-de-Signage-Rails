@@ -9,6 +9,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      TZ: America/New_York # match config.time_zone (Eastern); availability specs assert local wall-clock
+
     steps:
       - name: Install packages
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y google-chrome-stable
