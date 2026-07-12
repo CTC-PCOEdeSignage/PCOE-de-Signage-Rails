@@ -54,7 +54,7 @@ group :development do
 end
 
 group :test do
-  gem "axe-matchers"
+  gem "axe-core-rspec"
   gem "rspec_junit_formatter"
   gem "rspec-retry"
   gem "shoulda-matchers"
