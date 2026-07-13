@@ -83,7 +83,7 @@ RSpec.describe "Event requests", type: :request do
           post room_event_requests_path(room), params: { event: params }
         }.to_not change(Event, :count)
 
-        expect(response).to have_http_status(:ok)
+        expect(response).to have_http_status(:unprocessable_content)
       end
 
       it "sends no email" do
@@ -101,7 +101,7 @@ RSpec.describe "Event requests", type: :request do
           post room_event_requests_path(room), params: { event: params }
         }.to_not change(Event, :count)
 
-        expect(response).to have_http_status(:ok)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
   end

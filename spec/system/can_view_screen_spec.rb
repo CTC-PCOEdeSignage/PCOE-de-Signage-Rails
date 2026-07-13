@@ -27,6 +27,15 @@ RSpec.describe "Can View Slideshow", :type => :system do
     expect(page).to have_content("Slide Not Found")
   end
 
+  it "advances to the next slide on right arrow" do
+    next_url = find("body")["data-next-slide-url"]
+    expect(page).to_not have_current_path(next_url)
+
+    find("body").send_keys(:arrow_right)
+
+    expect(page).to have_current_path(next_url)
+  end
+
   context "with all schedule slide" do
     let!(:all_schedule_slide) { create(:slide, :all_schedule_slide) }
     let!(:other_room) { create(:room, name: "Other Room") }

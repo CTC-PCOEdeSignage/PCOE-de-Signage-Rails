@@ -8,7 +8,7 @@ class EventRequestsController < ApplicationController
     if (event = CreateEventRequest.call(@form))
       redirect_to room_event_request_confirmation_path(event.room, event)
     else
-      render :new
+      render :new, status: :unprocessable_content
     end
   end
 
