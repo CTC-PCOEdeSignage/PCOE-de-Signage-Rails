@@ -1,4 +1,4 @@
-<%= form_with(url: { action: :schedule }, remote: false, id: "bulk_schedule", builder: ActiveAdmin::FormBuilder) do |f| %>
+<%= form_with(url: { action: :schedule }, local: false, id: "bulk_schedule", builder: ActiveAdmin::FormBuilder) do |f| %>
   <%= f.label :event_purpose %>
   <%= f.text_field :event_purpose, required: true %>
 
