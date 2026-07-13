@@ -1,4 +1,4 @@
-//= require turbolinks
+import "@hotwired/turbo-rails"
 
 var slideLength = function () {
   return (parseInt(document.body.dataset.slideLength, 10) * 1000);
@@ -13,8 +13,8 @@ var isSlidePage = function () {
 }
 
 var advanceToNextSlide = function () {
-  Turbolinks.clearCache();
-  Turbolinks.visit(nextSlideUrl());
+  Turbo.cache.clear();
+  Turbo.visit(nextSlideUrl());
 }
 
 var pingNextSlideUrl = function (opts) {
@@ -86,5 +86,5 @@ var keyDownEvent = function (event) {
   }
 };
 
-document.addEventListener('turbolinks:load', ready, false);
+document.addEventListener('turbo:load', ready, false);
 document.addEventListener('keydown', keyDownEvent, false);
