@@ -42,7 +42,7 @@ group :development, :test do
   gem "letter_opener"
   gem "pry-rails"
   gem "rspec-rails"#, "~> 4.0.0"
-  gem "selenium-webdriver", "~> 4.25.0"
+  gem "selenium-webdriver", "~> 4.25"
 end
 
 group :development do
